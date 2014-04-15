@@ -1,0 +1,39 @@
+ ZRollerArray Description
+ * <p>The ZRollerArray was designed to take up less memory without the user
+ *   having to specify to do so.  Most array-based collections start off with a
+ *   array with 10 slots available for memory storage; I wanted 1 or 2. I could
+ *   have encapsulated an ArrayList and set its default every time, but I
+ *   also only wanted the array to grow by one each time it grew, so that,
+ *   again, there wasn't excess storage.</p>
+ * <p> Why did I want these limitations?  Because many of the collections used
+ *   in the domain objects throughout this library tend to store only 1 or 2
+ *   objects in them at any time.</p>
+ * <p> You may also notice the exceptionally few public methods available in 
+ *   this collection.  This is due to the fact that, to serve its purpose,
+ *   which is to be used within the domain objects, it really only needs to be
+ *   able to add elements to it. Doing so also reduces the amount of overhead
+ *   associated with objects of this type.  In order to pull it off, I had to
+ *   reduce the interfaces that it implemented down to just Iterable.  Even 
+ *   using just Collections would provide the class with excessive amounts of
+ *   needed methods.</p>
+ * <p> You are free to use this class as your collection of choice within your
+ *   dice rollers (or any project, really), but be aware of these things:
+ * <ul>
+ * <li>The capabilities of this collection are severely limited to inserting 
+ *   elements, for the most part.</li>
+ * <li>I did some personal benchmarking tests, and the results are as follows:
+ *   <ul>
+ *   <li>Adding new elements took nearly twice as long as ArrayList (most 
+ *     likely due to constantly having to increase the size of the array).</li>
+ *   <li>Iterating through this (using the enhanced for loop (for-each)) was 
+ *     only fractionally slower that an ArrayList.</li>
+ *   <li>Copying a collection using the constructor that takes a collection was
+ *     more than twice as fast as ArrayList.</li>
+ *   </ul>
+ * <li>Seeing as that copying is a very common function in this library, I 
+ *   decided the smaller memory footprint, along with faster copying, and 
+ *   comparable iteration speeds, was worth the hit when it comes to adding
+ *   for my purposes.  Your needs may be different, so choose wisely if you'd
+ *   like to use this collection.</li>
+ * </ul>
+ * </p>

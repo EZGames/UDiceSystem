@@ -1,0 +1,6 @@
+UDice System
+===========
+The UDice System is a universal dice system, meaning it's capable of representing any die in any dice-rolling system out there.  It can be tough, trying to make a dice roller for something like the Warhammer Fantasy RPG or the new Star Wars RPG, since they have such a complicated dice system.  THEN, the dice roller is pretty much only able to roll dice for that game, or else it has to come up with different infrastructures to do other systems.  
+But with the UDice System, you can represent all of those dice and dice-rolling systems using just one infrastructure, making it easy to mix everything into one application.
+
+For more information, go to the web page @ https://sad2project.github.io/UDiceSystem

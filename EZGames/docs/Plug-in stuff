@@ -1,0 +1,22 @@
+Plug-in ideas
+
+Plug-ins for just about everything will be possible.  Each model plug-in will also require a BuilderUI so users can build objects of those types.
+ - Plug-in specifications will limit the name of a plug-in to ## characters and specify that they be named in Title-case
+ - Do I want to make the plug-ins require an icon? 
+ 
+RollerProfile is a user-created (usually) list of RollerGenerators that can be saved and loaded to switch between games and such.
+ - all RollerUis can access the RollerProfiles
+ - if a RollerUi can use only a special kind of RollerProfile, but other RollerUis should be able to use the RollerProfiles, then they should make a custom RollerProfile implementing IRollerProfile
+   - otherwise, they should come up with their own stored 
+
+Plug-in Graphical User Interfaces
+Develop my own UI components.  Each one will have:
+ - an observer and observable interface
+ - enabled/disabled
+ - visible/invisible
+For each type of screen, I will have areas for 
+GUIs should have access to my stored models, and possibly other parts of the ZRoller system.  Therefore, I must have an all-encompassing class as a manager of all the app's resources
+
+Instead of having the other content creators subclass the gui elements and writing in their own code, have them assign Strategies to the elements.  I may have to specify different Strategy types for different situations, such as an ObserverStrategy whose update method requires some specific parameters.  
+ - all Strategies take in the GuiElement that they're working for?
+ 

@@ -1,0 +1,9 @@
+serializable
+remake
+zimmerman
+jacob
+refactoring
+iterable
+iterables
+typesafe
+enum

@@ -1,0 +1,26 @@
+Go through and make as many possible things 'final' as possible.
+ - Make sure certain methods can't be overridden unless you want them to be
+ - Mark parameters that don't change as final
+ - Mark final classes
+Encapsulate collections: http://www.javapractices.com/topic/TopicAction.do?Id=173
+Make many things immutable
+ - Either make the class final or 
+ - Remove the public 'set' methods.  Everything is set in the constructor.
+ - Give defensive copies of inner objects that aren't immutable
+    - Giving a defensive copy of an enclosed collection is done with Collections.unmodifiableList(yourCollection)
+ - make fields final (as an extra precaution)
+Tag all Immutable classes as Immutable
+DO create 'singleton' instances of the base numeric range and relationship (don't forget to make the object final).
+implement all .equals(), .hash(), and .toString()
+All builders have the ability to start creation from an existing object of the type the builder creates.
+Give the DieBuilder a swapFaces(int, int) method to change the order of the faces in its list, since the order matters there
+Face should not return a NullRelationship in the getRelationships() method.  If it must, it should return an empty list.
+New exception setup:
+ - IllegalConstructionDataException (not a runtime exception) covers most of it.  Its constructor takes in Strings for the type of object that is null, the object being constructed, and a cause, then creates the message to be "<Type1> cannot be created from a given <Type2>: <cause> - <cause.message>"
+ - The Util will now just do null checks and throw NullPointerException which my other code will transform into an IllegalConstructionDataException if necessary.
+ - build() throws IllegalStateException
+ - most other methods throw IllegalParameterException or NullPointerException
+Create WeightedDie and WeightedFace
+There is only ONE RelationshipAggregate class
+ - It stores the Relationship, the aggregated value, and the relevant rolls
+ - The RollGenerator does the math to calculate the aggregated value itself.

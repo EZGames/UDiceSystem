@@ -1,0 +1,66 @@
+Dice Roller Features
+
+Systems it can run on:
+Android
+PC
+iOS some day?
+Google Hangouts?
+
+Dice Systems to look into:
+Star Wars Edge of the Empire
+Cortex Plus - pool roller with keep highest 2 (sometimes 3)
+Sorcerer
+
+Custom dice:
+-reroll (triggering roll doesn't count) or roll additional time ("exploding")
+-custom values(hit, comet, etc)
+-face relationships
+--canceling each other out
+--a relationship simply applies different numeric values to different die values to a single total, which can have different output labels for different ranges of that total
+---ex. to cancel out successes with failures, you have successes count as +1 to the total, and failures count as -1 to the total. Example output labels can be "# successes" for a range of 0, and >2, "# success" for a range of 1, and "failure" for a range of <0.
+-multiple values per face(success and fatigue, etc)
+-see other roller for other custom dice options
+
+Custom rolls:
+-option 1: "equation" builder
+--very similar to current roller
+-option 2: equation editor
+--type in what you want
+--must be numeric dice have access to all mathematical functions
+---addition and subtraction can be used to add the custom values in; multiplication can be used alongside the addition and subtraction to specify how many of that value
+--syntax ideas: [die name or roll name] {due value}
+-can be cloned between saved sets
+
+Roller: (pool roller)
+-each die button has 0, -, and + button
+-button to clear all pools
+-drop/keep highest/lowest # dice (applies to numeric dice only, unless I want to add in a ranking to the face) 
+
+Balanced pools:
+-ex. no more than 4 total dice; you raise the number of one, and it decreases the number of another to keep the total at 4
+-created as a single roll in a saved dice set
+
+Saved dice sets:
+-applies to all rollers.  any dice set can be saved in any roller and be applied to all the other rollers)
+-clone a roll from a different saved set
+
+Log:
+-customizable
+-export and/or share
+
+Helpful: have ? buttons that explain what an option means
+
+Layout:
+top left corner - dropdown of saved dice sets, plus option of a new one
+top right corner - either a menu button or nothing, depending on if the device has a menu button or not.
+bottom left corner - ROLL POOL button and CLEAR POOL button (only for pool roller)
+left side - dice controls
+right side - log
+
+Simple/Advanced:
+-many things have a simple and advanced version
+
+Macros:
+make multiple rolls with a single click
+
+Drop Lowest/Highest #
