@@ -1,12 +1,11 @@
-package com.ezgames.utils.range;
+package com.ezgames.math.range;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.*;
 import static org.hamcrest.core.IsEqual.*;
-
 import org.junit.Test;
-
-import com.ezgames.utils.range.URange.Builder;
+import com.ezgames.math.range.Range;
+import com.ezgames.math.range.URange;
 
 public class RangeBuilderTest 
 {
@@ -17,9 +16,9 @@ public class RangeBuilderTest
 		//tests entire range from -500 to 500 (arbitrary)
 		for(int i = -500; i <= 500; i ++)
 		{
-			Range.Builder test = new Range.Builder(i);
+			URange.Builder test = new URange.Builder(i);
 			
-			assertEquals(i, test.getValue());
+			assertThat(i, is(equalTo(test.startValue())));
 		}
 	}
 	
@@ -27,34 +26,34 @@ public class RangeBuilderTest
 	@Test
 	public void shouldCreateRangeWithSingleValue() 
 	{
-		Range.Builder test = new Range.Builder(0);
+		URange.Builder test = new URange.Builder(0);
 		
-		IRange range = test.to(0);
+		Range range = test.to(0);
 		
-		assertEquals(0, range.getMaximum());
-		assertEquals(0, range.getMinimum());
+		assertThat(0, is(equalTo(range.getMaximum())));
+		assertThat(0, is(equalTo(range.getMinimum())));
 	}
 	
 	@Test
 	public void shouldCreateCorrectRangeFromBackwardsValues()
 	{
-		Range.Builder test = new Range.Builder(0);
+		URange.Builder test = new URange.Builder(0);
 		
-		IRange range = test.to(-2);
+		Range range = test.to(-2);
 		
-		assertEquals(0, range.getMaximum());
-		assertEquals(-2, range.getMinimum());
+		assertThat(0, is(equalTo(range.getMaximum())));
+		assertThat(-2, is(equalTo(range.getMinimum())));
 	}
 	
 	@Test
 	public void shouldCreateRangeFromNormalValues()
 	{
-		Range.Builder test = new Range.Builder(0);
+		URange.Builder test = new URange.Builder(0);
 		
-		IRange range = test.to(2);
+		Range range = test.to(2);
 		
-		assertEquals(2, range.getMaximum());
-		assertEquals(0, range.getMinimum());
+		assertThat(2, is(equalTo(range.getMaximum())));
+		assertThat(0, is(equalTo(range.getMinimum())));
 	}
 	
 	// getMinimum() ************************************************************
@@ -64,9 +63,9 @@ public class RangeBuilderTest
 		//tests entire range from -500 to 500 (arbitrary)
 		for(int i = -500; i <= 500; i ++)
 		{
-			Range.Builder test = new Range.Builder(i);
+			URange.Builder test = new URange.Builder(i);
 			
-			assertEquals(i, test.getValue());
+			assertThat(i, is(equalTo(test.startValue())));
 		}
 	}
 }

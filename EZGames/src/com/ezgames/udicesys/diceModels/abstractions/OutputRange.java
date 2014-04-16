@@ -1,9 +1,10 @@
 package com.ezgames.udicesys.diceModels.abstractions;
 
-import com.ezgames.utils.interfaces.TImmutable;
-import com.ezgames.utils.range.Range;
+import com.ezgames.annotations.Immutable;
+import com.ezgames.math.range.Range;
 
-public interface OutputRange extends TImmutable, Range
+@Immutable
+public interface OutputRange extends Range
 {
    /**
     * <p>Returns whether the calling {@code Range} is <i>mostly</i> less than or 

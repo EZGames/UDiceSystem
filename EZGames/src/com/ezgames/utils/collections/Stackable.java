@@ -1,10 +1,8 @@
 package com.ezgames.utils.collections;
 
-import com.ezgames.utils.interfaces.TImmutable;
-
 //TODO Stackable's testing and documentation
 //TODO update Stackable to Java 8 interface
-public abstract class Stackable<T extends Stackable<T>> implements TImmutable
+public abstract class Stackable<T extends Stackable<T>>
 {
 	@SuppressWarnings("unchecked")
 	public final MlList<T> and(T another)

@@ -1,24 +1,22 @@
 package com.ezgames.utils.collections;
 
 import java.util.Iterator;
-
+import com.ezgames.math.EZRandom;
 import com.ezgames.utils.Weighted;
 import com.ezgames.utils.exceptions.ImpossibleException;
-import com.ezgames.utils.interfaces.TImmutable;
-import com.ezgames.utils.math.EZRandom;
 
-public class WeightedZArray<T extends TImmutable> implements RceCollection<T> 
+public class WeightedZArray<T> implements RceCollection<T> 
 {
 	//**************************************************************************
 	// Static factory methods
 	//**************************************************************************
-	public static <T extends TImmutable> WeightedZArray<T> createFromWeights(Iterable<T> objs, Iterable<Integer> weights)
+	public static <T> WeightedZArray<T> createFromWeights(Iterable<T> objs, Iterable<Integer> weights)
 	{
 		//TODO
 		return null;
 	}
 	
-	public static <T extends TImmutable> WeightedZArray<T> createFromRanges(Iterable<Weighted<T>> weightedObjs)
+	public static <T> WeightedZArray<T> createFromRanges(Iterable<Weighted<T>> weightedObjs)
 	{
 		//TODO
 		return null;

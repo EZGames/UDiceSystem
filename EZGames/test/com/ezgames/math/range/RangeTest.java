@@ -1,12 +1,11 @@
-package com.ezgames.utils.range;
+package com.ezgames.math.range;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.core.IsEqual.*;
 import static org.hamcrest.core.Is.*;
-
 import org.junit.Test;
-
-import com.ezgames.utils.range.URange;
+import com.ezgames.math.range.Range;
+import com.ezgames.math.range.URange;
 
 public class RangeTest 
 {

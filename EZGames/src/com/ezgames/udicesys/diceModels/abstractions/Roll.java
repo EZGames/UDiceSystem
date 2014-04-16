@@ -1,8 +1,9 @@
 package com.ezgames.udicesys.diceModels.abstractions;
 
-import com.ezgames.utils.interfaces.TImmutable;
+import com.ezgames.annotations.Immutable;
 
-public interface Roll extends TImmutable
+@Immutable
+public interface Roll
 {	
 	public abstract Die die();
 	public abstract Face rolledFace();

@@ -1,8 +1,9 @@
 package com.ezgames.utils;
 
-import com.ezgames.utils.interfaces.TImmutable;
+import com.ezgames.annotations.Immutable;
 
-public final class Weighted<T> implements TImmutable
+@Immutable
+public final class Weighted<T>
 {
 	//***************************************************************************
 	// Public constructors

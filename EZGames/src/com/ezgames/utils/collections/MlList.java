@@ -1,25 +1,25 @@
 package com.ezgames.utils.collections;
 
 import java.util.Iterator;
-
+import com.ezgames.annotations.Immutable;
+import com.ezgames.math.hashing.HashUtil;
 import com.ezgames.utils.IterableUtil;
 import com.ezgames.utils.Weighted;
-import com.ezgames.utils.hashing.HashUtil;
-import com.ezgames.utils.interfaces.TImmutable;
 
 //TODO: testing and documentation
-public class MlList<E extends TImmutable> implements Iterable<E>, TImmutable
+@Immutable
+public class MlList<E> implements Iterable<E>
 {
 	//**************************************************************************
 	// Public static factories
 	//**************************************************************************
-	public static <E extends TImmutable> MlList<E> fromIterable(Iterable<E> iterable) throws IllegalArgumentException
+	public static <E> MlList<E> fromIterable(Iterable<E> iterable) throws IllegalArgumentException
 	{
 		//if it's already an MlList, then just send it back
 		if (iterable instanceof MlList) { return (MlList<E>) iterable; }
 		
 		//let's create the new one - simply 
-		MlList<E> backwards = MlList.empty();
+		MlList<E> backwards = MlList.<E>empty();
 		for (E o : iterable)
 		{
 			backwards = backwards.add(o);
@@ -28,12 +28,12 @@ public class MlList<E extends TImmutable> implements Iterable<E>, TImmutable
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <E extends TImmutable> MlList<E> empty()
+	public static <E> MlList<E> empty()
 	{
 		return (MlList<E>) EMPTY;
 	}
 	
-	public static <E extends TImmutable> MlList<E> append(MlList<E> l1, MlList<E> l2)
+	public static <E> MlList<E> append(MlList<E> l1, MlList<E> l2)
 	{
 		if (l2 == EMPTY)
 		{
@@ -183,7 +183,7 @@ public class MlList<E extends TImmutable> implements Iterable<E>, TImmutable
 	// Private static helpers
 	//**************************************************************************
 	@SuppressWarnings("unchecked")
-	private static <E extends TImmutable> MlList<E> reverse(MlList<E> list)
+	private static <E> MlList<E> reverse(MlList<E> list)
 	{
 		if (list == EMPTY) { return list; }
 		return append(reverse(list.tail), (MlList<E>) EMPTY.add(list.head));
@@ -192,7 +192,7 @@ public class MlList<E extends TImmutable> implements Iterable<E>, TImmutable
 	//**************************************************************************
 	// Private Iterator Type
 	//**************************************************************************
-	private static class MllIterator<E extends TImmutable> implements Iterator<E>
+	private static class MllIterator<E> implements Iterator<E>
 	{
 		private MlList<E> next;
 		
@@ -203,7 +203,7 @@ public class MlList<E extends TImmutable> implements Iterable<E>, TImmutable
 		
 		public boolean hasNext()
 		{
-			return next.tail.isNull();
+			return next.isNull();
 		}
 		
 		public E next()

@@ -1,4 +1,4 @@
-package com.ezgames.utils.range;
+package com.ezgames.math.range;
 
 public interface Range extends Comparable<Range>
 {

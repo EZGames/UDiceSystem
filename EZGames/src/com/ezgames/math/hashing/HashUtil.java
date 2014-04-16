@@ -1,4 +1,4 @@
-package com.ezgames.utils.hashing;
+package com.ezgames.math.hashing;
 
 /**
  * {@code HashUtil} is a class to help with creating hash codes.

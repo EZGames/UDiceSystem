@@ -1,4 +1,4 @@
-package com.ezgames.utils.hashing;
+package com.ezgames.math.hashing;
 
 /**
  * The Rotating Hash algorithm is considered the most minimal acceptable

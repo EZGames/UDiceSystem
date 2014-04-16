@@ -1,8 +1,9 @@
 package com.ezgames.udicesys.diceModels.abstractions;
 
-import com.ezgames.utils.interfaces.TImmutable;
+import com.ezgames.annotations.Immutable;
 
-public interface FaceValue extends TImmutable
+@Immutable
+public interface FaceValue
 {
    public int getValue();
    public Relationship getRelationship();

@@ -1,12 +1,19 @@
 package com.ezgames.udicesys.diceModels.abstractions;
 
-import com.ezgames.utils.interfaces.TImmutable;
+import java.util.Iterator;
+import com.ezgames.annotations.Immutable;
 
-public interface Die extends TImmutable, Iterable<Face>
+@Immutable
+public interface Die extends Iterable<Face>
 {
-	public Roll roll();
+   public Roll roll();
    public String name();
-   public int totalWeight();
-   public int numSides();
+   //public int totalWeight();
+   //public int numSides();
+   /**
+    * Returns an Iterator over the Die's {@link Face}s
+    */
+   @Override
+   public Iterator<Face> iterator();
    public Iterable<Relationship> listRelationships();
 }

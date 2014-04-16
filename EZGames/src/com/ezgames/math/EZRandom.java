@@ -1,4 +1,4 @@
-package com.ezgames.utils.math;
+package com.ezgames.math;
 
 import java.util.Calendar;
 

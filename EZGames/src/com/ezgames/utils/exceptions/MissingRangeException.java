@@ -1,6 +1,6 @@
 package com.ezgames.utils.exceptions;
 
-import com.ezgames.utils.range.Range;
+import com.ezgames.math.range.Range;
 
 public class MissingRangeException extends Exception
 {

@@ -1,11 +1,11 @@
 package com.ezgames.utils.collections;
 
 import java.util.Iterator;
-
+import com.ezgames.annotations.Immutable;
 import com.ezgames.utils.IterableUtil;
-import com.ezgames.utils.interfaces.TImmutable;
 
-public abstract class ZArray<T extends TImmutable> implements Iterable<T>
+@Immutable
+public abstract class ZArray<T> implements Iterable<T>
 {
    // Public factory constructors *************************************
    /**
@@ -16,7 +16,7 @@ public abstract class ZArray<T extends TImmutable> implements Iterable<T>
     * @throws ClientDataException if an element in the specified 
     * {@code Iterable} is null
     */
-   public static <E extends TImmutable> ZArray<E> createWithMultipleValues(Iterable<E> inList) throws IllegalArgumentException
+   public static <E> ZArray<E> createWithMultipleValues(Iterable<E> inList) throws IllegalArgumentException
    {
       if(inList instanceof ZArray<?>)
       {
@@ -42,7 +42,7 @@ public abstract class ZArray<T extends TImmutable> implements Iterable<T>
     * @param item - the single element stored within the {@code ZRollerArray}
     * @throws ClientDataException if the item specified is null
     */
-   public static <E extends TImmutable> ZArray<E> createWithSingleValue(E item) throws IllegalArgumentException
+   public static <E> ZArray<E> createWithSingleValue(E item) throws IllegalArgumentException
    {
       return new SingleValueZArray<E>(item);
    }

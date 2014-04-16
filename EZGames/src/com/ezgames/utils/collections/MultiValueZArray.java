@@ -1,9 +1,7 @@
 package com.ezgames.utils.collections;
 
 import java.util.Iterator;
-
 import com.ezgames.utils.DataChecker;
-import com.ezgames.utils.interfaces.TImmutable;
 
 /**
  * {@code ZRollerArray} was designed as a limited collection for internal use
@@ -13,7 +11,7 @@ import com.ezgames.utils.interfaces.TImmutable;
  * @param <T> Can be any object, really, but this class was specifically 
  *   designed for the domain objects in the ZRoller library.
  */
-final class MultiValueZArray<T extends TImmutable> extends ZArray<T> implements TImmutable
+final class MultiValueZArray<T> extends ZArray<T>
 {
    // Public constructors ********************************************
    public MultiValueZArray(Iterable<T> collectionToCopy) throws IllegalArgumentException

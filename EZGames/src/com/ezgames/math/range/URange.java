@@ -1,9 +1,8 @@
-package com.ezgames.utils.range;
+package com.ezgames.math.range;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.ezgames.utils.interfaces.TImmutable;
+import com.ezgames.annotations.Immutable;
 
 /**
  * <p>The {@code Range} class is a simple data class that represents a range of
@@ -12,7 +11,8 @@ import com.ezgames.utils.interfaces.TImmutable;
  * of making the maximum number exclusive.</p>
  * @author Jacob ZD Zimmerman
  */
-public final class URange implements TImmutable, Range
+@Immutable
+public final class URange implements Range
 {
    
    // Public factory constructors *********************************************

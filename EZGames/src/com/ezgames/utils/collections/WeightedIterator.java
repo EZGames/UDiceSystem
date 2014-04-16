@@ -3,9 +3,8 @@ package com.ezgames.utils.collections;
 import java.util.Iterator;
 
 import com.ezgames.utils.Weighted;
-import com.ezgames.utils.interfaces.TImmutable;
 
-public class WeightedIterator<O extends TImmutable> implements Iterator<O>
+public class WeightedIterator<O> implements Iterator<O>
 {
 	private final Iterator<Weighted<O>> iter;
 	
