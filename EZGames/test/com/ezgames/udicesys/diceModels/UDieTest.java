@@ -1,17 +1,20 @@
 package com.ezgames.udicesys.diceModels;
 
+
+import static com.ezgames.utils.test.IsNotEmptyCollection.*;
+import static com.ezgames.utils.test.TestHelper.*;
+import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
-import static com.ezgames.utils.TestHelper.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import com.ezgames.udicesys.diceModels.abstractions.Die;
 import com.ezgames.udicesys.diceModels.abstractions.Face;
 import com.ezgames.udicesys.diceModels.abstractions.FaceValue;
 import com.ezgames.udicesys.diceModels.abstractions.OutputRange;
 import com.ezgames.udicesys.diceModels.abstractions.Relationship;
 import com.ezgames.utils.collections.MlList;
+import java.util.ArrayList;
+import java.util.Iterator;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class UDieTest
 {	

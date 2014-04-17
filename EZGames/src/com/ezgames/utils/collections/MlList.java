@@ -203,7 +203,7 @@ public class MlList<E> implements Iterable<E>
 		
 		public boolean hasNext()
 		{
-			return next.isNull();
+			return !next.isNull();
 		}
 		
 		public E next()
@@ -215,8 +215,7 @@ public class MlList<E> implements Iterable<E>
 		
 		public void remove()
 		{
-			throw new UnsupportedOperationException(
-					"Cannot remove elements from MlList");
+			throw new UnsupportedOperationException("Cannot remove elements from MlList");
 		}
 	}
 }

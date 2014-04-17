@@ -1,4 +1,4 @@
-package com.ezgames.utils;
+package com.ezgames.utils.test;
 
 import static org.junit.Assert.*;
 
