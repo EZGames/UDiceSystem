@@ -92,6 +92,16 @@ public class UDieTest
 		
 		assertNotNull(rels);
 	}
+	
+	@Test
+	public void shouldGetNonEmptyRelationshipsList()
+	{
+	   Die die = UDie.with(name, faces);
+	   
+	   Iterable<Relationship> rels = die.listRelationships();
+	   
+	   assertThat(rels, is(notEmptyCollection()));
+	}
 
 	//**************************************************************************
 	
