@@ -11,7 +11,7 @@ import ezgames.utils.DataChecker;
 import ezgames.utils.collections.MlList;
 
 @Immutable
-class UDie implements Die
+final class UDie implements Die
 {
 	//**************************************************************************
 	// static factory methods
@@ -59,18 +59,6 @@ class UDie implements Die
 	{
 		return null;
 	}
-	
-//	@Override
-//	public int totalWeight()
-//	{
-//		return 0;
-//	}
-//	
-//	@Override
-//	public int numSides()
-//	{
-//		return 0;
-//	}
 	
 	//**************************************************************************
 	// Private fields
