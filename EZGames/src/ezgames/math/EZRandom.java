@@ -3,6 +3,7 @@ package ezgames.math;
 import java.util.Calendar;
 
 /**
+ * TODO: redo this documentation!
  * The {@code EZRandom} class started as a way to test whether a hashing function
  * would make for a decent random number generator.  It turns out that it is.
  * <p>EZRandom's benefits: <br>
@@ -24,18 +25,46 @@ import java.util.Calendar;
  * little, though.<br>
  * - only generates integers.
  */
-public class EZRandom
+public class EZRandom implements SimpleRandom
 {
-   private static final int MULTIPLIER = 16777619;
-   private static int current = (int)Calendar.getInstance().getTimeInMillis();
-   
    /**
-    * Generates a random number between the given min and max, inclusively.
+    * A quick, one-shot way to generate a random number with EZRandom, where it 
+    * creates the instance for you, produces the result and then releases the 
+    * instance.  Best for when you only need a few random numbers
     * @param min - the lowest number possible to generate
     * @param max - the highest number possible to generate
     * @return random number between the given min and max, inclusively.
     */
-   public static int randomNumBetween(int min, int max)
+   public static int quickRandBetween(int min, int max)
+   {
+	   return new EZRandom().randBetween(min, max);
+   }
+   
+   /**
+    * A quick, one-shot way to generate a seeded random number with EZRandom, 
+    * where it creates the instance for you, produces the result and then 
+    * releases the instance.  Best for when you only need a few random numbers
+    * @param min - the lowest number possible to generate
+    * @param max - the highest number possible to generate
+    * @param seed - the seed used to produce the number
+    * @return random number between the given min and max, inclusively.
+    */
+   public static int quickSeededRandBetween(int min, int max, int seed)
+   {
+	   return new EZRandom(seed).randBetween(min, max);
+   }
+	
+   public EZRandom() 
+   { 
+	   current = (int)Calendar.getInstance().getTimeInMillis(); 
+   }
+   
+   public EZRandom(int startingSeed) 
+   { 
+	   current = startingSeed; 
+   }
+   
+   public int randBetween(int min, int max)
    {
 	   //A new, local seed variable is produced in an attempt to make the use of
 	   // current more thread-safe.  The final calculation will call on seed, 
@@ -46,14 +75,11 @@ public class EZRandom
 	   return Math.abs(seed % (max - min + 1)) + min;
    }
    
-   /**
-    * Changes the current seed to the given value
-    * @param seed - the new seed value
-    */
-   public static void setSeed(int seed)
+   public void setSeed(int seed)
    {
       current = seed;
    }
    
-   private EZRandom(){} //cannot create instance of this class
+   private static final int MULTIPLIER = 16777619;
+   private int current;   
 }
