@@ -1,7 +1,6 @@
 package ezgames.utils.collections;
 
 import java.util.Iterator;
-
 import ezgames.annotations.Immutable;
 import ezgames.math.hashing.HashUtil;
 import ezgames.utils.IterableUtil;
@@ -139,10 +138,19 @@ public class MlList<E> implements Iterable<E>
 		return "[" + head.toString() + "]" + tail.toString();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public MlList<Weighted<E>> withWeight(int weight)
 	{
+		if(head instanceof Weighted<?>)
+		{
+			Weighted<E> newHead = new Weighted<E>(((Weighted<E>) head).object(), weight);
+			return ((MlList<Weighted<E>>) tail).add(newHead);
+		}
+		//set all tail elements to have a weight of 1
 		MlList<Weighted<E>> out = tail.withWeight(1);
+		//make a new version of the head with weight
 		Weighted<E> newHead = new Weighted<>(head, weight);
+		//add the head to the new tail and return it
 		return out.add(newHead);
 	}
 	
