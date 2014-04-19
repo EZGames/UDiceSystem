@@ -12,10 +12,12 @@ public interface Die extends Iterable<Face>
     * @return a random Roll of the Die
     */
    public Roll roll();
+   
    /**
     * @return the name of the die
     */
    public String name();
+   
    //public int totalWeight();
    //public int numSides();
    /**
@@ -23,6 +25,7 @@ public interface Die extends Iterable<Face>
     */
    @Override
    public Iterator<Face> iterator();
+   
    /**
     * @return an {@link Iterable} of all the {@link Relationship}s for the Die
     */

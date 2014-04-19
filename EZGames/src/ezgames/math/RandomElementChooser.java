@@ -5,6 +5,7 @@ import ezgames.utils.DataChecker;
 import ezgames.utils.IterableUtil;
 import ezgames.utils.Weighted;
 
+//TODO: document and test
 public abstract class RandomElementChooser<E>
 {
 	//**************************************************************************

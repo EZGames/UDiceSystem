@@ -6,7 +6,7 @@ package ezgames.math.hashing;
  * for more details.
  *
  */
-public final class FnvHashAlgorithm implements IHashAlgorithm
+public final class FnvHashAlgorithm implements HashAlgorithm
 {
    @Override
    public int getStartingValue()

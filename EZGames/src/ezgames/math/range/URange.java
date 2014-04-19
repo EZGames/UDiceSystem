@@ -10,7 +10,6 @@ import ezgames.annotations.Immutable;
  * numbers from the minimum to the maximum (both are inclusive).</p>
  * <p><b>NOTE:</b> This class does not follow the general standard set by java
  * of making the maximum number exclusive.</p>
- * @author Jacob ZD Zimmerman
  */
 @Immutable
 public final class URange implements Range
@@ -45,11 +44,22 @@ public final class URange implements Range
       return out;
    }
    
+   /**
+    * @return a Range that goes from Range.LOWER_BOUND to Range.UPPER_BOUND
+    */
    public static Range fullRange()
    {
-	   return valueOf(Integer.MIN_VALUE, Integer.MAX_VALUE);
+	   return valueOf(Range.LOWER_BOUND, Range.UPPER_BOUND);
    }
    
+   /**
+    * Step 1 of a 2-step URange Builder.  After this call, use to().
+    * <p>For example, {@code URange.from(0).to(100)} would return a new URange with
+    * a minimum of 0 and a maximum of 100.</p>
+    * This serves as a more fluent replacement for {@code URange.valueOf(0, 100);} 
+    * @param val
+    * @return
+    */
    public static URange.Builder from(int val)
    {
 	   return new Builder(val);

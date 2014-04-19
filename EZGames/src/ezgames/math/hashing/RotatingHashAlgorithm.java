@@ -4,7 +4,7 @@ package ezgames.math.hashing;
  * The Rotating Hash algorithm is considered the most minimal acceptable
  * algorithm.
  */
-public class RotatingHashAlgorithm implements IHashAlgorithm
+public class RotatingHashAlgorithm implements HashAlgorithm
 {
    @Override
    public int getStartingValue()

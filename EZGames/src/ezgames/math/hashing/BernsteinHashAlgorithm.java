@@ -4,7 +4,7 @@ package ezgames.math.hashing;
  * The Bernstein Hash Algorithm is best for small character keys, but
  * not very good for much else.
  */
-public class BernsteinHashAlgorithm implements IHashAlgorithm
+public class BernsteinHashAlgorithm implements HashAlgorithm
 {
    @Override
    public int getStartingValue()

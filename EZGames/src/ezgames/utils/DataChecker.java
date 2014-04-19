@@ -1,5 +1,6 @@
 package ezgames.utils;
 
+//TODO: finish documentation, then test
 public class DataChecker
 {
    /**
