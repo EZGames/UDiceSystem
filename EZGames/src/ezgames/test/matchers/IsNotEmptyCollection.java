@@ -1,4 +1,4 @@
-package ezgames.utils.test;
+package ezgames.test.matchers;
 
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.Matcher;

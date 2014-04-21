@@ -1,4 +1,4 @@
-package ezgames.utils.test;
+package ezgames.test.matchers;
 
 import java.util.Iterator;
 import org.hamcrest.Description;

@@ -1,8 +1,8 @@
 package ezgames.udicesys.diceModels;
 
 
-import static ezgames.utils.test.IsNotEmptyCollection.*;
-import static ezgames.utils.test.TestHelper.*;
+import static ezgames.test.matchers.IsNotEmptyCollection.*;
+import static ezgames.test.matchers.Throws.*;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 import ezgames.udicesys.diceModels.UDie;
@@ -12,10 +12,8 @@ import ezgames.udicesys.diceModels.abstractions.FaceValue;
 import ezgames.udicesys.diceModels.abstractions.OutputRange;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.utils.collections.MlList;
-
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -56,19 +54,19 @@ public class UDieTest
 	@Test
 	public void shouldThrowIllegalArgumentExceptionWithNullName()
 	{
-		assertThrows(IllegalArgumentException.class, ()->UDie.with(null, faces));
+		assertThat(()->UDie.with(null, faces), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
 	public void shouldThrowIllegalArgumentExceptionWithNullFaceList()
 	{
-		assertThrows(IllegalArgumentException.class, ()->UDie.with(name, null));
+		assertThat(()->UDie.with(name, null), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
 	public void shouldThrowIllegalArgumentExceptionWithNullArguments()
 	{
-		assertThrows(IllegalArgumentException.class, ()->UDie.with(null, null));
+		assertThat(()->UDie.with(null, null), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test

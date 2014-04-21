@@ -1,13 +1,10 @@
 package ezgames.utils.collections;
 
-import static ezgames.utils.test.IteratesNumTimes.*;
-import static ezgames.utils.test.TestHelper.*;
+import static ezgames.test.matchers.Throws.*;
+import static ezgames.test.matchers.IteratesNumTimes.*;
 import static org.junit.Assert.*;
-
 import java.util.Iterator;
-
 import org.junit.Test;
-
 import ezgames.utils.collections.MlList;
 
 public class MllIteratorTest
@@ -56,7 +53,7 @@ public class MllIteratorTest
 		
 		while(inter.hasNext())
 		{
-			assertThrows(UnsupportedOperationException.class, ()->inter.remove());
+			assertThat(()->inter.remove(), throwsAn(UnsupportedOperationException.class));
 		}
 	}
 	
