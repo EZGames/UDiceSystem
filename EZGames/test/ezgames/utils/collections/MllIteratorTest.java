@@ -1,7 +1,8 @@
 package ezgames.utils.collections;
 
-import static ezgames.test.matchers.Throws.*;
-import static ezgames.test.matchers.IteratesNumTimes.*;
+import static ezgames.test.matchers.IsThrowing.*;
+import static ezgames.test.matchers.IsIteratingNumTimes.*;
+import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 import java.util.Iterator;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class MllIteratorTest
 	{
 		Iterator<Integer> inter = listOf1.iterator();
 		
-		assertThat(inter, iteratesNumTimes(1));
+		assertThat(inter, is(iteratingNumTimes(1)));
 	}
 	
 	@Test
@@ -27,7 +28,7 @@ public class MllIteratorTest
 	{
 		Iterator<Integer> inter = emptyList.iterator();
 		
-		assertThat(inter, iteratesNumTimes(0));
+		assertThat(inter, is(iteratingNumTimes(0)));
 	}
 	
 	@Test
@@ -35,7 +36,7 @@ public class MllIteratorTest
 	{
 		Iterator<Integer> inter = listOf2.iterator();
 		
-		assertThat(inter, iteratesNumTimes(2));
+		assertThat(inter, is(iteratingNumTimes(2)));
 	}
 	
 	@Test
@@ -43,18 +44,17 @@ public class MllIteratorTest
 	{
 		Iterator<Integer> inter = listOf3.iterator();
 		
-		assertThat(inter, iteratesNumTimes(3));
+		assertThat(inter, is(iteratingNumTimes(3)));
 	}
 	
 	@Test
 	public void shouldThrowUnsupportedOperationException()
 	{
-		Iterator<Integer> inter = listOf1.iterator();
+		Iterator<Integer> inter = listOf2.iterator();
 		
-		while(inter.hasNext())
-		{
-			assertThat(()->inter.remove(), throwsAn(UnsupportedOperationException.class));
-		}
+		inter.next();
+		
+		assertThat(()->inter.remove(), is(throwing(UnsupportedOperationException.class)));
 	}
 	
 }

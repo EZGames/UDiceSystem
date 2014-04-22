@@ -16,14 +16,15 @@ public abstract class ZArray<T> implements Iterable<T>
 	 * Creates an instance of a {@code ZRollerArray> containing the the items
 	 * contained within the {@code Iterable} specified
 	 * 
-	 * @param inList
-	 *            - an {@code Iterable} containing items of type T to be
+	 * @param inList - an {@code Iterable} containing items of type T to be
 	 *            inserted into the returned {@code ZRollerArray} instance
-	 * @throws ClientDataException
-	 *             if an element in the specified {@code Iterable} is null
+	 * @throws ClientDataException if an element in the specified
+	 *             {@code Iterable} is null
 	 */
 	public static <E> ZArray<E> createWithMultipleValues(Iterable<E> inList) throws IllegalArgumentException
 	{
+		DataChecker.checkDataNotNull(inList, "Cannot create a ZArray from a null Iterable");
+		
 		if (inList instanceof ZArray<?>)
 		{
 			return (ZArray<E>) inList;
@@ -32,13 +33,27 @@ public abstract class ZArray<T> implements Iterable<T>
 		int numElements = IterableUtil.sizeOf(inList);
 		if (numElements == 0)
 		{
-			throw new IllegalArgumentException("Cannot create a ZRollerArray with 0 elements");
+			throw new IllegalArgumentException("Cannot create a ZArray with 0 elements");
 		}
 		if (numElements == 1)
 		{
 			Iterator<E> iter = inList.iterator();
 			return new SingleValueZArray<E>(iter.next());
 		}
+		return new MultiValueZArray<E>(inList);
+	}
+	
+	@SafeVarargs
+	public static <E> ZArray<E> createWithMultipleValues(E... inList)
+	{
+		DataChecker.checkArrayNotEmptyOrNull(inList, "Cannot create a ZArray from a null collection of elements");
+		DataChecker.checkArrayDataNotNull(inList, "Cannot create a ZArray from a collection with a null element");
+		
+		if(inList.length == 1)
+		{
+			return new SingleValueZArray<E>(inList[0]);
+		}
+		
 		return new MultiValueZArray<E>(inList);
 	}
 	
@@ -58,8 +73,7 @@ public abstract class ZArray<T> implements Iterable<T>
 	 * Method overridden to check that both {@code ZRollerArrays} contain the
 	 * same data, rather than checking that they're simply the same object
 	 * 
-	 * @param o
-	 *            - the object to compare against this object
+	 * @param o - the object to compare against this object
 	 * @return true if and only if o is a {@code ZRollerArray} containing
 	 *         objects in it in the same order as this one that all return
 	 *         {@code true} when compared to each other with {@code equals()}
@@ -70,10 +84,9 @@ public abstract class ZArray<T> implements Iterable<T>
 	/**
 	 * Returns the element at the specified index
 	 * 
-	 * @param index
-	 *            - index of the array from which to get the data from
-	 * @return the element at the specified index or {@code null} if the index
-	 *         out-of-bounds
+	 * @param index - index of the array from which to get the data from
+	 * @return the element at the specified index
+	 * @throws {@link IndexOutOfBoundsException} if the given index is less than 0 or greater than size() - 1
 	 */
 	public abstract T get(int index);
 	
@@ -94,7 +107,7 @@ public abstract class ZArray<T> implements Iterable<T>
 		// Public constructors *************************************
 		public SingleValueZArray(T o) throws IllegalArgumentException
 		{
-			DataChecker.checkDataNotNull(o, "Cannot create a ZRollerArray from a null element");
+			DataChecker.checkDataNotNull(o, "Cannot create a ZArray from a null element");
 			item = o;
 		}
 		
@@ -134,7 +147,7 @@ public abstract class ZArray<T> implements Iterable<T>
 		{
 			if (index != 0)
 			{
-				return null;
+				throw new IndexOutOfBoundsException();
 			}
 			return item;
 		}
@@ -150,7 +163,7 @@ public abstract class ZArray<T> implements Iterable<T>
 		@Override
 		public Iterator<T> iterator()
 		{
-			return new SingleValueArrayIterator(this);
+			return new SingleValueArrayIterator<T>(this);
 		}
 		
 		@Override
@@ -165,7 +178,7 @@ public abstract class ZArray<T> implements Iterable<T>
 		private final T item;
 		
 		// Private Iterator Class *****************************************
-		private class SingleValueArrayIterator implements Iterator<T>
+		private static final class SingleValueArrayIterator<T> implements Iterator<T>
 		{
 			private final SingleValueZArray<T> arr;
 			private boolean hasNext = true;
@@ -195,7 +208,7 @@ public abstract class ZArray<T> implements Iterable<T>
 			@Override
 			public void remove()
 			{
-				throw new UnsupportedOperationException("ZRollerArray is Immutable and does not allow removing elements");
+				throw new UnsupportedOperationException("ZArray is Immutable and does not allow removing elements");
 			}
 		}
 	}
@@ -208,9 +221,19 @@ public abstract class ZArray<T> implements Iterable<T>
 		// Public constructors ********************************************
 		public MultiValueZArray(Iterable<T> collectionToCopy) throws IllegalArgumentException
 		{
+			DataChecker.checkIterableNotEmptyOrNull(collectionToCopy, "Cannot create a ZArray from a null or empty iterable");
+			
 			int numOfElements = getNumberOfElementsIn(collectionToCopy);
 			array = new Object[numOfElements];
 			insertCollection(collectionToCopy);
+		}
+		
+		@SafeVarargs
+		public MultiValueZArray(T... collectionToCopy) throws IllegalArgumentException
+		{
+			DataChecker.checkArrayNotEmptyOrNull(collectionToCopy, "Cannot create a ZArray from a null or empty list of elements");
+			
+			array = collectionToCopy;
 		}
 		
 		// Public API methods **********************************************
@@ -266,9 +289,9 @@ public abstract class ZArray<T> implements Iterable<T>
 			{
 				return (T) array[index];
 			}
-			catch (IndexOutOfBoundsException e)
+			catch (ArrayIndexOutOfBoundsException e)
 			{
-				return null;
+				throw new IndexOutOfBoundsException();
 			}
 		}
 		
@@ -312,7 +335,7 @@ public abstract class ZArray<T> implements Iterable<T>
 			int index = 0;
 			for (T element : collection)
 			{
-				DataChecker.checkDataNotNull(element, "Cannot create a ZRollerArray with a null element");
+				DataChecker.checkDataNotNull(element, "Cannot create a ZArray with a null element");
 				array[index] = element;
 				++index;
 			}
@@ -369,7 +392,7 @@ public abstract class ZArray<T> implements Iterable<T>
 			@Override
 			public void remove()
 			{
-				throw new UnsupportedOperationException("ZRollerArray is Immutable and does not allow removing elements");
+				throw new UnsupportedOperationException("ZArray is Immutable and does not allow removing elements");
 			}
 		}
 		

@@ -2,7 +2,7 @@ package ezgames.udicesys.diceModels;
 
 
 import static ezgames.test.matchers.IsNotEmptyCollection.*;
-import static ezgames.test.matchers.Throws.*;
+import static ezgames.test.matchers.IsThrowing.*;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 import ezgames.udicesys.diceModels.UDie;
@@ -54,19 +54,19 @@ public class UDieTest
 	@Test
 	public void shouldThrowIllegalArgumentExceptionWithNullName()
 	{
-		assertThat(()->UDie.with(null, faces), throwsAn(IllegalArgumentException.class));
+		assertThat(()->UDie.with(null, faces), throwing(IllegalArgumentException.class));
 	}
 	
 	@Test
 	public void shouldThrowIllegalArgumentExceptionWithNullFaceList()
 	{
-		assertThat(()->UDie.with(name, null), throwsAn(IllegalArgumentException.class));
+		assertThat(()->UDie.with(name, null), throwing(IllegalArgumentException.class));
 	}
 	
 	@Test
 	public void shouldThrowIllegalArgumentExceptionWithNullArguments()
 	{
-		assertThat(()->UDie.with(null, null), throwsAn(IllegalArgumentException.class));
+		assertThat(()->UDie.with(null, null), throwing(IllegalArgumentException.class));
 	}
 	
 	@Test
@@ -118,6 +118,18 @@ public class UDieTest
 	
 	@Test
 	public void testName()
+	{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testEquals()
+	{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testHashCode()
 	{
 		fail("Not yet implemented");
 	}

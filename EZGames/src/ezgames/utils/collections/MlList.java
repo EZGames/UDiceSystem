@@ -3,6 +3,7 @@ package ezgames.utils.collections;
 import java.util.Iterator;
 import ezgames.annotations.Immutable;
 import ezgames.math.hashing.HashUtil;
+import ezgames.utils.DataChecker;
 import ezgames.utils.IterableUtil;
 import ezgames.utils.Weighted;
 
@@ -18,9 +19,26 @@ public class MlList<E> implements Iterable<E>
 		//if it's already an MlList, then just send it back
 		if (iterable instanceof MlList) { return (MlList<E>) iterable; }
 		
-		//let's create the new one - simply 
+		//let's create the new one
 		MlList<E> backwards = MlList.<E>empty();
 		for (E o : iterable)
+		{
+			backwards = backwards.add(o);
+		}
+		return backwards.reverse();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <E> MlList<E> fromValues(E... arr)
+	{
+		DataChecker.checkArrayDataNotNull(arr, "Cannot create MlList with null elements");
+		if(null == arr || 0 == arr.length)
+		{
+			return (MlList<E>)empty();
+		}
+		
+		MlList<E> backwards = MlList.<E>empty();
+		for(E o : arr)
 		{
 			backwards = backwards.add(o);
 		}
