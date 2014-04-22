@@ -1,6 +1,8 @@
-package ezgames.math;
+package ezgames.utils.collections;
 
 import java.util.Iterator;
+import ezgames.math.EZRandom;
+import ezgames.math.SimpleRandom;
 import ezgames.utils.DataChecker;
 import ezgames.utils.IterableUtil;
 import ezgames.utils.Weighted;
