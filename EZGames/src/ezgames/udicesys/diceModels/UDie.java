@@ -16,7 +16,7 @@ final class UDie implements Die
 	//**************************************************************************
 	// static factory methods
 	//**************************************************************************
-	public static Die with(String name, Iterable<Face> faces)
+	public static Die with( final String name, final Iterable<Face> faces)
 	{
 		DataChecker.checkStringDataNotNull(name, "Die Requires non-null, non-empty name");
 		DataChecker.checkIterableNotEmptyOrNull(faces, "Die Requires non-null, non-empty list of non-null faces");
@@ -51,7 +51,7 @@ final class UDie implements Die
 	@Override
 	public String name()
 	{
-		return null;
+		return name;
 	}
 	
 	@Override
@@ -69,7 +69,7 @@ final class UDie implements Die
 	//**************************************************************************
 	// Private constructors
 	//**************************************************************************
-	private UDie(String name, Iterable<Face> faces)
+	private UDie(final String name, final Iterable<Face> faces)
 	{
 		this.name = name;
 		this.faces = faces;

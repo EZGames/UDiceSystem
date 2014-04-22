@@ -3,6 +3,7 @@ package ezgames.udicesys.diceModels;
 
 import static ezgames.test.matchers.IsNotEmptyCollection.*;
 import static ezgames.test.matchers.IsThrowing.*;
+import static org.hamcrest.core.IsEqual.*;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 import ezgames.udicesys.diceModels.UDie;
@@ -109,15 +110,17 @@ public class UDieTest
 
 	//**************************************************************************
 	
-	//**************************************************************************	
+	// public void name() ******************************************************
 	@Test
-	public void testRoll()
+	public void shouldReturnGivenName()
 	{
-		fail("Not yet implemented");
+		Die die = UDie.with(name, faces);
+		
+		assertThat(die.name(), is(equalTo(name)));
 	}
 	
 	@Test
-	public void testName()
+	public void testRoll()
 	{
 		fail("Not yet implemented");
 	}

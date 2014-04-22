@@ -79,6 +79,8 @@ public class MlList<E> implements Iterable<E>
 	
 	/**
 	 * Same as the {@link add(E)} method. Can be used to make building MlLists more fluent.
+	 * For example, {@code list.add(4).and(5).and(6)} reads a little better than
+	 * {@code list.add(4).add(5).add(6)}.
 	 */
 	public MlList<E> and(final E element)
 	{
