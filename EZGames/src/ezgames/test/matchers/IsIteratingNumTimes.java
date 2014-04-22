@@ -5,11 +5,11 @@ import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.TypeSafeMatcher;
 
-public class IteratesNumTimes extends TypeSafeMatcher<Iterator<?>>
+public class IsIteratingNumTimes extends TypeSafeMatcher<Iterator<?>>
 {
 	int numTimes;
 	
-	private IteratesNumTimes(int times)
+	private IsIteratingNumTimes(int times)
 	{
 		numTimes = times;
 	}
@@ -33,9 +33,9 @@ public class IteratesNumTimes extends TypeSafeMatcher<Iterator<?>>
 	}
 	
 	@Factory
-	public static IteratesNumTimes iteratesNumTimes(int times)
+	public static IsIteratingNumTimes iteratingNumTimes(int times)
 	{
-		return new IteratesNumTimes(times);
+		return new IsIteratingNumTimes(times);
 	}
 	
 }

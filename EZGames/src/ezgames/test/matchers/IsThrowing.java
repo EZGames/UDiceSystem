@@ -4,21 +4,15 @@ import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.TypeSafeMatcher;
 
-public class Throws<X extends Exception> extends TypeSafeMatcher<Runnable>
+public class IsThrowing<X extends Exception> extends TypeSafeMatcher<Runnable>
 {
 	//**************************************************************************
 	// Public static factory methods
 	//**************************************************************************
 	@Factory
-	public static <X extends Exception> Throws<X> throwsA(Class<X> ex)
+	public static <X extends Exception> IsThrowing<X> throwing(Class<X> ex)
 	{
-		return new Throws<X>(ex);
-	}
-	
-	@Factory
-	public static <X extends Exception> Throws<X> throwsAn(Class<X> ex)
-	{
-		return new Throws<X>(ex);
+		return new IsThrowing<X>(ex);
 	}
 	
 	//**************************************************************************
@@ -59,7 +53,7 @@ public class Throws<X extends Exception> extends TypeSafeMatcher<Runnable>
 	//**************************************************************************
 	// Private constructor
 	//**************************************************************************
-	private Throws(Class<X> ex)
+	private IsThrowing(Class<X> ex)
 	{
 		exType = ex;
 	}	
