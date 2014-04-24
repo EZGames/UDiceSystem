@@ -19,9 +19,18 @@
   <body>
     <div class="wrapper">
       <script>
-		 var link = document.querySelector('link[rel=import]');
-		 var content = link.import.querySelector('#header');
-		 document.body.appendChild(content.cloneNode(true));
+			function supportsImports() {
+			  return 'import' in document.createElement('link');
+			}
+
+			if (supportsImports()) {
+			  alert("good to go";
+			} else {
+			  alert("no go");
+			}
+			var link = document.querySelector('link[rel=import]');
+			var content = link.import.querySelector('#header');
+			document.body.appendChild(content.cloneNode(true));
 		</script>	  
 		
       <section>
@@ -38,9 +47,9 @@
       </section>
 		
 		<script>
-		 var link = document.querySelector('link[rel=import]');
-		 var content = link.import.querySelector('#footer');
-		 document.body.appendChild(content.cloneNode(true));
+			var link = document.querySelector('link[rel=import]');
+			var content = link.import.querySelector('#footer');
+			document.body.appendChild(content.cloneNode(true));
 		</script>      
     </div>
     <script src="javascripts/scale.fix.js"></script>
