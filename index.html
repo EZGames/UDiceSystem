@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+	 <link rel="import" href="imports/header-footer.html">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,21 +18,12 @@
   </head>
   <body>
     <div class="wrapper">
-      <header>
-        <a href="https://sad2project.github.io/UDiceSystem"><img src="https://ezgames.bitrix24.com/workgroups/group/16/files/Images/UDiceSystemFullLogo.png" alt=""></a>
-		<h2>The Universal Dice System</h2>
-
-        <p class="view"><a href="https://github.com/sad2project/UDiceSystem">View the Project on GitHub <small>sad2project/UDiceSystem</small></a></p>
-
-        <ul>
-          <li><a href="https://github.com/sad2project/UDiceSystem/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/sad2project/UDiceSystem/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/sad2project/UDiceSystem">View On <strong>GitHub</strong></a></li>
-        </ul>
+      <script>
+		 var link = document.querySelector('link[rel=import]');
+		 var content = link.import.querySelector('header');
+		 document.body.appendChild(content.cloneNode(true));
+		</script>	  
 		
-		<a href="https://sad2project.github.io/UDiceSystem/dice">The Basic Dice Model</a>
-      </header>
-	  
       <section>
         <h1>The Universal Dice System</h1>
 
@@ -44,12 +36,12 @@
 		<p>It is currently in production, nowhere near ready to use.  A rough estimate of when the basic parts of the system will be ready is around Christmas 2014.  In the coming months, I will hopefully be putting up tutorials on how to use the system.</p>
 		</blockquote>
       </section>
-	  
-      <footer>
-        <p>This project is maintained by Jacob Zimmerman, aka <a href="https://github.com/sad2project">sad2project</a></p>
-        <p>Other contact info: <br>Twitter @CrapEDM <br>Facebook facebook.com/crapedm<br>Email(and other google stuff) sad2project@gmail.com</p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+		
+		<script>
+		 var link = document.querySelector('link[rel=import]');
+		 var content = link.import.querySelector('footer');
+		 document.body.appendChild(content.cloneNode(true));
+		</script>      
     </div>
     <script src="javascripts/scale.fix.js"></script>
     
