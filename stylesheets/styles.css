@@ -45,6 +45,10 @@ a small {
   display:block;
 }
 
+.post-summary {
+  color:#000;
+}
+
 .wrapper {
   width:860px;
   margin:0 auto;
