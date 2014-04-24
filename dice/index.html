@@ -59,7 +59,7 @@
 		So let's really look at this die. There are 3 different Relationships at work here: the success/failure Relationship, the boon/bane Relationship, and the cost Relationship. Let's say that we need an output of the actual total of successes/failures (maybe because the 'system' has scaling success and failure effects), but the only thing we need to know about the boons/banes is which one came out on top. We only need to know about costs if there are any, but then we want the total number of costs to measure a severity level.</p>
 		<p>How do we represent these Relationships? Let's look at each one of them in turn.</p>
 		<p>The success/failure Relationship is going to need 5 Output Ranges (or 3, if you're lazy - I'll explain in a bit).  We'll need one for -2 and less that outputs "_ Failures", one for -1 that outputs "1 Failure", one for 0 that outputs "Even", one for 1 that outputs "1 Success", and one for 2 on up that outputs "_ Successes". If you were lazy, you could combine the -1 one with the one for -2 and less, and do the same for 1 and 2+. This would create small grammatical problems that would bug me to no end, but some people are okay with it.  In case you were confused, an _ means that you simply put the input value there.<br>
-		Well, that covers the succes/failure Relationship. Let's move on.</p>
+		Well, that covers the success/failure Relationship. Let's move on.</p>
 		<p>The boon/bane Relationship requires 3 Output Ranges: all negative numbers output "Bane", 0 outputs nothing, and all positive numbers output "Boon".  That was fairly simple.  But if you really want to see an even simpler one, check out the next Relationship</p>
 		<p>The cost Relationship only needs 2 Output Ranges.  The first one covers everything from 0 down and outputs nothing.  The second covers all positive numbers and outputs "Cost with severity of _". You could word that differently if you'd like, but you get the idea.</p>
 		<small>If you're confused about how you could ever get more than a 1 in successes or costs, you have to realize that this die is rarely meant to be rolled as the only die.  In almost all cases, you would roll multiple of this die (or maybe even different dice being rolled with this one, but largely using the same Relationships. The Warhammer Fantasy RPG does this a lot).</small>
@@ -80,8 +80,8 @@
       </section>
       <footer>
         <p>This project is maintained by Jacob Zimmerman, aka <a href="https://github.com/sad2project">sad2project</a></p>
-        <p>Other contact info: <br>Twitter @CrapEDM <br>Facebook facebook.com/crapedm<br>Email(and other google stuff) sad2project@gmail.com</p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p>Other contact info: <br>Twitter @CrapEDM <br>Facebook facebook.com/crapedm<br>Email(and other Google stuff) sad2project@gmail.com</p>
+        <p><small>Hosted on GitHub Pages &mdash; Original theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>

@@ -45,6 +45,18 @@ a small {
   display:block;
 }
 
+.post-summary {
+  color:#000;
+}
+
+.post-summary h2 {
+  margin: 2px;
+}
+
+.post-summary h5 {
+  margin: 2px;
+}
+
 .wrapper {
   width:860px;
   margin:0 auto;
