@@ -20,7 +20,7 @@
     <div class="wrapper">
       <script>
 		 var link = document.querySelector('link[rel=import]');
-		 var content = link.import.querySelector('header');
+		 var content = link.import.querySelector('#header');
 		 document.body.appendChild(content.cloneNode(true));
 		</script>	  
 		
@@ -39,7 +39,7 @@
 		
 		<script>
 		 var link = document.querySelector('link[rel=import]');
-		 var content = link.import.querySelector('footer');
+		 var content = link.import.querySelector('#footer');
 		 document.body.appendChild(content.cloneNode(true));
 		</script>      
     </div>
