@@ -8,6 +8,29 @@ import ezgames.utils.IterableUtil;
 import ezgames.utils.Weighted;
 
 //TODO: testing and documentation
+/**
+ * <p>MlList was originally created because I looked into the ML language (which is
+ * a functional language) and I really liked how it worked, so I created my own
+ * for fun.  But I learned that it's also really good at building {@link Iterable}s
+ * quite quickly. It's main use is in connection with the {@link Stackable} 
+ * interface.</p>
+ * <p>It's good for building {@code Iterable}s quickly because it returns the new
+ * MlList with each add() or and() call, so one could be built as follows:<br>
+ * {@code Iterable<Integer> ints = MlList.empty().add(1).and(2).and(3).and(4);}<br>
+ * With a Stackable type, you can do it even more simply:<br>
+ * {@code Iterable<StackableInt> ints = one.and(two).and(three).and(four);}
+ * where one, two, three, and four are hypothetical StackableInt 
+ * (Stackable<Integer>) objects. See the {@link Stackable} interface to learn
+ * more about how it works with MlList to increase fluency and conciseness.</p>
+ * <p>The only real downside of MlList is that is stores the objects in the 
+ * reverse order that you put them in. It sort of functions like a non-popping
+ * Stack. This problem is offset by two different ideas:<br>
+ * + The UDiceSystem does not require anything to be in any specific order, other
+ * than {@link Range}s in a {@link RangeCollection}, but the ordering is dealt
+ * with by the Builder.<br>
+ * + MlList comes with a {@code reverse()} method for reversing the list.
+ * @param <E> - The type of elements stored in the MlList
+ */
 @Immutable
 public class MlList<E> implements Iterable<E>
 {
@@ -32,7 +55,8 @@ public class MlList<E> implements Iterable<E>
 	public static <E> MlList<E> fromValues(E... arr)
 	{
 		DataChecker.checkArrayDataNotNull(arr, "Cannot create MlList with null elements");
-		if(null == arr || 0 == arr.length)
+		
+		if(0 == arr.length)
 		{
 			return (MlList<E>)empty();
 		}
@@ -65,6 +89,13 @@ public class MlList<E> implements Iterable<E>
 		{
 			return append(l1.tail, l2).add(l1.head);
 		}
+	}
+	
+	public static <E> MlList<E> reverse(MlList<E> list)
+	{
+		if (list.isNull() || list.tail.isNull()) { return list; }
+		
+		return reverse(list, MlList.<E>empty());
 	}
 	
 	//**************************************************************************
@@ -211,11 +242,11 @@ public class MlList<E> implements Iterable<E>
 	//**************************************************************************
 	// Private static helpers
 	//**************************************************************************
-	@SuppressWarnings("unchecked")
-	private static <E> MlList<E> reverse(MlList<E> list)
+	private static <E> MlList<E> reverse(MlList<E> oldList, MlList<E> newList)
 	{
-		if (list == EMPTY) { return list; }
-		return append(reverse(list.tail), (MlList<E>) EMPTY.add(list.head));
+		if(oldList.isNull()) {return newList;}
+		
+		return reverse(oldList.tail, newList.add(oldList.head));
 	}
 	
 	//**************************************************************************

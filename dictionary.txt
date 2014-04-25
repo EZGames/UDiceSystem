@@ -7,3 +7,5 @@ iterable
 iterables
 typesafe
 enum
+fluency
+stackable
