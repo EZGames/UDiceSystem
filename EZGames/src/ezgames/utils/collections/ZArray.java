@@ -10,7 +10,7 @@ import ezgames.utils.IterableUtil;
 public abstract class ZArray<T> implements Iterable<T>
 {
 	// ***************************************************************************
-	// Public factory constructors *************************************
+	// Public factory constructors 
 	// ***************************************************************************
 	/**
 	 * Creates an instance of a {@code ZRollerArray> containing the the items

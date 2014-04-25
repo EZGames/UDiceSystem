@@ -23,11 +23,13 @@ public class IterableUtil
 	}
 	
 	//TODO: clean code up
-	@SuppressWarnings("unchecked")
 	public static <T> T getFrom(Iterable<T> iterable, int index) throws IndexOutOfBoundsException
 	{
 		//could throw IndexOutOfBoundsException
-		if (iterable instanceof List<?>) { return (T) ((List<?>) iterable).get(index); }
+		if (iterable instanceof List<?>) 
+		{ 
+			return ((List<T>) iterable).get(index); 
+		}
 		
 		return elementAt(iterable, index);
 	}
@@ -44,11 +46,7 @@ public class IterableUtil
 	
 	public static <T> boolean contains(Iterable<T> iterable, T obj)
 	{
-		for (T t : iterable)
-		{
-			if (t.equals(obj)) { return true; }
-		}
-		return false;
+		return (indexOf(iterable, obj) != -1 ? true : false);
 	}
 	
 	//***************************************************************************

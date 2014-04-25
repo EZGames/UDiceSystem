@@ -6,7 +6,7 @@ import org.hamcrest.Factory;
 import org.hamcrest.Description;
 import ezgames.utils.*;
 
-public class IsNotEmptyCollection extends TypeSafeMatcher<Iterable<?>>
+public final class IsNotEmptyCollection extends TypeSafeMatcher<Iterable<?>>
 {
 	// **************************************************************************
 	// Public static factory methods

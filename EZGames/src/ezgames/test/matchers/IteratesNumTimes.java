@@ -7,7 +7,7 @@ import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-public class IteratesNumTimes extends TypeSafeMatcher<Iterator<?>>
+public final class IteratesNumTimes extends TypeSafeMatcher<Iterator<?>>
 {
 	//**************************************************************************
 	// Public static factory methods
@@ -56,8 +56,8 @@ public class IteratesNumTimes extends TypeSafeMatcher<Iterator<?>>
 	//**************************************************************************
 	// Private fields
 	//**************************************************************************
-	int numTimes;
-	int count = 0;
+	private final int numTimes;
+	private int count = 0;
 	
 	//**************************************************************************
 	// Private constructor

@@ -6,7 +6,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import ezgames.utils.IterableUtil;
 
-public class IsIn<E> extends TypeSafeMatcher<E>
+public final class IsIn<E> extends TypeSafeMatcher<E>
 {
 	//**************************************************************************
 	// Public static factory methods
@@ -50,7 +50,7 @@ public class IsIn<E> extends TypeSafeMatcher<E>
 	//***************************************************************************
 	// Private fields
 	//***************************************************************************
-	private Iterable<E> collection;
+	private final Iterable<E> collection;
 	
 	//***************************************************************************
 	// Private constructor
