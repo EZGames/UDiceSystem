@@ -14,24 +14,21 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+	 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	 <script> 
+		$.get( "/UDiceSystem/header.html", function( data ) {
+			$( "header" ).html( data );
+		});
+		$.get( "/UDiceSystem/footer.html", function( data ) {
+			$( "footer" ).html( data );
+		});
+	</script>
   </head>
   <body>
     <div class="wrapper">
-      <header id="header">
-			<a href="/UDiceSystem"><img src="https://ezgames.bitrix24.com/workgroups/group/16/files/Images/UDiceSystemFullLogo.png" alt=""></a>
-			<h2>The Universal Dice System</h2>
-
-			<p class="view"><a href="https://github.com/sad2project/UDiceSystem">View the Project on GitHub <small>sad2project/UDiceSystem</small></a></p>
-
-			<ul>
-				<li><a href="https://github.com/sad2project/UDiceSystem/zipball/master">Download <strong>ZIP File</strong></a></li>
-				<li><a href="https://github.com/sad2project/UDiceSystem/tarball/master">Download <strong>TAR Ball</strong></a></li>
-				<li><a href="https://github.com/sad2project/UDiceSystem">View On <strong>GitHub</strong></a></li>
-			</ul>
-			
-			<a href="/UDiceSystem/dice">The Basic Dice Model</a><br/>
-			<a href="/UDiceSystem/blog">Updates Blog</a>
-      </header>
+      
+		<header></header>
+		
       <section>
         
 		<h1>A New Way to Look at Dice</h1>
@@ -78,11 +75,8 @@
 		<p>The UDice System is admittedly a bit convoluted for working with numeric dice, but, luckily for developers using it, the library contains plenty of convenience methods to make it a lot easier to work with numeric Dice, Faces, and Face Values.</p>
 
       </section>
-      <footer>
-        <p>This project is maintained by Jacob Zimmerman, aka <a href="https://github.com/sad2project">sad2project</a></p>
-        <p>Other contact info: <br>Twitter @CrapEDM <br>Facebook facebook.com/crapedm<br>Email(and other Google stuff) sad2project@gmail.com</p>
-        <p><small>Hosted on GitHub Pages &mdash; Original theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+      
+		<footer></footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
     
