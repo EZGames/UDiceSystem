@@ -1,7 +1,7 @@
 package ezgames.utils.collections;
 
-import static ezgames.test.matchers.IsIteratingNumTimes.*;
-import static ezgames.test.matchers.IsThrowing.*;
+import static ezgames.test.matchers.IteratesNumTimes.*;
+import static ezgames.test.matchers.Throws.*;
 import static org.hamcrest.core.IsEqual.*;
 import static org.hamcrest.core.IsNot.*;
 import static org.hamcrest.core.Is.*;
@@ -36,7 +36,7 @@ public class MultiValueZArrayTest
 		//default 1 was already created with createdWithMultipleValues() in @BeforeClass
 		Iterator<Integer> iter = default1.iterator();
 		
-		assertThat(iter, is(iteratingNumTimes(3)));
+		assertThat(iter, iteratesNumTimes(3));
 	}
 	
 	@Test
@@ -45,14 +45,14 @@ public class MultiValueZArrayTest
 		//default2 was already created with createWithMultipleValues() in @BeforeClass
 		Iterator<Integer> iter = default2.iterator();
 		
-		assertThat(iter, is(iteratingNumTimes(2)));
+		assertThat(iter, iteratesNumTimes(2));
 	}
 	
 	@Test
 	public void shouldRejectNullValue()
 	{
 		Iterable<Integer> nullIter = null;
-		assertThat(()->ZArray.createWithMultipleValues(nullIter), is(throwing(IllegalArgumentException.class)));
+		assertThat(()->ZArray.createWithMultipleValues(nullIter), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
@@ -60,7 +60,7 @@ public class MultiValueZArrayTest
 	{
 		ArrayList<Integer> emptyIterable = new ArrayList<>();
 		
-		assertThat(()->ZArray.createWithMultipleValues(emptyIterable), is(throwing(IllegalArgumentException.class)));
+		assertThat(()->ZArray.createWithMultipleValues(emptyIterable), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ public class MultiValueZArrayTest
 		badIterable.add(null);
 		badIterable.add(3);
 		
-		assertThat(()->ZArray.createWithMultipleValues(badIterable), is(throwing(IllegalArgumentException.class)));
+		assertThat(()->ZArray.createWithMultipleValues(badIterable), throwsAn(IllegalArgumentException.class));
 	}
 	
 	// public static createWithMultipleValues(E...)*****************************
@@ -80,7 +80,7 @@ public class MultiValueZArrayTest
 		ZArray<Integer> arr = ZArray.createWithMultipleValues(1, 2, 3);
 		
 		Iterator<Integer> iter = arr.iterator();
-		assertThat(iter, is(iteratingNumTimes(3)));
+		assertThat(iter, iteratesNumTimes(3));
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class MultiValueZArrayTest
 		ZArray<Integer> arr = ZArray.createWithMultipleValues(3, 4);
 		
 		Iterator<Integer> iter = arr.iterator();
-		assertThat(iter, is(iteratingNumTimes(2)));
+		assertThat(iter, iteratesNumTimes(2));
 	}
 	
 	@Test
@@ -99,7 +99,7 @@ public class MultiValueZArrayTest
 		ZArray<Integer> zarr = ZArray.createWithMultipleValues(arr);
 		
 		Iterator<Integer> iter = zarr.iterator();
-		assertThat(iter, is(iteratingNumTimes(3)));
+		assertThat(iter, iteratesNumTimes(3));
 	}
 	
 	@Test
@@ -109,7 +109,7 @@ public class MultiValueZArrayTest
 		ZArray<Integer> zarr = ZArray.createWithMultipleValues(arr);
 		
 		Iterator<Integer> iter = zarr.iterator();
-		assertThat(iter, is(iteratingNumTimes(2)));
+		assertThat(iter, iteratesNumTimes(2));
 	}
 	
 	@Test
@@ -117,7 +117,7 @@ public class MultiValueZArrayTest
 	{
 		Integer[] arr = null;
 		
-		assertThat(()->ZArray.createWithMultipleValues(arr), is(throwing(IllegalArgumentException.class)));
+		assertThat(()->ZArray.createWithMultipleValues(arr), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
@@ -125,7 +125,7 @@ public class MultiValueZArrayTest
 	{
 		Integer[] arr = {1, null, 3};
 		
-		assertThat(()->ZArray.createWithMultipleValues(arr), is(throwing(IllegalArgumentException.class)));
+		assertThat(()->ZArray.createWithMultipleValues(arr), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
@@ -135,13 +135,13 @@ public class MultiValueZArrayTest
 		arr[0] = 1;
 		arr[2] = 3;
 		
-		assertThat(()->ZArray.createWithMultipleValues(arr), is(throwing(IllegalArgumentException.class)));
+		assertThat(()->ZArray.createWithMultipleValues(arr), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
 	public void shouldRejectAnyNullSeparateValues()
 	{
-		assertThat(()->ZArray.createWithMultipleValues(1, null, 3), is(throwing(IllegalArgumentException.class)));
+		assertThat(()->ZArray.createWithMultipleValues(1, null, 3), throwsAn(IllegalArgumentException.class));
 	}
 	
 	// public int hashCode() ***************************************************
@@ -191,10 +191,10 @@ public class MultiValueZArrayTest
 	
 	// public E get(int) *******************************************************
 	@Test
-	public void shouldThrowIndexOutOfBoundsExceptionWithNonZeroIndex()
+	public void shouldThrowIndexOutOfBoundsExceptionWithBadIndex()
 	{
-		assertThat(()->default1.get(-1), is(throwing(IndexOutOfBoundsException.class)));
-		assertThat(()->default1.get(3), is(throwing(IndexOutOfBoundsException.class)));
+		assertThat(()->default1.get(-1), throwsAn(IndexOutOfBoundsException.class));
+		assertThat(()->default1.get(3), throwsAn(IndexOutOfBoundsException.class));
 	}
 	
 	@Test
@@ -217,13 +217,13 @@ public class MultiValueZArrayTest
 	@Test
 	public void shouldIterateThrice()
 	{
-		assertThat(default1.iterator(), is(iteratingNumTimes(3)));
+		assertThat(default1.iterator(), iteratesNumTimes(3));
 	}
 	
 	@Test
 	public void shouldIterateTwice()
 	{
-		assertThat(default2.iterator(), is(iteratingNumTimes(2)));
+		assertThat(default2.iterator(), iteratesNumTimes(2));
 	}
 	
 	//******************************

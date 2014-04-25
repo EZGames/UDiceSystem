@@ -1,7 +1,7 @@
 package ezgames.utils.collections;
 
-import static ezgames.test.matchers.IsIteratingNumTimes.*;
-import static ezgames.test.matchers.IsThrowing.*;
+import static ezgames.test.matchers.IteratesNumTimes.*;
+import static ezgames.test.matchers.Throws.*;
 import static org.hamcrest.core.IsEqual.*;
 import static org.hamcrest.core.IsNot.*;
 import static org.hamcrest.core.Is.*;
@@ -27,13 +27,13 @@ public class SingleValueZArrayTest
 		ZArray<Integer> arr = ZArray.createWithSingleValue(1);
 		Iterator<Integer> iter = arr.iterator();
 		
-		assertThat(iter, iteratingNumTimes(1));
+		assertThat(iter, iteratesNumTimes(1));
 	}
 	
 	@Test
 	public void shouldRejectNullSingleValue()
 	{
-		assertThat(()->ZArray.createWithSingleValue(null), is(throwing(IllegalArgumentException.class)));
+		assertThat(()->ZArray.createWithSingleValue(null), throwsAn(IllegalArgumentException.class));
 	}
 	
 	// public static ZArray createWithMultipleValues(Iterable<E>)***************
@@ -88,8 +88,8 @@ public class SingleValueZArrayTest
 	@Test
 	public void shouldThrowIndexOutOfBoundsExceptionWithNonZeroIndex()
 	{
-		assertThat(()->default1.get(-1), is(throwing(IndexOutOfBoundsException.class)));
-		assertThat(()->default1.get(1), is(throwing(IndexOutOfBoundsException.class)));
+		assertThat(()->default1.get(-1), throwsAn(IndexOutOfBoundsException.class));
+		assertThat(()->default1.get(1), throwsAn(IndexOutOfBoundsException.class));
 	}
 	
 	@Test
@@ -110,7 +110,7 @@ public class SingleValueZArrayTest
 	@Test
 	public void shouldIterateOnce()
 	{
-		assertThat(default1.iterator(), is(iteratingNumTimes(1)));
+		assertThat(default1.iterator(), iteratesNumTimes(1));
 	}
 	
 	//******************************

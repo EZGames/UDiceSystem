@@ -2,31 +2,50 @@ package ezgames.test.matchers;
 
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
+import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import ezgames.utils.IterableUtil;
 
 public class IsIn<E> extends TypeSafeMatcher<E>
 {
+	//**************************************************************************
+	// Public static factory methods
+	//**************************************************************************
 	@Factory
-	public static <T> IsIn<T> in(Iterable<T> iter)
+	public static <T> Matcher<T> isIn(Iterable<T> iter)
 	{
 		return new IsIn<T>(iter);
 	}
 	
-	//***************************************************************************
+	@Factory
+	public static <T> Matcher<T> isNotIn(Iterable<T> iter)
+	{
+		return org.hamcrest.core.IsNot.not(new IsIn<T>(iter));
+	}
+	
+	//**************************************************************************
 	// Public API methods
-	//***************************************************************************
+	//**************************************************************************
 	@Override
 	public void describeTo(Description description)
 	{
-		description.appendText("is in collection, " + collection + ".");
+		description.appendText("is in collection");
 	}
-
+	
 	@Override
 	protected boolean matchesSafely(E item)
 	{
 		return IterableUtil.contains(collection, item);
 	}
+	
+	//***************************************************************************
+	// Protected methods
+	//***************************************************************************
+	@Override
+	protected void describeMismatchSafely(E item, Description mismatchDescription) 
+	{
+		mismatchDescription.appendText(item.getClass().getSimpleName() + " was not in collection");
+   }
 	
 	//***************************************************************************
 	// Private fields

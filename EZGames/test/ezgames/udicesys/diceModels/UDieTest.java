@@ -2,7 +2,7 @@ package ezgames.udicesys.diceModels;
 
 
 import static ezgames.test.matchers.IsNotEmptyCollection.*;
-import static ezgames.test.matchers.IsThrowing.*;
+import static ezgames.test.matchers.Throws.*;
 import static org.hamcrest.core.IsEqual.*;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
@@ -55,19 +55,19 @@ public class UDieTest
 	@Test
 	public void shouldThrowIllegalArgumentExceptionWithNullName()
 	{
-		assertThat(()->UDie.with(null, faces), throwing(IllegalArgumentException.class));
+		assertThat(()->UDie.with(null, faces), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
 	public void shouldThrowIllegalArgumentExceptionWithNullFaceList()
 	{
-		assertThat(()->UDie.with(name, null), throwing(IllegalArgumentException.class));
+		assertThat(()->UDie.with(name, null), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
 	public void shouldThrowIllegalArgumentExceptionWithNullArguments()
 	{
-		assertThat(()->UDie.with(null, null), throwing(IllegalArgumentException.class));
+		assertThat(()->UDie.with(null, null), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
@@ -105,7 +105,7 @@ public class UDieTest
 	   
 	   Iterable<Relationship> rels = die.listRelationships();
 	   
-	   assertThat(rels, is(notEmptyCollection()));
+	   assertThat(rels, isNotAnEmptyCollection());
 	}
 
 	//**************************************************************************
