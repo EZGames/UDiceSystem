@@ -14,7 +14,7 @@ public interface HashAlgorithm
     * this is the case, the algorithm should return 0. 
     * @return the starting value
     */
-   public int getStartingValue();
+   int getStartingValue();
    
    /**
     * Runs the hashing routine on the given value and returns the new value.
@@ -22,5 +22,5 @@ public interface HashAlgorithm
     * @param currVal - the current total to be used in the calculation
     * @return the hash of val and currVal
     */
-   public int hashValue(int val, int currVal);
+   int hashValue(int val, int currVal);
 }

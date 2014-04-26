@@ -5,9 +5,9 @@ import ezgames.annotations.Immutable;
 @Immutable
 public interface Roll
 {	
-	public abstract Die die();
-	public abstract Face rolledFace();
-	public abstract Iterable<FaceValue> rolledFaceValues();
-	public abstract Iterable<Relationship> rolledRelationships();
-	public abstract Iterable<Effect> rolledEffects();
+	Die die();
+	Face rolledFace();
+	Iterable<FaceValue> rolledFaceValues();
+	Iterable<Relationship> rolledRelationships();
+	Iterable<Effect> rolledEffects();
 }

@@ -14,7 +14,7 @@ public interface Range extends Comparable<Range>
 	 * 1 if a is fully greater than b
 	 */
 	@Override
-	public default int compareTo(Range b)
+	default int compareTo(Range b)
 	{
 		if (this.getMaximum() < b.getMinimum()) return -1;
 		if (this.getMinimum() > b.getMaximum()) return 1;
@@ -24,17 +24,17 @@ public interface Range extends Comparable<Range>
 	/**
 	 * @return the lower bound of the Range
 	 */
-	public int getMinimum();
+	int getMinimum();
 	
 	/**
 	 * @return the upper bound of the Range
 	 */
-	public int getMaximum();
+	int getMaximum();
 	
 	// TODO: finish documentation
-	public boolean isInRange(int value);
+	boolean isInRange(int value);
 	
-	public boolean overlaps(Range b);
+	boolean overlaps(Range b);
 	
 	final int LOWER_BOUND = Integer.MIN_VALUE;
 	final int UPPER_BOUND = Integer.MAX_VALUE;

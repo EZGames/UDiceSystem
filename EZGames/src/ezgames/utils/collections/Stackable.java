@@ -6,7 +6,7 @@ import ezgames.utils.DataChecker;
 public interface Stackable<T extends Stackable<T>>
 {
 	@SuppressWarnings("unchecked")
-	public default MlList<T> and(T another)
+	default MlList<T> and(T another)
 	{
 		DataChecker.checkDataNotNull(another, "Cannot stack null items together");
 		
