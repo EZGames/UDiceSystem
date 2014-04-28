@@ -2,9 +2,9 @@ package ezgames.test.mocks;
 
 import ezgames.math.SimpleRandom;
 
-public class MockRandom implements SimpleRandom 
+public class MockSimpleRandom implements SimpleRandom 
 {
-	public MockRandom(int numToProduce)
+	public MockSimpleRandom(int numToProduce)
 	{
 		this.numToRoll = numToProduce;
 	}

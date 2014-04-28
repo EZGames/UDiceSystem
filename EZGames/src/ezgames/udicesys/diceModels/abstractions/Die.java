@@ -11,12 +11,12 @@ public interface Die extends Iterable<Face>, Stackable<Die>
     * Does a random 'roll' of the Die, returning the {@link Roll}
     * @return a random Roll of the Die
     */
-   public Roll roll();
+   Roll roll();
    
    /**
     * @return the name of the die
     */
-   public String name();
+   String name();
    
    //public int totalWeight();
    //public int numSides();
@@ -24,10 +24,10 @@ public interface Die extends Iterable<Face>, Stackable<Die>
     * Returns an Iterator over the Die's {@link Face}s
     */
    @Override
-   public Iterator<Face> iterator();
+   Iterator<Face> iterator();
    
    /**
     * @return an {@link Iterable} of all the {@link Relationship}s for the Die
     */
-   public Iterable<Relationship> listRelationships();
+   Iterable<Relationship> listRelationships();
 }
