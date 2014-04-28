@@ -17,17 +17,19 @@
 	 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	 <script> 
 		$.get( "/UDiceSystem/header.html", function( data ) {
-			$( "header" ).html( data );
+			$( "#header" ).html( data );
 		});
 		$.get( "/UDiceSystem/footer.html", function( data ) {
-			$( "footer" ).html( data );
+			$( "#footer" ).html( data );
 		});
 	</script>
   </head>
   <body>
     <div class="wrapper">
       
-		<header></header>
+		<header>
+			<div id="header"></div>
+		</header>
 		
       <section>
         <h1>OutputRange</h1>
@@ -39,7 +41,16 @@
 		  <p>As mentioned before, <code>OutputRange</code>s are the building blocks of <code>Relationship</code>s, where every value has one and only one <code>OutputRange</code>. You should check out <code>Relationship</code>s to find out more about that.</p>
       </section>
       
-		<footer></footer>
+		<footer>
+			<p><strong>The Individual Pieces of the Dice Model:</strong><br>
+			Dice Set<br>
+			Die<br>
+			Face<br>
+			Face Value<br>
+			Relationship<br>
+			<a href="/UDiceSystem/dice/parts/OutputRange/index.html">Output Range</a></p>
+			<div id="footer"></div>
+		</footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
     

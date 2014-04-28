@@ -17,10 +17,10 @@
 	 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	 <script> 
 		$.get( "/UDiceSystem/header.html", function( data ) {
-			$( "header" ).html( data );
+			$( "#header" ).html( data );
 		});
 		$.get( "/UDiceSystem/footer.html", function( data ) {
-			$( "footer" ).html( data );
+			$( "#footer" ).html( data );
 		});
 	</script>
   </head>
@@ -33,7 +33,9 @@
 		
 		</section>
       
-		<footer></footer>
+		<footer>
+			<div id="footer"></div>
+		</footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
     
