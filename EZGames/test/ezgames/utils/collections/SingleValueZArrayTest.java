@@ -6,7 +6,6 @@ import static org.hamcrest.core.IsEqual.*;
 import static org.hamcrest.core.IsNot.*;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
-import java.util.ArrayList;
 import java.util.Iterator;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -16,15 +15,15 @@ public class SingleValueZArrayTest
 	@BeforeClass
 	public static void beforeClass()
 	{
-		default1 = ZArray.createWithSingleValue(1);
-		default2 = ZArray.createWithSingleValue(2);
+		default1 = ZArrayFactory.createWithSingleValue(1);
+		default2 = ZArrayFactory.createWithSingleValue(2);
 	}
 	
 	// public static ZArray CreateWithSingleValue(E) ***************************
 	@Test
 	public void shouldCreateZArrayWithSingleValue()
 	{
-		ZArray<Integer> arr = ZArray.createWithSingleValue(1);
+		SimpleCollection<Integer> arr = ZArrayFactory.createWithSingleValue(1);
 		Iterator<Integer> iter = arr.iterator();
 		
 		assertThat(iter, iteratesNumTimes(1));
@@ -33,17 +32,16 @@ public class SingleValueZArrayTest
 	@Test
 	public void shouldRejectNullSingleValue()
 	{
-		assertThat(()->ZArray.createWithSingleValue(null), throwsAn(IllegalArgumentException.class));
+		assertThat(()->ZArrayFactory.createWithSingleValue(null), throwsAn(IllegalArgumentException.class));
 	}
 	
 	// public static ZArray createWithMultipleValues(Iterable<E>)***************
 	@Test
 	public void shouldCreateZArrayWithSingleValueDespiteMultipleValueCall()
 	{
-		ArrayList<Integer> oneValueIterable = new ArrayList<>();
-		oneValueIterable.add(1);
+		MlList<Integer> oneValueIterable = MlList.<Integer>empty().add(1);
 		
-		ZArray<Integer> arr = ZArray.createWithMultipleValues(oneValueIterable);
+		SimpleCollection<Integer> arr = ZArrayFactory.createWithMultipleValues(oneValueIterable);
 		
 		assertThat(arr, is(equalTo(default1)));
 	}
@@ -58,7 +56,7 @@ public class SingleValueZArrayTest
 	@Test
 	public void shouldHaveSameHashCodes()
 	{
-		ZArray<Integer> other1 = ZArray.createWithSingleValue(1);
+		SimpleCollection<Integer> other1 = ZArrayFactory.createWithSingleValue(1);
 		
 		assertThat(default1.hashCode(), is(equalTo(other1.hashCode())));
 	}
@@ -79,7 +77,7 @@ public class SingleValueZArrayTest
 	@Test
 	public void shouldBeEqual()
 	{
-		ZArray<Integer> also1 = ZArray.createWithSingleValue(1);
+		SimpleCollection<Integer> also1 = ZArrayFactory.createWithSingleValue(1);
 		
 		assertThat(default1, is(equalTo(also1)));
 	}
@@ -116,6 +114,6 @@ public class SingleValueZArrayTest
 	//******************************
 	// private fields
 	//******************************
-	private static ZArray<Integer> default1;
-	private static ZArray<Integer> default2;
+	private static SimpleCollection<Integer> default1;
+	private static SimpleCollection<Integer> default2;
 }

@@ -1,5 +1,7 @@
 package ezgames.udicesys.diceModels.abstractions;
 
+import ezgames.utils.collections.SimpleCollection;
+
 public interface DiceSet extends Iterable<Die>
 {
 	/**
@@ -48,5 +50,5 @@ public interface DiceSet extends Iterable<Die>
 	/**
 	 * @return a collection of the Relationships used in all of the Dice (multiple {@code Die} objects)
 	 */
-	Iterable<Relationship> listRelationships();	
+	SimpleCollection<Relationship> listRelationships();	
 }

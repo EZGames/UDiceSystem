@@ -2,6 +2,7 @@ package ezgames.udicesys.diceModels.abstractions;
 
 import java.util.Iterator;
 import ezgames.annotations.Immutable;
+import ezgames.utils.collections.SimpleCollection;
 import ezgames.utils.collections.Stackable;
 
 @Immutable
@@ -29,5 +30,5 @@ public interface Die extends Iterable<Face>, Stackable<Die>
    /**
     * @return an {@link Iterable} of all the {@link Relationship}s for the Die
     */
-   Iterable<Relationship> listRelationships();
+   SimpleCollection<Relationship> listRelationships();
 }

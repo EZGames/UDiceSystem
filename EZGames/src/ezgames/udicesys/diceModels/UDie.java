@@ -1,7 +1,6 @@
 package ezgames.udicesys.diceModels;
 
 import java.util.Iterator;
-
 import ezgames.annotations.Immutable;
 import ezgames.udicesys.diceModels.abstractions.Die;
 import ezgames.udicesys.diceModels.abstractions.Face;
@@ -9,6 +8,7 @@ import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.udicesys.diceModels.abstractions.Roll;
 import ezgames.utils.DataChecker;
 import ezgames.utils.collections.MlList;
+import ezgames.utils.collections.SimpleCollection;
 
 @Immutable
 final class UDie implements Die
@@ -16,7 +16,7 @@ final class UDie implements Die
 	//**************************************************************************
 	// static factory methods
 	//**************************************************************************
-	public static Die with( final String name, final Iterable<Face> faces)
+	public static Die with( final String name, final SimpleCollection<Face> faces)
 	{
 		DataChecker.checkStringDataNotNull(name, "Die Requires non-null, non-empty name");
 		DataChecker.checkIterableNotEmptyOrNull(faces, "Die Requires non-null, non-empty list of non-null faces");
@@ -33,7 +33,7 @@ final class UDie implements Die
 	}
 	
 	@Override
-	public Iterable<Relationship> listRelationships()
+	public SimpleCollection<Relationship> listRelationships()
 	{
 		MlList<Relationship> rels = MlList.<Relationship>empty();
 		for(Face face : faces)

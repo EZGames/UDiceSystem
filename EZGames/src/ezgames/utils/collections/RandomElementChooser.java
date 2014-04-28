@@ -4,7 +4,6 @@ import java.util.Iterator;
 import ezgames.math.EZRandom;
 import ezgames.math.SimpleRandom;
 import ezgames.utils.DataChecker;
-import ezgames.utils.IterableUtil;
 import ezgames.utils.Weighted;
 
 //TODO: document and test
@@ -13,24 +12,24 @@ public abstract class RandomElementChooser<E>
 	//**************************************************************************
 	// Static factory methods
 	//**************************************************************************
-	public static <T> RandomElementChooser<T> fromCollection(Iterable<T> collection)
+	public static <T> RandomElementChooser<T> fromCollection(SimpleCollection<T> collection)
 	{
 		return fromCollection(collection, new EZRandom());
 	}
 	
-	public static <T> RandomElementChooser<T> fromCollection(Iterable<T> collection, SimpleRandom randomizer)
+	public static <T> RandomElementChooser<T> fromCollection(SimpleCollection<T> collection, SimpleRandom randomizer)
 	{
 		checkInput(collection, randomizer);
 		
 		return new SimpleRandomElementChooser<>(collection, randomizer);
 	}
 	
-	public static <T> RandomElementChooser<T> fromWeightedCollection(Iterable<Weighted<T>> weightedCollection)
+	public static <T> RandomElementChooser<T> fromWeightedCollection(SimpleCollection<Weighted<T>> weightedCollection)
 	{
 		return fromWeightedCollection(weightedCollection, new EZRandom());
 	}
 	
-	public static <T> RandomElementChooser<T> fromWeightedCollection(Iterable<Weighted<T>> weightedCollection, SimpleRandom randomizer)
+	public static <T> RandomElementChooser<T> fromWeightedCollection(SimpleCollection<Weighted<T>> weightedCollection, SimpleRandom randomizer)
 	{
 		checkInput(weightedCollection, randomizer);
 		DataChecker.checkIterableDataNotNull(weightedCollection, "Cannot create new RandomeElementChooser from a weighted collection containing null elements");
@@ -46,7 +45,7 @@ public abstract class RandomElementChooser<E>
 	//**************************************************************************
 	// Private static helper methods
 	//**************************************************************************
-	private static void checkInput(Iterable<?> coll, SimpleRandom rand)
+	private static void checkInput(SimpleCollection<?> coll, SimpleRandom rand)
 	{
 		DataChecker.checkIterableNotEmptyOrNull(coll, "Cannot create new RandomElementChooser from an empty or null collection");
 		DataChecker.checkDataNotNull(rand, "Cannot create new RandomElementChooser with a null random number generator");
@@ -59,19 +58,19 @@ public abstract class RandomElementChooser<E>
 	{		
 		public E choose()
 		{
-			int randIndex = randomizer.randBetween(0, IterableUtil.sizeOf(collection) - 1);
+			int randIndex = randomizer.randBetween(0, collection.size() - 1);
 			
-			return IterableUtil.elementAt(collection, randIndex);
+			return collection.get(randIndex);
 		}
 		
-		public SimpleRandomElementChooser(Iterable<E> collection, SimpleRandom randomizer)
+		public SimpleRandomElementChooser(SimpleCollection<E> collection, SimpleRandom randomizer)
 		{
 			
 			this.collection = collection;
 			this.randomizer = randomizer;
 		}
 		
-		private final Iterable<E> collection;
+		private final SimpleCollection<E> collection;
 		private final SimpleRandom randomizer;
 	}
 	
@@ -87,13 +86,13 @@ public abstract class RandomElementChooser<E>
 			return getFromWeightedIndex(collection.iterator(), randIndex, 0);
 		}
 		
-		public WeightedRandomElementChooser(Iterable<Weighted<E>> collection, SimpleRandom randomizer)
+		public WeightedRandomElementChooser(SimpleCollection<Weighted<E>> collection, SimpleRandom randomizer)
 		{
 			this.collection = collection;
 			this.randomizer = randomizer;
 		}
 		
-		private Iterable<Weighted<E>> collection;
+		private SimpleCollection<Weighted<E>> collection;
 		private SimpleRandom randomizer;
 		
 		private int totalWeight(Iterator<Weighted<E>> iter, int runningTotal)

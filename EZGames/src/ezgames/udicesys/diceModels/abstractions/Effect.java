@@ -1,6 +1,8 @@
 package ezgames.udicesys.diceModels.abstractions;
 
+import ezgames.utils.collections.SimpleCollection;
+
 public interface Effect
 {	
-	Iterable<Roll> trigger(Roll original);
+	SimpleCollection<Roll> trigger(Roll original);
 }

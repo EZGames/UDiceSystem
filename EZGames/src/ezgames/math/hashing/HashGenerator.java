@@ -11,7 +11,7 @@ package ezgames.math.hashing;
  * hasher.getStartingValue();<br> &emsp; code = hasher.hash(member1, out);<br>
  * &emsp; code = hasher.hash(member2, out);<br> &emsp; return code;<br> }
  */
-public class HashUtil
+public class HashGenerator
 {
 	// **************************************************************************
 	// Built-in HashAlgorithm Getters
@@ -50,9 +50,9 @@ public class HashUtil
 	 * Constructs a new {@code HashUtil} with a default {@code IHashAlgorithm} of
 	 * {@code FnvHashAlgorithm}.
 	 */
-	public static HashUtil createDefaultHashUtil()
+	public static HashGenerator createDefaultHashUtil()
 	{
-		return new HashUtil(new FnvHashAlgorithm());
+		return new HashGenerator(new FnvHashAlgorithm());
 	}
 	
 	/**
@@ -66,9 +66,9 @@ public class HashUtil
 	 * {@code HashUtil}'s static methods for all its built-in hashing techniques.
 	 * @param strategy - the {@code IHashAlgorithm} to apply
 	 */
-	public static HashUtil createHashUtilWith(HashAlgorithm strategy)
+	public static HashGenerator createHashUtilWith(HashAlgorithm strategy)
 	{
-		return new HashUtil(strategy);
+		return new HashGenerator(strategy);
 	}
 	
 	// **************************************************************************
@@ -205,7 +205,7 @@ public class HashUtil
 	// **************************************************************************
 	// Private constructors
 	// **************************************************************************
-	private HashUtil(HashAlgorithm strategy)
+	private HashGenerator(HashAlgorithm strategy)
 	{
 		this.strategy = strategy;
 	}

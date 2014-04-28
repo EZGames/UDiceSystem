@@ -13,22 +13,21 @@ import ezgames.udicesys.diceModels.abstractions.FaceValue;
 import ezgames.udicesys.diceModels.abstractions.OutputRange;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.utils.collections.MlList;
-import java.util.ArrayList;
+import ezgames.utils.collections.SimpleCollection;
 import java.util.Iterator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class UDieTest
 {	
-	static ArrayList<Face> faces;
+	static SimpleCollection<Face> faces;
 	static String name;
 	
 	@BeforeClass
 	public static void beforeClass()
 	{
 		Face onlyFace = defaultFace();
-		faces = new ArrayList<>();
-		faces.add(onlyFace);
+		faces = MlList.<Face>empty().add(onlyFace);
 		
 		name = "testDie";		
 	}
@@ -38,11 +37,11 @@ public class UDieTest
 		return new Face() 
 			{
 				public Iterator<FaceValue> iterator() { return null; }				
-				public Iterable<Relationship> listRelationships() { return defaultRelationshipList(); }
+				public SimpleCollection<Relationship> listRelationships() { return defaultRelationshipList(); }
 			};
 	}
 	
-	public static Iterable<Relationship> defaultRelationshipList()
+	public static SimpleCollection<Relationship> defaultRelationshipList()
 	{
 		Relationship rel = new Relationship() 
 			{

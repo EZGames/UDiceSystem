@@ -4,7 +4,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import ezgames.utils.IterableUtil;
+import ezgames.utils.collections.SimpleCollection;
 
 public final class IsIn<E> extends TypeSafeMatcher<E>
 {
@@ -35,7 +35,8 @@ public final class IsIn<E> extends TypeSafeMatcher<E>
 	@Override
 	protected boolean matchesSafely(E item)
 	{
-		return IterableUtil.contains(collection, item);
+		
+		return collection.contains(item);
 	}
 	
 	//***************************************************************************
@@ -50,13 +51,13 @@ public final class IsIn<E> extends TypeSafeMatcher<E>
 	//***************************************************************************
 	// Private fields
 	//***************************************************************************
-	private final Iterable<E> collection;
+	private final SimpleCollection<E> collection;
 	
 	//***************************************************************************
 	// Private constructor
 	//***************************************************************************
 	private IsIn(Iterable<E> iterable)
 	{
-		collection = iterable;
+		collection = SimpleCollection.from(iterable);
 	}
 }

@@ -2,9 +2,8 @@ package ezgames.utils.collections;
 
 import java.util.Iterator;
 import ezgames.annotations.Immutable;
-import ezgames.math.hashing.HashUtil;
+import ezgames.math.hashing.HashGenerator;
 import ezgames.utils.DataChecker;
-import ezgames.utils.IterableUtil;
 import ezgames.utils.Weighted;
 
 //TODO: testing and documentation
@@ -32,7 +31,7 @@ import ezgames.utils.Weighted;
  * @param <E> - The type of elements stored in the MlList
  */
 @Immutable
-public class MlList<E> implements Iterable<E>
+public class MlList<E> implements SimpleCollection<E>
 {
 	//**************************************************************************
 	// Public static factories
@@ -93,7 +92,7 @@ public class MlList<E> implements Iterable<E>
 	
 	public static <E> MlList<E> reverse(MlList<E> list)
 	{
-		if (list.isNull() || list.tail.isNull()) { return list; }
+		if (list.isEmpty() || list.tail.isEmpty()) { return list; }
 		
 		return reverse(list, MlList.<E>empty());
 	}
@@ -120,7 +119,7 @@ public class MlList<E> implements Iterable<E>
 	
 	public boolean contains(final E obj)
 	{
-		return IterableUtil.contains(this, obj);
+		return indexOf(obj) != -1;
 	}
 	
 	public boolean equals(Object o)
@@ -136,12 +135,23 @@ public class MlList<E> implements Iterable<E>
 	
 	public E get(int index)
 	{
-		return IterableUtil.getFrom(this, index);
+		if(null == head)
+		{
+			throw new IndexOutOfBoundsException();
+		}
+		else if(index == 0)
+		{
+			return head;
+		}
+		else 
+		{
+			return tail.get(index - 1);
+		}
 	}
 	
 	public int hashCode()
 	{
-		HashUtil hasher = HashUtil.createDefaultHashUtil();
+		HashGenerator hasher = HashGenerator.createDefaultHashUtil();
 		int code = hasher.getStartingValue();
 		code = hasher.hash(head, code);
 		return hasher.hash(tail, code);
@@ -154,10 +164,10 @@ public class MlList<E> implements Iterable<E>
 	
 	public int indexOf(E obj)
 	{
-		return IterableUtil.indexOf(this, obj);
+		return indexOf(obj, 0);
 	}
 	
-	public boolean isNull()
+	public boolean isEmpty()
 	{
 		return head == null;
 	}
@@ -175,7 +185,7 @@ public class MlList<E> implements Iterable<E>
 	
 	public int size()
 	{
-		return IterableUtil.sizeOf(this);
+		return size;
 	}
 	
 	public MlList<E> tail()
@@ -185,7 +195,7 @@ public class MlList<E> implements Iterable<E>
 	
 	public String toString()
 	{
-		if (isNull()) { return ""; }
+		if (isEmpty()) { return ""; }
 		return "[" + head.toString() + "]" + tail.toString();
 	}
 	
@@ -244,9 +254,28 @@ public class MlList<E> implements Iterable<E>
 	//**************************************************************************
 	private static <E> MlList<E> reverse(MlList<E> oldList, MlList<E> newList)
 	{
-		if(oldList.isNull()) {return newList;}
+		if(oldList.isEmpty()) {return newList;}
 		
 		return reverse(oldList.tail, newList.add(oldList.head));
+	}
+	
+	//***************************************************************************
+	// Private helpers
+	//***************************************************************************
+	private int indexOf(E obj, int currIndex)
+	{
+		if(head == null)
+		{
+			return -1;
+		}
+		else if(head.equals(obj))
+		{
+			return currIndex;
+		}
+		else
+		{
+			return tail.indexOf(obj, currIndex + 1);
+		}
 	}
 	
 	//**************************************************************************
@@ -263,7 +292,7 @@ public class MlList<E> implements Iterable<E>
 		
 		public boolean hasNext()
 		{
-			return !next.isNull();
+			return !next.isEmpty();
 		}
 		
 		public E next()

@@ -1,6 +1,7 @@
 package ezgames.udicesys.diceModels.abstractions;
 
 import ezgames.annotations.Immutable;
+import ezgames.utils.collections.SimpleCollection;
 
 @Immutable
 public interface Face extends Iterable<FaceValue>
@@ -14,6 +15,6 @@ public interface Face extends Iterable<FaceValue>
 	// */
 	// boolean isNumericFace();
 	// boolean isSingleValueFace();
-	Iterable<Relationship> listRelationships();
+	SimpleCollection<Relationship> listRelationships();
 	// Iterable<Effect> listEffects();
 }

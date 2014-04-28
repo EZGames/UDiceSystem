@@ -4,7 +4,7 @@ import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.Matcher;
 import org.hamcrest.Factory;
 import org.hamcrest.Description;
-import ezgames.utils.*;
+import ezgames.utils.collections.SimpleCollection;
 
 public final class IsNotEmptyCollection extends TypeSafeMatcher<Iterable<?>>
 {
@@ -29,7 +29,8 @@ public final class IsNotEmptyCollection extends TypeSafeMatcher<Iterable<?>>
 	@Override
 	public boolean matchesSafely(Iterable<?> iter)
 	{
-		return IterableUtil.sizeOf(iter) > 0;
+		SimpleCollection<?> coll = SimpleCollection.from(iter);
+		return coll.size() > 0;
 	}
 	
 	public void describeTo(Description desc)

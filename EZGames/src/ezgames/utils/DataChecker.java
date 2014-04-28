@@ -1,5 +1,7 @@
 package ezgames.utils;
 
+import ezgames.utils.collections.SimpleCollection;
+
 //TODO: finish documentation, then test
 public class DataChecker
 {
@@ -47,7 +49,7 @@ public class DataChecker
 	 * @throws IllegalArgumentException if the given {@code Iterable} or any of
 	 *             its elements are null
 	 */
-	public static void checkIterableDataNotNull(Iterable<?> i, String errMessage)
+	public static void checkIterableDataNotNull(SimpleCollection<?> i, String errMessage)
 	{
 		checkDataNotNull(i, errMessage);
 		
@@ -67,7 +69,7 @@ public class DataChecker
 	 * @throws IllegalArgumentException if the given {@code Iterable} is null or
 	 *             any of its elements are null or empty
 	 */
-	public static void checkStringIterableNotNull(Iterable<String> i, String errMessage)
+	public static void checkStringIterableNotNull(SimpleCollection<String> i, String errMessage)
 	{
 		checkDataNotNull(i, errMessage);
 		
@@ -87,10 +89,10 @@ public class DataChecker
 	 * @throws IllegalArgumentException if the given {@code Iterable} is null or
 	 *             empty
 	 */
-	public static void checkIterableNotEmptyOrNull(Iterable<?> i, String errMessage)
+	public static void checkIterableNotEmptyOrNull(SimpleCollection<?> i, String errMessage)
 	{
 		checkDataNotNull(i, errMessage);
-		if (IterableUtil.sizeOf(i) == 0)
+		if (i.size() == 0)
 		{
 			throw new IllegalArgumentException(errMessage);
 		}
