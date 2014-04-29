@@ -1,14 +1,19 @@
 package ezgames.utils.collections;
 
 import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 import ezgames.utils.DataChecker;
+import ezgames.utils.exceptions.NullArgumentException;
 
 final class MultiValueZArray<T> implements SimpleCollection<T>
 {
 	//***************************************************************************
 	// Public constructors
 	//***************************************************************************
-	public MultiValueZArray(SimpleCollection<T> collectionToCopy) throws IllegalArgumentException
+	public MultiValueZArray(SimpleCollection<T> collectionToCopy) throws NullArgumentException
 	{
 		DataChecker.checkIterableNotEmptyOrNull(collectionToCopy, "Cannot create a ZArray from a null or empty iterable");
 		
@@ -18,7 +23,7 @@ final class MultiValueZArray<T> implements SimpleCollection<T>
 	}
 	
 	@SafeVarargs
-	public MultiValueZArray(T... collectionToCopy) throws IllegalArgumentException
+	public MultiValueZArray(T... collectionToCopy) throws NullArgumentException
 	{
 		DataChecker.checkArrayNotEmptyOrNull(collectionToCopy, "Cannot create a ZArray from a null or empty list of elements");
 		
@@ -116,6 +121,12 @@ final class MultiValueZArray<T> implements SimpleCollection<T>
 		return array.length;
 	}
 	
+	public Stream<T> stream()
+	{
+		Spliterator<T> split = Spliterators.spliterator(iterator(), size(), Spliterator.IMMUTABLE);
+		return StreamSupport.stream(split, false);
+	}
+	
 	// TODO toString()
 	//***************************************************************************
 	// Private fields
@@ -128,7 +139,7 @@ final class MultiValueZArray<T> implements SimpleCollection<T>
 	// Private setters
 	//***************************************************************************
 	// puts the given elements at the current location in the array
-	private void insertCollection(SimpleCollection<T> collection) throws IllegalArgumentException
+	private void insertCollection(SimpleCollection<T> collection) throws NullArgumentException
 	{
 		int index = 0;
 		for (T element : collection)

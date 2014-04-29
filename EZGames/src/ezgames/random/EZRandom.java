@@ -1,4 +1,4 @@
-package ezgames.math;
+package ezgames.random;
 
 import java.util.Calendar;
 

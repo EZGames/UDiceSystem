@@ -5,7 +5,7 @@ import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-public class Throws<X extends Throwable> extends TypeSafeMatcher<Runnable>
+public class Throws<X extends Throwable> extends TypeSafeMatcher<ThrowingRunnable<X>>
 {
 	//**************************************************************************
 	// Public static factory methods
@@ -23,13 +23,13 @@ public class Throws<X extends Throwable> extends TypeSafeMatcher<Runnable>
 	}
 	
 	@Factory
-	public static <X extends Throwable> Matcher<Runnable> doesNotThrowA(Class<X> ex)
+	public static <X extends Throwable> Matcher<ThrowingRunnable<X>> doesNotThrowA(Class<X> ex)
 	{
 		return org.hamcrest.core.IsNot.not(throwsA(ex));
 	}
 	
 	@Factory
-	public static <X extends Throwable> Matcher<Runnable> doesNotThrowAn(Class<X> ex)
+	public static <X extends Throwable> Matcher<ThrowingRunnable<X>> doesNotThrowAn(Class<X> ex)
 	{
 		return doesNotThrowA(ex);
 	}
@@ -44,7 +44,7 @@ public class Throws<X extends Throwable> extends TypeSafeMatcher<Runnable>
 	}
 
 	@Override
-	protected boolean matchesSafely(Runnable item)
+	protected boolean matchesSafely(ThrowingRunnable<X> item)
 	{
 		try
 		{
@@ -69,7 +69,7 @@ public class Throws<X extends Throwable> extends TypeSafeMatcher<Runnable>
 	// Protected methods
 	//***************************************************************************
 	@Override
-	protected void describeMismatchSafely(Runnable item, Description mismatchDescription) 
+	protected void describeMismatchSafely(ThrowingRunnable<X> item, Description mismatchDescription) 
 	{
 		mismatchDescription.appendText("was a ")
 		   .appendText(actualExType.getName());

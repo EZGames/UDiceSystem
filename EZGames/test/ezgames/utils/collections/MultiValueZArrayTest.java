@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ezgames.test.matchers.ThrowingRunnable;
+import ezgames.utils.exceptions.NullArgumentException;
 
 public class MultiValueZArrayTest
 {
 	@BeforeClass
-	public static void beforeClass()
+	public static void beforeClass() throws IllegalArgumentException, NullArgumentException
 	{
 		MlList<Integer> list1 = MlList.<Integer>empty().add(0).and(1).and(2);
 		
@@ -48,7 +50,7 @@ public class MultiValueZArrayTest
 	public void shouldRejectNullValue()
 	{
 		SimpleCollection<Integer> nullIter = null;
-		assertThat(()->ZArrayFactory.createWithMultipleValues(nullIter), throwsAn(IllegalArgumentException.class));
+		assertThat(()->ZArrayFactory.createWithMultipleValues(nullIter), throwsAn(NullArgumentException.class));
 	}
 	
 	@Test
@@ -57,7 +59,20 @@ public class MultiValueZArrayTest
 		ArrayList<Integer> emptyArrayList = new ArrayList<>();
 		SimpleCollection<Integer> emptyIterable = SimpleCollection.fromList(emptyArrayList);
 		
-		assertThat(()->ZArrayFactory.createWithMultipleValues(emptyIterable), throwsAn(IllegalArgumentException.class));
+		assertThat(seeNextMethod(emptyIterable), throwsAn(IllegalArgumentException.class));
+	}
+	
+	private ThrowingRunnable<IllegalArgumentException> seeNextMethod(SimpleCollection<?> coll)
+	{
+		return new ThrowingRunnable<IllegalArgumentException>()
+				{
+					public void run() throws IllegalArgumentException
+					{
+						try
+						{ ZArrayFactory.createWithMultipleValues(coll); }
+						catch(NullArgumentException x) {}
+					}
+				};
 	}
 	
 	@Test
@@ -68,12 +83,12 @@ public class MultiValueZArrayTest
 		badArrayList.add(3);
 		SimpleCollection<Integer> badIterable = SimpleCollection.fromList(badArrayList);
 		
-		assertThat(()->ZArrayFactory.createWithMultipleValues(badIterable), throwsAn(IllegalArgumentException.class));
+		assertThat(()->ZArrayFactory.createWithMultipleValues(badIterable), throwsAn(NullArgumentException.class));
 	}
 	
 	// public static createWithMultipleValues(E...)*****************************
 	@Test
-	public void shouldCreateZArrayWithThreeValuesFromSeparateValues()
+	public void shouldCreateZArrayWithThreeValuesFromSeparateValues() throws NullArgumentException
 	{
 		SimpleCollection<Integer> arr = ZArrayFactory.createWithMultipleValues(1, 2, 3);
 		
@@ -82,7 +97,7 @@ public class MultiValueZArrayTest
 	}
 	
 	@Test
-	public void shouldCreateZArrayWithTwoValuesFromSeparateValues()
+	public void shouldCreateZArrayWithTwoValuesFromSeparateValues() throws NullArgumentException
 	{
 		SimpleCollection<Integer> arr = ZArrayFactory.createWithMultipleValues(3, 4);
 		
@@ -91,7 +106,7 @@ public class MultiValueZArrayTest
 	}
 	
 	@Test
-	public void shouldCreateZArrayWithThreeValuesFromArray()
+	public void shouldCreateZArrayWithThreeValuesFromArray() throws NullArgumentException
 	{
 		Integer[] arr = {1, 2, 3};
 		SimpleCollection<Integer> zarr = ZArrayFactory.createWithMultipleValues(arr);
@@ -101,7 +116,7 @@ public class MultiValueZArrayTest
 	}
 	
 	@Test
-	public void shouldCreateZArrayWithTwoValuesFromArray()
+	public void shouldCreateZArrayWithTwoValuesFromArray() throws NullArgumentException
 	{
 		Integer[] arr = {3, 4};
 		SimpleCollection<Integer> zarr = ZArrayFactory.createWithMultipleValues(arr);
@@ -115,7 +130,7 @@ public class MultiValueZArrayTest
 	{
 		Integer[] arr = null;
 		
-		assertThat(()->ZArrayFactory.createWithMultipleValues(arr), throwsAn(IllegalArgumentException.class));
+		assertThat(()->ZArrayFactory.createWithMultipleValues(arr), throwsAn(NullArgumentException.class));
 	}
 	
 	@Test
@@ -123,7 +138,7 @@ public class MultiValueZArrayTest
 	{
 		Integer[] arr = {1, null, 3};
 		
-		assertThat(()->ZArrayFactory.createWithMultipleValues(arr), throwsAn(IllegalArgumentException.class));
+		assertThat(()->ZArrayFactory.createWithMultipleValues(arr), throwsAn(NullArgumentException.class));
 	}
 	
 	@Test
@@ -133,13 +148,13 @@ public class MultiValueZArrayTest
 		arr[0] = 1;
 		arr[2] = 3;
 		
-		assertThat(()->ZArrayFactory.createWithMultipleValues(arr), throwsAn(IllegalArgumentException.class));
+		assertThat(()->ZArrayFactory.createWithMultipleValues(arr), throwsAn(NullArgumentException.class));
 	}
 	
 	@Test
 	public void shouldRejectAnyNullSeparateValues()
 	{
-		assertThat(()->ZArrayFactory.createWithMultipleValues(1, null, 3), throwsAn(IllegalArgumentException.class));
+		assertThat(()->ZArrayFactory.createWithMultipleValues(1, null, 3), throwsAn(NullArgumentException.class));
 	}
 	
 	// public int hashCode() ***************************************************
@@ -150,7 +165,7 @@ public class MultiValueZArrayTest
 	}
 	
 	@Test
-	public void shouldHaveSameHashCodes()
+	public void shouldHaveSameHashCodes() throws IllegalArgumentException, NullArgumentException
 	{
 		MlList<Integer> otherList = MlList.<Integer>empty().add(0).and(1).and(2);
 		
@@ -173,7 +188,7 @@ public class MultiValueZArrayTest
 	}
 	
 	@Test
-	public void shouldBeEqual()
+	public void shouldBeEqual() throws IllegalArgumentException, NullArgumentException
 	{
 		MlList<Integer> alsoList1 = MlList.<Integer>empty().add(0).and(1).and(2);
 		

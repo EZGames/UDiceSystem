@@ -1,15 +1,20 @@
 package ezgames.utils.collections;
 
 import java.util.Iterator;
-import ezgames.math.hashing.HashGenerator;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+import ezgames.hashing.HashGenerator;
 import ezgames.utils.DataChecker;
+import ezgames.utils.exceptions.NullArgumentException;
 
 final class SingleValueZArray<T> implements SimpleCollection<T>
 {
 	//***************************************************************************
 	// Public constructors
 	//***************************************************************************
-	public SingleValueZArray(T o) throws IllegalArgumentException
+	public SingleValueZArray(T o) throws NullArgumentException
 	{
 		DataChecker.checkDataNotNull(o, "Cannot create a ZArray from a null element");
 		item = o;
@@ -81,6 +86,12 @@ final class SingleValueZArray<T> implements SimpleCollection<T>
 	public int size()
 	{
 		return 1;
+	}
+	
+	public Stream<T> stream()
+	{
+		Spliterator<T> split = Spliterators.spliterator(iterator(), size(), Spliterator.IMMUTABLE);
+		return StreamSupport.stream(split, false);
 	}
 	
 	// TODO toString()

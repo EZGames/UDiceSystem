@@ -14,6 +14,7 @@ import ezgames.udicesys.diceModels.abstractions.OutputRange;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.utils.collections.MlList;
 import ezgames.utils.collections.SimpleCollection;
+import ezgames.utils.exceptions.NullArgumentException;
 import java.util.Iterator;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -52,32 +53,32 @@ public class UDieTest
 	
 	// public static with() ****************************************************
 	@Test
-	public void shouldThrowIllegalArgumentExceptionWithNullName()
+	public void shouldThrowNullArgumentExceptionWithNullName()
 	{
-		assertThat(()->UDie.with(null, faces), throwsAn(IllegalArgumentException.class));
+		assertThat(()->UDie.with(null, faces), throwsA(NullArgumentException.class));
 	}
 	
 	@Test
-	public void shouldThrowIllegalArgumentExceptionWithNullFaceList()
+	public void shouldThrowNullArgumentExceptionWithNullFaceList()
 	{
-		assertThat(()->UDie.with(name, null), throwsAn(IllegalArgumentException.class));
+		assertThat(()->UDie.with(name, null), throwsA(NullArgumentException.class));
 	}
 	
 	@Test
-	public void shouldThrowIllegalArgumentExceptionWithNullArguments()
+	public void shouldThrowNullArgumentExceptionWithNullArguments()
 	{
-		assertThat(()->UDie.with(null, null), throwsAn(IllegalArgumentException.class));
+		assertThat(()->UDie.with(null, null), throwsA(NullArgumentException.class));
 	}
 	
 	@Test
-	public void shouldReturnProperUDie()
+	public void shouldReturnProperUDie() throws NullArgumentException
 	{
 		assertNotNull(UDie.with(name, faces));
 	}
 	
 	// Iterator<Face> iterator() ***********************************************
 	@Test
-	public void shouldGetNonNullIterator()
+	public void shouldGetNonNullIterator() throws NullArgumentException
 	{
 		Die die = UDie.with(name, faces);
 		
@@ -88,7 +89,7 @@ public class UDieTest
 	
 	// public Iterable<Relationship> listRelationships() ***********************
 	@Test
-	public void shouldGetNonNullRelationshipsList()
+	public void shouldGetNonNullRelationshipsList() throws NullArgumentException
 	{
 		Die die = UDie.with(name, faces);
 		
@@ -98,7 +99,7 @@ public class UDieTest
 	}
 	
 	@Test
-	public void shouldGetNonEmptyRelationshipsList()
+	public void shouldGetNonEmptyRelationshipsList() throws NullArgumentException
 	{
 	   Die die = UDie.with(name, faces);
 	   
@@ -111,7 +112,7 @@ public class UDieTest
 	
 	// public void name() ******************************************************
 	@Test
-	public void shouldReturnGivenName()
+	public void shouldReturnGivenName() throws NullArgumentException
 	{
 		Die die = UDie.with(name, faces);
 		

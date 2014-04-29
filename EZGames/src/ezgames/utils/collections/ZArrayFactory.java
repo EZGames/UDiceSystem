@@ -2,6 +2,7 @@ package ezgames.utils.collections;
 
 import java.util.Iterator;
 import ezgames.utils.DataChecker;
+import ezgames.utils.exceptions.NullArgumentException;
 
 /**
  * ZArrays only implement the methods required by {@code SimpleCollection} and
@@ -15,10 +16,11 @@ public class ZArrayFactory
 	 * contained within the {@code SimpleCollection} specified 
 	 * @param inList - an {@code SimpleCollection} containing items of type T to be
 	 *            inserted into the returned {@code ZRollerArray} instance
-	 * @throws IllegalArgumentException if an element in the specified
+	 * @throws IllegalArgumentException if the given collection is empty
+	 * @throws NullArgumentException if an element in the specified
 	 *             {@code SimpleCollection} is null
 	 */
-	public static <E> SimpleCollection<E> createWithMultipleValues(SimpleCollection<E> inList) throws IllegalArgumentException
+	public static <E> SimpleCollection<E> createWithMultipleValues(SimpleCollection<E> inList) throws IllegalArgumentException, NullArgumentException
 	{
 		DataChecker.checkDataNotNull(inList, "Cannot create a ZArray from a null Iterable");
 		
@@ -44,10 +46,10 @@ public class ZArrayFactory
 	 * Creates an instance of a {@code ZArray} containing the items given
 	 * in the varargs parameter.
 	 * @param inList
-	 * @throws IllegalArgumentException if an item specified is null
+	 * @throws NullArgumentException if an item specified is null
 	 */
 	@SafeVarargs
-	public static <E> SimpleCollection<E> createWithMultipleValues(E... inList) throws IllegalArgumentException
+	public static <E> SimpleCollection<E> createWithMultipleValues(E... inList) throws NullArgumentException
 	{
 		DataChecker.checkArrayNotEmptyOrNull(inList, "Cannot create a ZArray from a null collection of elements");
 		DataChecker.checkArrayDataNotNull(inList, "Cannot create a ZArray from a collection with a null element");
@@ -64,9 +66,9 @@ public class ZArrayFactory
     * Creates an instance of a {@code ZRollerArray> containing
     * the item specified 
     * @param item - the single element stored within the {@code ZRollerArray}
-    * @throws ClientDataException if the item specified is null
+	 * @throws NullArgumentException if the item specified is null
     */
-	public static <E> SimpleCollection<E> createWithSingleValue(E item) throws IllegalArgumentException
+	public static <E> SimpleCollection<E> createWithSingleValue(E item) throws NullArgumentException
 	{
 		return new SingleValueZArray<E>(item);
 	}

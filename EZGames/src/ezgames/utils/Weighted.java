@@ -1,6 +1,7 @@
 package ezgames.utils;
 
 import ezgames.annotations.Immutable;
+import ezgames.utils.exceptions.NullArgumentException;
 
 @Immutable
 public final class Weighted<T>
@@ -8,7 +9,7 @@ public final class Weighted<T>
 	//***************************************************************************
 	// Public constructors
 	//***************************************************************************
-	public Weighted(T obj, int weight)
+	public Weighted(T obj, int weight) throws NullArgumentException, IllegalArgumentException
 	{
 		DataChecker.checkDataNotNull(obj, "Cannot create a Weighted object from a null object");
 		if(isInvalidWeight(weight))

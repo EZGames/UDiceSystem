@@ -2,6 +2,7 @@ package ezgames.utils.collections;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 class SimpleList<T> implements SimpleCollection<T>
 {
@@ -39,6 +40,11 @@ class SimpleList<T> implements SimpleCollection<T>
 	public Iterator<T> iterator()
 	{
 		return list.iterator();
+	}
+	
+	public Stream<T> stream()
+	{
+		return list.stream();
 	}
 	
 	//************************************************************************

@@ -9,11 +9,12 @@ import static org.junit.Assert.*;
 import java.util.Iterator;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ezgames.utils.exceptions.NullArgumentException;
 
 public class SingleValueZArrayTest
 {
 	@BeforeClass
-	public static void beforeClass()
+	public static void beforeClass() throws NullArgumentException
 	{
 		default1 = ZArrayFactory.createWithSingleValue(1);
 		default2 = ZArrayFactory.createWithSingleValue(2);
@@ -21,7 +22,7 @@ public class SingleValueZArrayTest
 	
 	// public static ZArray CreateWithSingleValue(E) ***************************
 	@Test
-	public void shouldCreateZArrayWithSingleValue()
+	public void shouldCreateZArrayWithSingleValue() throws NullArgumentException
 	{
 		SimpleCollection<Integer> arr = ZArrayFactory.createWithSingleValue(1);
 		Iterator<Integer> iter = arr.iterator();
@@ -32,12 +33,12 @@ public class SingleValueZArrayTest
 	@Test
 	public void shouldRejectNullSingleValue()
 	{
-		assertThat(()->ZArrayFactory.createWithSingleValue(null), throwsAn(IllegalArgumentException.class));
+		assertThat(()->ZArrayFactory.createWithSingleValue(null), throwsA(NullArgumentException.class));
 	}
 	
 	// public static ZArray createWithMultipleValues(Iterable<E>)***************
 	@Test
-	public void shouldCreateZArrayWithSingleValueDespiteMultipleValueCall()
+	public void shouldCreateZArrayWithSingleValueDespiteMultipleValueCall() throws IllegalArgumentException, NullArgumentException
 	{
 		MlList<Integer> oneValueIterable = MlList.<Integer>empty().add(1);
 		
@@ -54,7 +55,7 @@ public class SingleValueZArrayTest
 	}
 	
 	@Test
-	public void shouldHaveSameHashCodes()
+	public void shouldHaveSameHashCodes() throws NullArgumentException
 	{
 		SimpleCollection<Integer> other1 = ZArrayFactory.createWithSingleValue(1);
 		
@@ -75,7 +76,7 @@ public class SingleValueZArrayTest
 	}
 	
 	@Test
-	public void shouldBeEqual()
+	public void shouldBeEqual() throws NullArgumentException
 	{
 		SimpleCollection<Integer> also1 = ZArrayFactory.createWithSingleValue(1);
 		

@@ -5,12 +5,13 @@ import static ezgames.test.matchers.IsIn.*;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import ezgames.utils.exceptions.NullArgumentException;
 
 public class StackableTest
 {
 	// public MlList<T> and(T) *************************************************
 	@Test
-	public void shouldAddAdditionalIndividuals()
+	public void shouldAddAdditionalIndividuals() throws NullArgumentException
 	{
 		MlList<StackableInt> trial = val(0).and(val(1));
 		
@@ -24,7 +25,7 @@ public class StackableTest
 	{
 		StackableInt end = null;
 		
-		assertThat(()->val(0).and(end), throwsAn(IllegalArgumentException.class));
+		assertThat(()->val(0).and(end), throwsAn(NullArgumentException.class));
 	}
 	
 	//**************************************************************************

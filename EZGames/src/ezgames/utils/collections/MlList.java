@@ -1,9 +1,13 @@
 package ezgames.utils.collections;
 
 import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 import ezgames.annotations.Immutable;
-import ezgames.math.hashing.HashGenerator;
-import ezgames.utils.DataChecker;
+import ezgames.hashing.HashGenerator;
+import ezgames.utils.exceptions.NullArgumentException;
 import ezgames.utils.Weighted;
 
 //TODO: testing and documentation
@@ -36,7 +40,7 @@ public class MlList<E> implements SimpleCollection<E>
 	//**************************************************************************
 	// Public static factories
 	//**************************************************************************
-	public static <E> MlList<E> fromIterable(Iterable<E> iterable) throws IllegalArgumentException
+	public static <E> MlList<E> fromIterable(Iterable<E> iterable)
 	{
 		//if it's already an MlList, then just send it back
 		if (iterable instanceof MlList) { return (MlList<E>) iterable; }
@@ -51,10 +55,8 @@ public class MlList<E> implements SimpleCollection<E>
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <E> MlList<E> fromValues(E... arr)
-	{
-		DataChecker.checkArrayDataNotNull(arr, "Cannot create MlList with null elements");
-		
+	public static <E> MlList<E> fromValues(E... arr) throws NullArgumentException
+	{		
 		if(0 == arr.length)
 		{
 			return (MlList<E>)empty();
@@ -66,6 +68,18 @@ public class MlList<E> implements SimpleCollection<E>
 			backwards = backwards.add(o);
 		}
 		return backwards.reverse();
+	}
+	
+	public static <E> MlList<E> startWith(E val)
+	{
+		if(null == val)
+		{
+			return MlList.<E>empty();
+		}
+		else
+		{
+			return new MlList<E>(val);
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -188,6 +202,12 @@ public class MlList<E> implements SimpleCollection<E>
 		return size;
 	}
 	
+	public Stream<E> stream()
+	{
+		Spliterator<E> split = Spliterators.spliterator(iterator(), size(), Spliterator.IMMUTABLE);
+		return StreamSupport.stream(split, false);
+	}
+	
 	public MlList<E> tail()
 	{
 		return tail;
@@ -200,7 +220,7 @@ public class MlList<E> implements SimpleCollection<E>
 	}
 	
 	@SuppressWarnings("unchecked")
-	public MlList<Weighted<E>> withWeight(int weight)
+	public MlList<Weighted<E>> withWeight(int weight) throws NullArgumentException, IllegalArgumentException
 	{
 		if(head instanceof Weighted<?>)
 		{

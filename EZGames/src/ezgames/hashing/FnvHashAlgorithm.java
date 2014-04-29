@@ -1,4 +1,4 @@
-package ezgames.math.hashing;
+package ezgames.hashing;
 
 /**
  * This {@code IHashingTechnique} is using the FNV hashing technique.

@@ -1,10 +1,11 @@
 package ezgames.utils.collections;
 
 import java.util.Iterator;
-import ezgames.math.EZRandom;
-import ezgames.math.SimpleRandom;
+import ezgames.random.EZRandom;
+import ezgames.random.SimpleRandom;
 import ezgames.utils.DataChecker;
 import ezgames.utils.Weighted;
+import ezgames.utils.exceptions.NullArgumentException;
 
 //TODO: document and test
 public abstract class RandomElementChooser<E>
@@ -12,24 +13,24 @@ public abstract class RandomElementChooser<E>
 	//**************************************************************************
 	// Static factory methods
 	//**************************************************************************
-	public static <T> RandomElementChooser<T> fromCollection(SimpleCollection<T> collection)
+	public static <T> RandomElementChooser<T> fromCollection(SimpleCollection<T> collection) throws NullArgumentException
 	{
 		return fromCollection(collection, new EZRandom());
 	}
 	
-	public static <T> RandomElementChooser<T> fromCollection(SimpleCollection<T> collection, SimpleRandom randomizer)
+	public static <T> RandomElementChooser<T> fromCollection(SimpleCollection<T> collection, SimpleRandom randomizer) throws NullArgumentException
 	{
 		checkInput(collection, randomizer);
 		
 		return new SimpleRandomElementChooser<>(collection, randomizer);
 	}
 	
-	public static <T> RandomElementChooser<T> fromWeightedCollection(SimpleCollection<Weighted<T>> weightedCollection)
+	public static <T> RandomElementChooser<T> fromWeightedCollection(SimpleCollection<Weighted<T>> weightedCollection) throws NullArgumentException
 	{
 		return fromWeightedCollection(weightedCollection, new EZRandom());
 	}
 	
-	public static <T> RandomElementChooser<T> fromWeightedCollection(SimpleCollection<Weighted<T>> weightedCollection, SimpleRandom randomizer)
+	public static <T> RandomElementChooser<T> fromWeightedCollection(SimpleCollection<Weighted<T>> weightedCollection, SimpleRandom randomizer) throws NullArgumentException
 	{
 		checkInput(weightedCollection, randomizer);
 		DataChecker.checkIterableDataNotNull(weightedCollection, "Cannot create new RandomeElementChooser from a weighted collection containing null elements");
@@ -45,7 +46,7 @@ public abstract class RandomElementChooser<E>
 	//**************************************************************************
 	// Private static helper methods
 	//**************************************************************************
-	private static void checkInput(SimpleCollection<?> coll, SimpleRandom rand)
+	private static void checkInput(SimpleCollection<?> coll, SimpleRandom rand) throws NullArgumentException
 	{
 		DataChecker.checkIterableNotEmptyOrNull(coll, "Cannot create new RandomElementChooser from an empty or null collection");
 		DataChecker.checkDataNotNull(rand, "Cannot create new RandomElementChooser with a null random number generator");

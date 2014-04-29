@@ -1,6 +1,7 @@
 package ezgames.utils.collections;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public interface SimpleCollection<T> extends Iterable<T>
 {
@@ -8,6 +9,7 @@ public interface SimpleCollection<T> extends Iterable<T>
 	T get(int index) throws IndexOutOfBoundsException;
 	int indexOf(T obj);
 	int size();
+	Stream<T> stream();
 	
 	static <T> SimpleCollection<T> fromList(List<T> list)
 	{
@@ -26,7 +28,7 @@ public interface SimpleCollection<T> extends Iterable<T>
 		}
 		else
 		{
-			return new SimpleCollectionImpl<T>(coll);
+			return new SimpleCollectionBuilder<T>(coll);
 		}
 	}
 	

@@ -9,6 +9,7 @@ import ezgames.udicesys.diceModels.abstractions.Roll;
 import ezgames.utils.DataChecker;
 import ezgames.utils.collections.MlList;
 import ezgames.utils.collections.SimpleCollection;
+import ezgames.utils.exceptions.NullArgumentException;
 
 @Immutable
 final class UDie implements Die
@@ -16,7 +17,7 @@ final class UDie implements Die
 	//**************************************************************************
 	// static factory methods
 	//**************************************************************************
-	public static Die with( final String name, final SimpleCollection<Face> faces)
+	public static Die with( final String name, final SimpleCollection<Face> faces) throws NullArgumentException
 	{
 		DataChecker.checkStringDataNotNull(name, "Die Requires non-null, non-empty name");
 		DataChecker.checkIterableNotEmptyOrNull(faces, "Die Requires non-null, non-empty list of non-null faces");

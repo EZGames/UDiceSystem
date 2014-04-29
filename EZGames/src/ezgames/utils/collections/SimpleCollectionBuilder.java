@@ -3,13 +3,17 @@ package ezgames.utils.collections;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
-class SimpleCollectionImpl<T> implements SimpleCollection<T>
+class SimpleCollectionBuilder<T> implements SimpleCollection<T>
 {
 	//************************************************************************
 	// Public constructors
 	//************************************************************************
-	public SimpleCollectionImpl(Iterable<T> iter)
+	public SimpleCollectionBuilder(Iterable<T> iter)
 	{
 		this.iterable = iter;
 	}
@@ -58,6 +62,12 @@ class SimpleCollectionImpl<T> implements SimpleCollection<T>
 			++size;
 		}
 		return size;
+	}
+	
+	public Stream<T> stream()
+	{
+		Spliterator<T> split = Spliterators.spliterator(iterator(), size(), Spliterator.SIZED);
+		return StreamSupport.stream(split, false);
 	}
 	
 	//************************************************************************
