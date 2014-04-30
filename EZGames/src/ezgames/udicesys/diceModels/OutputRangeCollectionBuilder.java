@@ -12,7 +12,7 @@ import ezgames.utils.collections.SimpleCollection;
  * spectrum.
  *
  */
-public class OutPutRangeCollectionBuilder implements SimpleCollection<OutputRange>
+public class OutputRangeCollectionBuilder implements SimpleCollection<OutputRange>
 {
 
 	@Override
@@ -59,9 +59,10 @@ public class OutPutRangeCollectionBuilder implements SimpleCollection<OutputRang
 	
 	
 	/*
-	 * void addNextLowestUpTo(int max) throws something when max is below min or causes collision or goes above the collection's max 
-	 * void fillGaps()
-	 * void 
+	 * void addNextLowestUpTo(int max, String output) throws something when max is below min or causes collision or goes above the collection's max 
+	 * void fillGapsWith(String output)
+	 * void add(OutputRange range) throws OverlappingRangesException
+	 * SimpleCollection<OutputRange> build() throws MissingRangeException (actually returns ZArray)
 	 */
 	
 }
