@@ -1,6 +1,6 @@
 package ezgames.utils.exceptions;
 
-public class NullArgumentException extends Exception
+public class NullArgumentException extends RuntimeException
 {
 	private static final long serialVersionUID = 4326326056370996967L;
 
