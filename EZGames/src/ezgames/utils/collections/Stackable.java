@@ -11,8 +11,7 @@ public interface Stackable<T extends Stackable<T>>
 	{
 		DataChecker.checkDataNotNull(another, "Cannot stack null items together");
 		
-		MlList<T> list = MlList.empty();
-		list = list.add(another).add((T)this);
+		MlList<T> list = MlList.startWith(another).add((T)this);
 		
 		return list;
 	}

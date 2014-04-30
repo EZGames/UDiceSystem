@@ -28,7 +28,7 @@ public class UDieTest
 	public static void beforeClass()
 	{
 		Face onlyFace = defaultFace();
-		faces = MlList.<Face>empty().add(onlyFace);
+		faces = MlList.startWith(onlyFace);
 		
 		name = "testDie";		
 	}
@@ -48,7 +48,7 @@ public class UDieTest
 			{
 				public Iterator<OutputRange> iterator() { return null; }	
 			};
-		return MlList.<Relationship>empty().add(rel);
+		return MlList.startWith(rel);
 	}
 	
 	// public static with() ****************************************************

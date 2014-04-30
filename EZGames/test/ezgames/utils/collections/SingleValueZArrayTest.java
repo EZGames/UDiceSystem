@@ -40,7 +40,7 @@ public class SingleValueZArrayTest
 	@Test
 	public void shouldCreateZArrayWithSingleValueDespiteMultipleValueCall() throws IllegalArgumentException, NullArgumentException
 	{
-		MlList<Integer> oneValueIterable = MlList.<Integer>empty().add(1);
+		MlList<Integer> oneValueIterable = MlList.startWith(1);
 		
 		SimpleCollection<Integer> arr = ZArrayFactory.createWithMultipleValues(oneValueIterable);
 		

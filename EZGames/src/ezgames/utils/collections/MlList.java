@@ -46,28 +46,28 @@ public class MlList<E> implements SimpleCollection<E>
 		if (iterable instanceof MlList) { return (MlList<E>) iterable; }
 		
 		//let's create the new one
-		MlList<E> backwards = MlList.<E>empty();
+		MlList<E> list = MlList.<E>empty();
 		for (E o : iterable)
 		{
-			backwards = backwards.add(o);
+			list = list.add(o);
 		}
-		return backwards.reverse();
+		return list;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SafeVarargs
 	public static <E> MlList<E> fromValues(E... arr) throws NullArgumentException
 	{		
 		if(0 == arr.length)
 		{
-			return (MlList<E>)empty();
+			return MlList.<E>empty();
 		}
 		
-		MlList<E> backwards = MlList.<E>empty();
+		MlList<E> list = MlList.<E>empty();
 		for(E o : arr)
 		{
-			backwards = backwards.add(o);
+			list = list.add(o);
 		}
-		return backwards.reverse();
+		return list;
 	}
 	
 	public static <E> MlList<E> startWith(E val)
@@ -85,16 +85,16 @@ public class MlList<E> implements SimpleCollection<E>
 	@SuppressWarnings("unchecked")
 	public static <E> MlList<E> empty()
 	{
-		return (MlList<E>) EMPTY;
+		return (MlList<E>)EMPTY;
 	}
 	
 	public static <E> MlList<E> append(MlList<E> l1, MlList<E> l2)
 	{
-		if (l2 == EMPTY)
+		if (l2.isEmpty())
 		{
 			return l1;
 		}
-		else if (l1 == EMPTY)
+		else if (l1.isEmpty())
 		{
 			return l2;
 		}
@@ -258,7 +258,7 @@ public class MlList<E> implements SimpleCollection<E>
 	private MlList(E o)
 	{
 		head = o;
-		tail = (MlList<E>) EMPTY;
+		tail = (MlList<E>)EMPTY;
 		size = 1;
 	}
 	

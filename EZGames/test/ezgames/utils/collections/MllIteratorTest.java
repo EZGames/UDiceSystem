@@ -10,9 +10,9 @@ import ezgames.utils.collections.MlList;
 public class MllIteratorTest
 {
 	MlList<Integer> emptyList = MlList.<Integer>empty();
-	MlList<Integer> listOf1 = MlList.<Integer>empty().add(1);
-	MlList<Integer> listOf2 = MlList.<Integer>empty().add(1).add(2);
-	MlList<Integer> listOf3 = MlList.<Integer>empty().add(1).add(2).add(3);
+	MlList<Integer> listOf1 = MlList.startWith(1);
+	MlList<Integer> listOf2 = MlList.startWith(1).add(2);
+	MlList<Integer> listOf3 = MlList.startWith(1).add(2).add(3);
 	
 	@Test
 	public void shouldIterateOnce()

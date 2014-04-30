@@ -19,9 +19,9 @@ public class MultiValueZArrayTest
 	@BeforeClass
 	public static void beforeClass() throws IllegalArgumentException, NullArgumentException
 	{
-		MlList<Integer> list1 = MlList.<Integer>empty().add(0).and(1).and(2);
+		MlList<Integer> list1 = MlList.startWith(0).and(1).and(2);
 		
-		MlList<Integer> list2 = MlList.<Integer>empty().add(3).and(4);
+		MlList<Integer> list2 = MlList.startWith(3).and(4);
 		
 		default1 = ZArrayFactory.createWithMultipleValues(list1);
 		default2 = ZArrayFactory.createWithMultipleValues(list2);
@@ -167,7 +167,7 @@ public class MultiValueZArrayTest
 	@Test
 	public void shouldHaveSameHashCodes() throws IllegalArgumentException, NullArgumentException
 	{
-		MlList<Integer> otherList = MlList.<Integer>empty().add(0).and(1).and(2);
+		MlList<Integer> otherList = MlList.startWith(0).and(1).and(2);
 		
 		SimpleCollection<Integer> other1 = ZArrayFactory.createWithMultipleValues(otherList);
 		
@@ -190,7 +190,7 @@ public class MultiValueZArrayTest
 	@Test
 	public void shouldBeEqual() throws IllegalArgumentException, NullArgumentException
 	{
-		MlList<Integer> alsoList1 = MlList.<Integer>empty().add(0).and(1).and(2);
+		MlList<Integer> alsoList1 = MlList.startWith(0).and(1).and(2);
 		
 		SimpleCollection<Integer> also1 = ZArrayFactory.createWithMultipleValues(alsoList1);
 		
