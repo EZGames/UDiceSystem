@@ -5,10 +5,12 @@ import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+import ezgames.annotations.Immutable;
 import ezgames.utils.DataChecker;
 import ezgames.utils.exceptions.NullArgumentException;
 
-final class MultiValueZArray<T> implements SimpleCollection<T>
+@Immutable
+final class MultiValueZArray<T> implements ZArray<T>
 {
 	//***************************************************************************
 	// Public constructors
@@ -33,6 +35,12 @@ final class MultiValueZArray<T> implements SimpleCollection<T>
 	//***************************************************************************
 	// Public API methods
 	//***************************************************************************
+	@SuppressWarnings("unchecked")
+	public T[] asArray()
+	{
+		return (T[])array;
+	}
+	
 	public boolean contains(T obj)
 	{
 		return indexOf(obj) != -1;

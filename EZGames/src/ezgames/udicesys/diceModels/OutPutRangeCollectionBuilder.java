@@ -1,0 +1,67 @@
+package ezgames.udicesys.diceModels;
+
+import java.util.Iterator;
+import java.util.stream.Stream;
+import ezgames.math.range.Range;
+import ezgames.udicesys.diceModels.abstractions.OutputRange;
+import ezgames.utils.collections.SimpleCollection;
+
+/**
+ * The RangeCollectionBuilder class is used to create collections of 
+ * {@link Range}s that don't overlap and cover every value within a given 
+ * spectrum.
+ *
+ */
+public class OutPutRangeCollectionBuilder implements SimpleCollection<OutputRange>
+{
+
+	@Override
+	public Iterator<OutputRange> iterator()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean contains(OutputRange obj)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public OutputRange get(int index) throws IndexOutOfBoundsException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int indexOf(OutputRange obj)
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int size()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Stream<OutputRange> stream()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	/*
+	 * void addNextLowestUpTo(int max) throws something when max is below min or causes collision or goes above the collection's max 
+	 * void fillGaps()
+	 * void 
+	 */
+	
+}

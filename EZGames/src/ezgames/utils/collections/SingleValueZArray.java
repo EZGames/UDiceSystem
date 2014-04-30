@@ -5,11 +5,13 @@ import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+import ezgames.annotations.Immutable;
 import ezgames.hashing.HashGenerator;
 import ezgames.utils.DataChecker;
 import ezgames.utils.exceptions.NullArgumentException;
 
-final class SingleValueZArray<T> implements SimpleCollection<T>
+@Immutable
+final class SingleValueZArray<T> implements ZArray<T>
 {
 	//***************************************************************************
 	// Public constructors
@@ -23,6 +25,13 @@ final class SingleValueZArray<T> implements SimpleCollection<T>
 	//***************************************************************************
 	// Public API methods
 	//***************************************************************************
+	@SuppressWarnings("unchecked")
+	public T[] asArray()
+	{
+		Object[] arr = {item};
+		return (T[]) arr;
+	}
+	
 	public boolean contains(T obj)
 	{
 		return item.equals(obj);

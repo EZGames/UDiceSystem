@@ -20,13 +20,13 @@ public class ZArrayFactory
 	 * @throws NullArgumentException if an element in the specified
 	 *             {@code SimpleCollection} is null
 	 */
-	public static <E> SimpleCollection<E> createWithMultipleValues(SimpleCollection<E> inList) throws IllegalArgumentException, NullArgumentException
+	public static <E> ZArray<E> createWithMultipleValues(SimpleCollection<E> inList) throws IllegalArgumentException, NullArgumentException
 	{
 		DataChecker.checkDataNotNull(inList, "Cannot create a ZArray from a null Iterable");
 		
-		if (inList instanceof MultiValueZArray<?>)
+		if (inList instanceof ZArray<?>)
 		{
-			return inList;
+			return (ZArray<E>)inList;
 		}
 		
 		int numElements = inList.size();
@@ -49,7 +49,7 @@ public class ZArrayFactory
 	 * @throws NullArgumentException if an item specified is null
 	 */
 	@SafeVarargs
-	public static <E> SimpleCollection<E> createWithMultipleValues(E... inList) throws NullArgumentException
+	public static <E> ZArray<E> createWithMultipleValues(E... inList) throws NullArgumentException
 	{
 		DataChecker.checkArrayNotEmptyOrNull(inList, "Cannot create a ZArray from a null collection of elements");
 		DataChecker.checkArrayDataNotNull(inList, "Cannot create a ZArray from a collection with a null element");
@@ -68,7 +68,7 @@ public class ZArrayFactory
     * @param item - the single element stored within the {@code ZRollerArray}
 	 * @throws NullArgumentException if the item specified is null
     */
-	public static <E> SimpleCollection<E> createWithSingleValue(E item) throws NullArgumentException
+	public static <E> ZArray<E> createWithSingleValue(E item) throws NullArgumentException
 	{
 		return new SingleValueZArray<E>(item);
 	}
