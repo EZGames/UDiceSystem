@@ -104,13 +104,6 @@ public class MlList<E> implements SimpleCollection<E>
 		}
 	}
 	
-	public static <E> MlList<E> reverse(MlList<E> list)
-	{
-		if (list.isEmpty() || list.tail.isEmpty()) { return list; }
-		
-		return reverse(list, MlList.<E>empty());
-	}
-	
 	//**************************************************************************
 	// Public API methods
 	//**************************************************************************
@@ -194,7 +187,9 @@ public class MlList<E> implements SimpleCollection<E>
 	
 	public MlList<E> reverse()
 	{
-		return reverse(this);
+		if (isEmpty() || tail.isEmpty()) { return this; }
+		
+		return reverse(this, MlList.<E>empty());
 	}
 	
 	public int size()

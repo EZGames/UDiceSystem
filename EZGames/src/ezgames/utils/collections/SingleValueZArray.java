@@ -1,22 +1,18 @@
 package ezgames.utils.collections;
 
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 import ezgames.annotations.Immutable;
 import ezgames.hashing.HashGenerator;
 import ezgames.utils.DataChecker;
 import ezgames.utils.exceptions.NullArgumentException;
 
 @Immutable
-final class SingleValueZArray<T> implements ZArray<T>
+final class SingleValueZArray<E> implements ZArray<E>
 {
 	//***************************************************************************
 	// Public constructors
 	//***************************************************************************
-	public SingleValueZArray(T o) throws NullArgumentException
+	public SingleValueZArray(E o) throws NullArgumentException
 	{
 		DataChecker.checkDataNotNull(o, "Cannot create a ZArray from a null element");
 		item = o;
@@ -26,13 +22,13 @@ final class SingleValueZArray<T> implements ZArray<T>
 	// Public API methods
 	//***************************************************************************
 	@SuppressWarnings("unchecked")
-	public T[] asArray()
+	public E[] asArray()
 	{
 		Object[] arr = {item};
-		return (T[]) arr;
+		return (E[]) arr;
 	}
 	
-	public boolean contains(T obj)
+	public boolean contains(E obj)
 	{
 		return item.equals(obj);
 	}
@@ -47,10 +43,10 @@ final class SingleValueZArray<T> implements ZArray<T>
 		}
 		
 		// type check
-		SingleValueZArray<T> other;
+		SingleValueZArray<E> other;
 		if (o instanceof SingleValueZArray<?>)
 		{
-			other = (SingleValueZArray<T>) o;
+			other = (SingleValueZArray<E>) o;
 			return item.equals(other.item);
 		}
 		else
@@ -59,7 +55,7 @@ final class SingleValueZArray<T> implements ZArray<T>
 		}
 	}
 	
-	public T get(int index)
+	public E get(int index)
 	{
 		if (index != 0)
 		{
@@ -75,7 +71,7 @@ final class SingleValueZArray<T> implements ZArray<T>
 		return hasher.hash(item, curr);
 	}
 	
-	public int indexOf(T obj)
+	public int indexOf(E obj)
 	{
 		if(item.equals(obj))
 		{
@@ -87,9 +83,9 @@ final class SingleValueZArray<T> implements ZArray<T>
 		}
 	}
 	
-	public Iterator<T> iterator()
+	public Iterator<E> iterator()
 	{
-		return new SingleValueArrayIterator<T>(this);
+		return new SingleValueArrayIterator<E>(this);
 	}
 	
 	public int size()
@@ -97,17 +93,11 @@ final class SingleValueZArray<T> implements ZArray<T>
 		return 1;
 	}
 	
-	public Stream<T> stream()
-	{
-		Spliterator<T> split = Spliterators.spliterator(iterator(), size(), Spliterator.IMMUTABLE);
-		return StreamSupport.stream(split, false);
-	}
-	
 	// TODO toString()
 	//***************************************************************************
 	// Private fields
 	//***************************************************************************
-	private final T item;
+	private final E item;
 	
 	//***************************************************************************
 	// Private Iterator Class

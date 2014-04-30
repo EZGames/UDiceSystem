@@ -23,8 +23,8 @@ public class MultiValueZArrayTest
 		
 		MlList<Integer> list2 = MlList.startWith(3).and(4);
 		
-		default1 = ZArrayFactory.createWithMultipleValues(list1);
-		default2 = ZArrayFactory.createWithMultipleValues(list2);
+		default1 = ZArray.createFromSimpleCollection(list1);
+		default2 = ZArray.createFromSimpleCollection(list2);
 	}
 	
 	// public static createWithMultipleValues(SimpleCollection<E>) **********************************
@@ -50,7 +50,7 @@ public class MultiValueZArrayTest
 	public void shouldRejectNullValue()
 	{
 		SimpleCollection<Integer> nullIter = null;
-		assertThat(()->ZArrayFactory.createWithMultipleValues(nullIter), throwsAn(NullArgumentException.class));
+		assertThat(()->ZArray.createFromSimpleCollection(nullIter), throwsAn(NullArgumentException.class));
 	}
 	
 	@Test
@@ -69,7 +69,7 @@ public class MultiValueZArrayTest
 					public void run() throws IllegalArgumentException
 					{
 						try
-						{ ZArrayFactory.createWithMultipleValues(coll); }
+						{ ZArray.createFromSimpleCollection(coll); }
 						catch(NullArgumentException x) {}
 					}
 				};
@@ -83,14 +83,14 @@ public class MultiValueZArrayTest
 		badArrayList.add(3);
 		SimpleCollection<Integer> badIterable = SimpleCollection.fromList(badArrayList);
 		
-		assertThat(()->ZArrayFactory.createWithMultipleValues(badIterable), throwsAn(NullArgumentException.class));
+		assertThat(()->ZArray.createFromSimpleCollection(badIterable), throwsAn(NullArgumentException.class));
 	}
 	
 	// public static createWithMultipleValues(E...)*****************************
 	@Test
 	public void shouldCreateZArrayWithThreeValuesFromSeparateValues() throws NullArgumentException
 	{
-		SimpleCollection<Integer> arr = ZArrayFactory.createWithMultipleValues(1, 2, 3);
+		SimpleCollection<Integer> arr = ZArray.createFromValues(1, 2, 3);
 		
 		Iterator<Integer> iter = arr.iterator();
 		assertThat(iter, iteratesNumTimes(3));
@@ -99,7 +99,7 @@ public class MultiValueZArrayTest
 	@Test
 	public void shouldCreateZArrayWithTwoValuesFromSeparateValues() throws NullArgumentException
 	{
-		SimpleCollection<Integer> arr = ZArrayFactory.createWithMultipleValues(3, 4);
+		SimpleCollection<Integer> arr = ZArray.createFromValues(3, 4);
 		
 		Iterator<Integer> iter = arr.iterator();
 		assertThat(iter, iteratesNumTimes(2));
@@ -109,7 +109,7 @@ public class MultiValueZArrayTest
 	public void shouldCreateZArrayWithThreeValuesFromArray() throws NullArgumentException
 	{
 		Integer[] arr = {1, 2, 3};
-		SimpleCollection<Integer> zarr = ZArrayFactory.createWithMultipleValues(arr);
+		SimpleCollection<Integer> zarr = ZArray.createFromValues(arr);
 		
 		Iterator<Integer> iter = zarr.iterator();
 		assertThat(iter, iteratesNumTimes(3));
@@ -119,7 +119,7 @@ public class MultiValueZArrayTest
 	public void shouldCreateZArrayWithTwoValuesFromArray() throws NullArgumentException
 	{
 		Integer[] arr = {3, 4};
-		SimpleCollection<Integer> zarr = ZArrayFactory.createWithMultipleValues(arr);
+		SimpleCollection<Integer> zarr = ZArray.createFromValues(arr);
 		
 		Iterator<Integer> iter = zarr.iterator();
 		assertThat(iter, iteratesNumTimes(2));
@@ -130,7 +130,7 @@ public class MultiValueZArrayTest
 	{
 		Integer[] arr = null;
 		
-		assertThat(()->ZArrayFactory.createWithMultipleValues(arr), throwsAn(NullArgumentException.class));
+		assertThat(()->ZArray.createFromValues(arr), throwsAn(NullArgumentException.class));
 	}
 	
 	@Test
@@ -138,7 +138,7 @@ public class MultiValueZArrayTest
 	{
 		Integer[] arr = {1, null, 3};
 		
-		assertThat(()->ZArrayFactory.createWithMultipleValues(arr), throwsAn(NullArgumentException.class));
+		assertThat(()->ZArray.createFromValues(arr), throwsAn(NullArgumentException.class));
 	}
 	
 	@Test
@@ -148,13 +148,13 @@ public class MultiValueZArrayTest
 		arr[0] = 1;
 		arr[2] = 3;
 		
-		assertThat(()->ZArrayFactory.createWithMultipleValues(arr), throwsAn(NullArgumentException.class));
+		assertThat(()->ZArray.createFromValues(arr), throwsAn(NullArgumentException.class));
 	}
 	
 	@Test
 	public void shouldRejectAnyNullSeparateValues()
 	{
-		assertThat(()->ZArrayFactory.createWithMultipleValues(1, null, 3), throwsAn(NullArgumentException.class));
+		assertThat(()->ZArray.createFromValues(1, null, 3), throwsAn(NullArgumentException.class));
 	}
 	
 	// public int hashCode() ***************************************************
@@ -169,7 +169,7 @@ public class MultiValueZArrayTest
 	{
 		MlList<Integer> otherList = MlList.startWith(0).and(1).and(2);
 		
-		SimpleCollection<Integer> other1 = ZArrayFactory.createWithMultipleValues(otherList);
+		SimpleCollection<Integer> other1 = ZArray.createFromSimpleCollection(otherList);
 		
 		assertThat(default1.hashCode(), is(equalTo(other1.hashCode())));
 	}
@@ -192,7 +192,7 @@ public class MultiValueZArrayTest
 	{
 		MlList<Integer> alsoList1 = MlList.startWith(0).and(1).and(2);
 		
-		SimpleCollection<Integer> also1 = ZArrayFactory.createWithMultipleValues(alsoList1);
+		SimpleCollection<Integer> also1 = ZArray.createFromSimpleCollection(alsoList1);
 		
 		assertThat(default1, is(equalTo(also1)));
 	}

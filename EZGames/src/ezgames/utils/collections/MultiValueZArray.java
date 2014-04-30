@@ -1,21 +1,17 @@
 package ezgames.utils.collections;
 
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 import ezgames.annotations.Immutable;
 import ezgames.utils.DataChecker;
 import ezgames.utils.exceptions.NullArgumentException;
 
 @Immutable
-final class MultiValueZArray<T> implements ZArray<T>
+final class MultiValueZArray<E> implements ZArray<E>
 {
 	//***************************************************************************
 	// Public constructors
 	//***************************************************************************
-	public MultiValueZArray(SimpleCollection<T> collectionToCopy) throws NullArgumentException
+	public MultiValueZArray(SimpleCollection<E> collectionToCopy) throws NullArgumentException
 	{
 		DataChecker.checkIterableNotEmptyOrNull(collectionToCopy, "Cannot create a ZArray from a null or empty iterable");
 		
@@ -25,7 +21,7 @@ final class MultiValueZArray<T> implements ZArray<T>
 	}
 	
 	@SafeVarargs
-	public MultiValueZArray(T... collectionToCopy) throws NullArgumentException
+	public MultiValueZArray(E... collectionToCopy) throws NullArgumentException
 	{
 		DataChecker.checkArrayNotEmptyOrNull(collectionToCopy, "Cannot create a ZArray from a null or empty list of elements");
 		
@@ -36,12 +32,12 @@ final class MultiValueZArray<T> implements ZArray<T>
 	// Public API methods
 	//***************************************************************************
 	@SuppressWarnings("unchecked")
-	public T[] asArray()
+	public E[] asArray()
 	{
-		return (T[])array;
+		return (E[])array;
 	}
 	
-	public boolean contains(T obj)
+	public boolean contains(E obj)
 	{
 		return indexOf(obj) != -1;
 	}
@@ -56,10 +52,10 @@ final class MultiValueZArray<T> implements ZArray<T>
 		}
 		
 		// check type and cast if it's the same type
-		MultiValueZArray<T> other;
+		MultiValueZArray<E> other;
 		if (o instanceof MultiValueZArray<?>)
 		{
-			other = (MultiValueZArray<T>) o;
+			other = (MultiValueZArray<E>) o;
 		}
 		else
 		{
@@ -82,11 +78,11 @@ final class MultiValueZArray<T> implements ZArray<T>
 	}
 	
 	@SuppressWarnings("unchecked")
-	public final T get(int index)
+	public final E get(int index)
 	{
 		try
 		{
-			return (T) array[index];
+			return (E) array[index];
 		}
 		catch (ArrayIndexOutOfBoundsException e)
 		{
@@ -105,7 +101,7 @@ final class MultiValueZArray<T> implements ZArray<T>
 		return result;
 	}
 	
-	public int indexOf(T obj)
+	public int indexOf(E obj)
 	{
 		int index = 0;
 		for(Object item : array)
@@ -119,20 +115,14 @@ final class MultiValueZArray<T> implements ZArray<T>
 		return -1;		
 	}
 	
-	public final Iterator<T> iterator()
+	public final Iterator<E> iterator()
 	{
-		return new MultiValueArrayIterator<T>(this);
+		return new MultiValueArrayIterator<E>(this);
 	}
 	
 	public int size()
 	{
 		return array.length;
-	}
-	
-	public Stream<T> stream()
-	{
-		Spliterator<T> split = Spliterators.spliterator(iterator(), size(), Spliterator.IMMUTABLE);
-		return StreamSupport.stream(split, false);
 	}
 	
 	// TODO toString()
@@ -147,10 +137,10 @@ final class MultiValueZArray<T> implements ZArray<T>
 	// Private setters
 	//***************************************************************************
 	// puts the given elements at the current location in the array
-	private void insertCollection(SimpleCollection<T> collection) throws NullArgumentException
+	private void insertCollection(SimpleCollection<E> collection) throws NullArgumentException
 	{
 		int index = 0;
-		for (T element : collection)
+		for (E element : collection)
 		{
 			DataChecker.checkDataNotNull(element, "Cannot create a ZArray with a null element");
 			array[index] = element;

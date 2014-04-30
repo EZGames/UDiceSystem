@@ -16,15 +16,15 @@ public class SingleValueZArrayTest
 	@BeforeClass
 	public static void beforeClass() throws NullArgumentException
 	{
-		default1 = ZArrayFactory.createWithSingleValue(1);
-		default2 = ZArrayFactory.createWithSingleValue(2);
+		default1 = ZArray.createFromValues(1);
+		default2 = ZArray.createFromValues(2);
 	}
 	
 	// public static ZArray CreateWithSingleValue(E) ***************************
 	@Test
 	public void shouldCreateZArrayWithSingleValue() throws NullArgumentException
 	{
-		SimpleCollection<Integer> arr = ZArrayFactory.createWithSingleValue(1);
+		SimpleCollection<Integer> arr = ZArray.createFromValues(1);
 		Iterator<Integer> iter = arr.iterator();
 		
 		assertThat(iter, iteratesNumTimes(1));
@@ -33,7 +33,8 @@ public class SingleValueZArrayTest
 	@Test
 	public void shouldRejectNullSingleValue()
 	{
-		assertThat(()->ZArrayFactory.createWithSingleValue(null), throwsA(NullArgumentException.class));
+		Object nullObj = null;
+		assertThat(()->ZArray.createFromValues(nullObj), throwsA(NullArgumentException.class));
 	}
 	
 	// public static ZArray createWithMultipleValues(Iterable<E>)***************
@@ -42,7 +43,7 @@ public class SingleValueZArrayTest
 	{
 		MlList<Integer> oneValueIterable = MlList.startWith(1);
 		
-		SimpleCollection<Integer> arr = ZArrayFactory.createWithMultipleValues(oneValueIterable);
+		SimpleCollection<Integer> arr = ZArray.createFromSimpleCollection(oneValueIterable);
 		
 		assertThat(arr, is(equalTo(default1)));
 	}
@@ -57,7 +58,7 @@ public class SingleValueZArrayTest
 	@Test
 	public void shouldHaveSameHashCodes() throws NullArgumentException
 	{
-		SimpleCollection<Integer> other1 = ZArrayFactory.createWithSingleValue(1);
+		SimpleCollection<Integer> other1 = ZArray.createFromValues(1);
 		
 		assertThat(default1.hashCode(), is(equalTo(other1.hashCode())));
 	}
@@ -78,7 +79,7 @@ public class SingleValueZArrayTest
 	@Test
 	public void shouldBeEqual() throws NullArgumentException
 	{
-		SimpleCollection<Integer> also1 = ZArrayFactory.createWithSingleValue(1);
+		SimpleCollection<Integer> also1 = ZArray.createFromValues(1);
 		
 		assertThat(default1, is(equalTo(also1)));
 	}
