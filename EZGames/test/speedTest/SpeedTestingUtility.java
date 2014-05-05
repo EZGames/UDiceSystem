@@ -6,17 +6,24 @@ import java.util.List;
 
 public class SpeedTestingUtility
 {
-	public static void run(Runnable action, String nameOfAction, int numTimes)
+	public static void run(Runnable action, String nameOfAction, int numTimes) throws RuntimeException
 	{
-		long startTime = Calendar.getInstance().getTimeInMillis();
-		
-		for(int i = 0; i < numTimes; i++)
+		try
 		{
-			action.run();
+			long startTime = Calendar.getInstance().getTimeInMillis();
+			
+			for(int i = 0; i < numTimes; i++)
+			{
+				action.run();
+			}
+			
+			long timeTaken = Calendar.getInstance().getTimeInMillis() - startTime;
+			System.out.println(nameOfAction + ": " + timeTaken + "ms");
 		}
-		
-		long timeTaken = Calendar.getInstance().getTimeInMillis() - startTime;
-		System.out.println(nameOfAction + ": " + timeTaken + "ms");
+		catch(Exception e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public static List<Integer> getListOfInts(int howMany)

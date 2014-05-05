@@ -7,22 +7,38 @@ import ezgames.utils.collections.ZArray;
 
 public class MlListVsZArray
 {
+	private static List<Integer> ints = SpeedTestingUtility.getListOfInts(1000);
+	private static SimpleCollection<Integer> sc = SimpleCollection.fromList(ints);
 	
 	public static void main(String[] args)
 	{
-		List<Integer> ints = SpeedTestingUtility.getListOfInts(1000);
-		SimpleCollection<Integer> sc = SimpleCollection.fromList(ints);
-		
-		SpeedTestingUtility.run(()->MlList.fromIterable(ints), "MlList creation", 20);
-		SpeedTestingUtility.run(()->ZArray.createFromSimpleCollection(sc), "ZArray creation", 20);
-		
-		MlList<Integer> mlList = MlList.fromIterable(ints);
-		ZArray<Integer> zArray = ZArray.createFromSimpleCollection(sc);
-		
-		SpeedTestingUtility.run(iterate(mlList), "MlList iteration", 20);
-		SpeedTestingUtility.run(iterate(zArray), "ZArray iteration", 20);
-		SpeedTestingUtility.run(iterateZ(zArray), "ZArray old-school iteration", 20);
-		
+		try
+		{		
+			SpeedTestingUtility.run(MlListVsZArray::createMlList, "MlList creation", 20);
+			SpeedTestingUtility.run(MlListVsZArray::createZArray, "ZArray creation", 20);
+			
+			MlList<Integer> mlList = MlList.fromIterable(ints);
+			ZArray<Integer> zArray = ZArray.createFromSimpleCollection(sc);
+			
+			SpeedTestingUtility.run(iterate(mlList), "MlList iteration", 20);
+			SpeedTestingUtility.run(iterate(zArray), "ZArray iteration", 20);
+			SpeedTestingUtility.run(iterateZ(zArray), "ZArray old-school iteration", 20);
+		}
+		catch (Exception ex){}
+	}
+	
+	private static void createZArray()
+	{
+		try
+		{
+			ZArray.createFromSimpleCollection(sc);
+		}
+		catch (Exception e){}
+	}
+	
+	private static void createMlList()
+	{
+		MlList.fromIterable(ints);
 	}
 	
 	private static Runnable iterate(Iterable<Integer> iter)
