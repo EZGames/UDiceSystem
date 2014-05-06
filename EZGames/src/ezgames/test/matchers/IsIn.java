@@ -4,7 +4,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import ezgames.utils.collections.SimpleCollection;
+import ezgames.utils.collections.simple.SimpleCollection;
 
 public final class IsIn<E> extends TypeSafeMatcher<E>
 {
@@ -12,13 +12,13 @@ public final class IsIn<E> extends TypeSafeMatcher<E>
 	// Public static factory methods
 	//**************************************************************************
 	@Factory
-	public static <T> Matcher<T> isIn(Iterable<T> iter)
+	public static <T> Matcher<T> isIn(SimpleCollection<T> iter)
 	{
 		return new IsIn<T>(iter);
 	}
 	
 	@Factory
-	public static <T> Matcher<T> isNotIn(Iterable<T> iter)
+	public static <T> Matcher<T> isNotIn(SimpleCollection<T> iter)
 	{
 		return org.hamcrest.core.IsNot.not(new IsIn<T>(iter));
 	}
@@ -56,8 +56,8 @@ public final class IsIn<E> extends TypeSafeMatcher<E>
 	//***************************************************************************
 	// Private constructor
 	//***************************************************************************
-	private IsIn(Iterable<E> iterable)
+	private IsIn(SimpleCollection<E> iterable)
 	{
-		collection = SimpleCollection.from(iterable);
+		collection = iterable;
 	}
 }

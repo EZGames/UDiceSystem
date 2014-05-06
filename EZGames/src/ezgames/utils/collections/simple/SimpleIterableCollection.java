@@ -1,20 +1,22 @@
-package ezgames.utils.collections;
+package ezgames.utils.collections.simple;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+import ezgames.utils.DataChecker;
+import ezgames.utils.exceptions.NullArgumentException;
 
-class SimpleCollectionBuilder<T> implements SimpleCollection<T>
+class SimpleIterableCollection<T> implements SimpleCollection<T>
 {
 	//************************************************************************
 	// Public constructors
 	//************************************************************************
-	public SimpleCollectionBuilder(Iterable<T> iter)
+	public SimpleIterableCollection(Iterable<T> iter) throws NullArgumentException
 	{
+		DataChecker.checkDataNotNull(iter, "Cannot create SimpleList from null Iterable");
 		this.iterable = iter;
 	}
 
@@ -31,15 +33,28 @@ class SimpleCollectionBuilder<T> implements SimpleCollection<T>
 		return indexOf(obj) != -1;
 	}
 
-	public T get(int index)
+	@Override
+	public T get(int index) throws IndexOutOfBoundsException
 	{
-		//could throw IndexOutOfBoundsException
-		if (iterable instanceof List<?>) 
-		{ 
-			return ((List<T>) iterable).get(index); 
+		int currIndex = 0;
+		T out = null;
+		
+		for(T obj : iterable)
+		{
+			if(currIndex == index)
+			{
+				out = obj;
+				break;
+			}
+			++currIndex;
 		}
 		
-		return elementAt(iterable, index);
+		if(null == out)
+		{
+			throw new IndexOutOfBoundsException("Index " + index + " is out of the bounds of " + iterable);
+		}
+		
+		return out;
 	}
 
 	public int indexOf(T obj)
@@ -48,6 +63,7 @@ class SimpleCollectionBuilder<T> implements SimpleCollection<T>
 		for (T t : iterable)
 		{
 			if (t.equals(obj)) { return index; }
+			index++;
 		}
 		return -1;
 	}
@@ -74,35 +90,4 @@ class SimpleCollectionBuilder<T> implements SimpleCollection<T>
 	// Private fields
 	//************************************************************************
 	private Iterable<T> iterable;
-	
-	//************************************************************************
-	// Private helper methods
-	//************************************************************************
-	private T elementAt(Iterable<T> iterable, int index)
-	{
-		checkIndex(iterable, index);
-		
-		int currIndex = 0;
-		T out = null;
-		
-		for(T obj : iterable)
-		{
-			if(currIndex == index)
-			{
-				out = obj;
-				break;
-			}
-			++currIndex;
-		}
-		
-		return out;
-	}
-	
-	private void checkIndex(Iterable<T> iterable, int index)
-	{
-		if (index > this.size() - 1 || index < 0) 
-		{ 
-			throw new IndexOutOfBoundsException("Index " + index + " is out of the bounds of " + iterable);
-		}
-	}
 }

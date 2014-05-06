@@ -13,7 +13,7 @@ import ezgames.udicesys.diceModels.abstractions.FaceValue;
 import ezgames.udicesys.diceModels.abstractions.OutputRange;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.utils.collections.MlList;
-import ezgames.utils.collections.SimpleCollection;
+import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.exceptions.NullArgumentException;
 import java.util.Iterator;
 import org.junit.BeforeClass;
@@ -103,7 +103,7 @@ public class UDieTest
 	{
 	   Die die = UDie.with(name, faces);
 	   
-	   Iterable<Relationship> rels = die.listRelationships();
+	   SimpleCollection<Relationship> rels = die.listRelationships();
 	   
 	   assertThat(rels, isNotAnEmptyCollection());
 	}

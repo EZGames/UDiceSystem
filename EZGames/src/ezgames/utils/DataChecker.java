@@ -1,6 +1,6 @@
 package ezgames.utils;
 
-import ezgames.utils.collections.SimpleCollection;
+import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.exceptions.NullArgumentException;
 
 //TODO: finish documentation, then test

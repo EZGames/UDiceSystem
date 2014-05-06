@@ -1,7 +1,7 @@
 package ezgames.udicesys.diceModels.abstractions;
 
 import ezgames.annotations.Immutable;
-import ezgames.utils.collections.SimpleCollection;
+import ezgames.utils.collections.simple.SimpleCollection;
 
 @Immutable
 public interface Roll

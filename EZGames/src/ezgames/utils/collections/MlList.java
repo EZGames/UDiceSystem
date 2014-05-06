@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import ezgames.annotations.Immutable;
 import ezgames.hashing.HashGenerator;
+import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.exceptions.NullArgumentException;
 import ezgames.utils.Weighted;
 

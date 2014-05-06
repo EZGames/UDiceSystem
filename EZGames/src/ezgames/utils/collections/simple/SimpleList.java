@@ -1,16 +1,19 @@
-package ezgames.utils.collections;
+package ezgames.utils.collections.simple;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
+import ezgames.utils.DataChecker;
+import ezgames.utils.exceptions.NullArgumentException;
 
 class SimpleList<T> implements SimpleCollection<T>
 {
 	//************************************************************************
 	// Public constructors
 	//************************************************************************
-	public SimpleList(List<T> list)
+	public SimpleList(List<T> list) throws NullArgumentException
 	{
+		DataChecker.checkDataNotNull(list, "Cannot create SimpleList from null List");
 		this.list = list;
 	}
 	

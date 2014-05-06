@@ -1,4 +1,4 @@
-package ezgames.utils.collections;
+package ezgames.utils.collections.zarray;
 
 import java.util.Iterator;
 import ezgames.annotations.Immutable;

@@ -1,6 +1,6 @@
 package ezgames.udicesys.diceModels.abstractions;
 
-import ezgames.utils.collections.SimpleCollection;
+import ezgames.utils.collections.simple.SimpleCollection;
 
 public interface Effect
 {	

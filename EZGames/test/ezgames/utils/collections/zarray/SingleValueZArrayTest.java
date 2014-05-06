@@ -1,4 +1,4 @@
-package ezgames.utils.collections;
+package ezgames.utils.collections.zarray;
 
 import static ezgames.test.matchers.IteratesNumTimes.*;
 import static ezgames.test.matchers.Throws.*;
@@ -9,6 +9,9 @@ import static org.junit.Assert.*;
 import java.util.Iterator;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ezgames.utils.collections.MlList;
+import ezgames.utils.collections.simple.SimpleCollection;
+import ezgames.utils.collections.zarray.ZArray;
 import ezgames.utils.exceptions.NullArgumentException;
 
 public class SingleValueZArrayTest

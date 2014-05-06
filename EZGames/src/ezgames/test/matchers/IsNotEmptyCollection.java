@@ -4,21 +4,21 @@ import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.Matcher;
 import org.hamcrest.Factory;
 import org.hamcrest.Description;
-import ezgames.utils.collections.SimpleCollection;
+import ezgames.utils.collections.simple.SimpleCollection;
 
-public final class IsNotEmptyCollection extends TypeSafeMatcher<Iterable<?>>
+public final class IsNotEmptyCollection extends TypeSafeMatcher<SimpleCollection<?>>
 {
 	// **************************************************************************
 	// Public static factory methods
 	// **************************************************************************
 	@Factory
-	public static Matcher<Iterable<?>> isNotAnEmptyCollection()
+	public static Matcher<SimpleCollection<?>> isNotAnEmptyCollection()
 	{
 		return new IsNotEmptyCollection();
 	}
 	
 	@Factory
-	public static Matcher<Iterable<?>> isAnEmptyCollection()
+	public static Matcher<SimpleCollection<?>> isAnEmptyCollection()
 	{
 		return org.hamcrest.core.IsNot.not(isNotAnEmptyCollection());
 	}
@@ -27,9 +27,8 @@ public final class IsNotEmptyCollection extends TypeSafeMatcher<Iterable<?>>
 	// Public API methods
 	// **************************************************************************
 	@Override
-	public boolean matchesSafely(Iterable<?> iter)
+	public boolean matchesSafely(SimpleCollection<?> coll)
 	{
-		SimpleCollection<?> coll = SimpleCollection.from(iter);
 		return coll.size() > 0;
 	}
 	
@@ -42,7 +41,7 @@ public final class IsNotEmptyCollection extends TypeSafeMatcher<Iterable<?>>
 	// Protected methods
 	//***************************************************************************
 	@Override
-	protected void describeMismatchSafely(Iterable<?> item, Description mismatchDescription) 
+	protected void describeMismatchSafely(SimpleCollection<?> item, Description mismatchDescription) 
 	{
 		mismatchDescription.appendText("was an empty collection");
    }

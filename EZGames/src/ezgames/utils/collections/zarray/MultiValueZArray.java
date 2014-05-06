@@ -1,8 +1,9 @@
-package ezgames.utils.collections;
+package ezgames.utils.collections.zarray;
 
 import java.util.Iterator;
 import ezgames.annotations.Immutable;
 import ezgames.utils.DataChecker;
+import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.exceptions.NullArgumentException;
 
 @Immutable

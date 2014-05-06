@@ -1,4 +1,4 @@
-package ezgames.utils.collections;
+package ezgames.utils.collections.zarray;
 
 import static ezgames.test.matchers.IsIn.*;
 import static ezgames.test.matchers.IteratesNumTimes.*;
@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ezgames.utils.collections.MlList;
+import ezgames.utils.collections.simple.SimpleCollection;
+import ezgames.utils.collections.zarray.ZArray;
 import ezgames.utils.exceptions.NullArgumentException;
 
 public class MultiValueZArrayTest
@@ -53,21 +56,21 @@ public class MultiValueZArrayTest
 	}
 	
 	@Test
-	public void shouldRejectEmptyIterable()
+	public void shouldRejectEmptyIterable() throws NullArgumentException
 	{
 		ArrayList<Integer> emptyArrayList = new ArrayList<>();
-		SimpleCollection<Integer> emptyIterable = SimpleCollection.fromList(emptyArrayList);
+		SimpleCollection<Integer> emptyIterable = SimpleCollection.from(emptyArrayList);
 		
 		assertThat(()->ZArray.createFromSimpleCollection(emptyIterable), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
-	public void shouldRejectIterableWithANullElement()
+	public void shouldRejectIterableWithANullElement() throws NullArgumentException
 	{
 		ArrayList<Integer> badArrayList = new ArrayList<>();
 		badArrayList.add(null);
 		badArrayList.add(3);
-		SimpleCollection<Integer> badIterable = SimpleCollection.fromList(badArrayList);
+		SimpleCollection<Integer> badIterable = SimpleCollection.from(badArrayList);
 		
 		assertThat(()->ZArray.createFromSimpleCollection(badIterable), throwsAn(NullArgumentException.class));
 	}

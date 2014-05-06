@@ -5,6 +5,7 @@ import ezgames.random.EZRandom;
 import ezgames.random.SimpleRandom;
 import ezgames.utils.DataChecker;
 import ezgames.utils.Weighted;
+import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.exceptions.NullArgumentException;
 
 //TODO: document and test

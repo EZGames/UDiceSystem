@@ -2,18 +2,19 @@ package speedTest;
 
 import java.util.List;
 import ezgames.utils.collections.MlList;
-import ezgames.utils.collections.SimpleCollection;
-import ezgames.utils.collections.ZArray;
+import ezgames.utils.collections.simple.SimpleCollection;
+import ezgames.utils.collections.zarray.ZArray;
 
 public class MlListVsZArray
 {
 	private static List<Integer> ints = SpeedTestingUtility.getListOfInts(1000);
-	private static SimpleCollection<Integer> sc = SimpleCollection.fromList(ints);
+	private static SimpleCollection<Integer> sc;
 	
 	public static void main(String[] args)
 	{
 		try
-		{		
+		{
+			sc = SimpleCollection.from(ints);
 			SpeedTestingUtility.run(MlListVsZArray::createMlList, "MlList creation", 20);
 			SpeedTestingUtility.run(MlListVsZArray::createZArray, "ZArray creation", 20);
 			

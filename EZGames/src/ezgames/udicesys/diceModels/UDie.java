@@ -8,7 +8,7 @@ import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.udicesys.diceModels.abstractions.Roll;
 import ezgames.utils.DataChecker;
 import ezgames.utils.collections.MlList;
-import ezgames.utils.collections.SimpleCollection;
+import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.exceptions.NullArgumentException;
 
 @Immutable

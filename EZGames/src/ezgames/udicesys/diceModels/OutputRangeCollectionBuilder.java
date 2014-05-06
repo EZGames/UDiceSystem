@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 import ezgames.math.range.Range;
 import ezgames.udicesys.diceModels.abstractions.OutputRange;
-import ezgames.utils.collections.SimpleCollection;
+import ezgames.utils.collections.simple.SimpleCollection;
 
 /**
  * The RangeCollectionBuilder class is used to create collections of 
