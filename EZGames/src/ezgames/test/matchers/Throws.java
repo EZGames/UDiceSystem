@@ -5,7 +5,13 @@ import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-public class Throws<X extends Throwable> extends TypeSafeMatcher<ThrowingRunnable<X>>
+/**
+ * {@code Throws} is a matcher that checks whether the given {@link Throwable}
+ * type is thrown within the block of code given in the first part of the
+ * {@code assertThat()} method.
+ * @param <X> the Throwable type being checked for
+ */
+public class Throws<X extends Throwable> extends TypeSafeMatcher<ThrowingRunnable>
 {
 	//**************************************************************************
 	// Public static factory methods
@@ -23,13 +29,13 @@ public class Throws<X extends Throwable> extends TypeSafeMatcher<ThrowingRunnabl
 	}
 	
 	@Factory
-	public static <X extends Throwable> Matcher<ThrowingRunnable<X>> doesNotThrowA(Class<X> ex)
+	public static <X extends Throwable> Matcher<ThrowingRunnable> doesNotThrowA(Class<X> ex)
 	{
 		return org.hamcrest.core.IsNot.not(throwsA(ex));
 	}
 	
 	@Factory
-	public static <X extends Throwable> Matcher<ThrowingRunnable<X>> doesNotThrowAn(Class<X> ex)
+	public static <X extends Throwable> Matcher<ThrowingRunnable> doesNotThrowAn(Class<X> ex)
 	{
 		return doesNotThrowA(ex);
 	}
@@ -44,7 +50,7 @@ public class Throws<X extends Throwable> extends TypeSafeMatcher<ThrowingRunnabl
 	}
 
 	@Override
-	protected boolean matchesSafely(ThrowingRunnable<X> item)
+	protected boolean matchesSafely(ThrowingRunnable item)
 	{
 		try
 		{
@@ -69,9 +75,9 @@ public class Throws<X extends Throwable> extends TypeSafeMatcher<ThrowingRunnabl
 	// Protected methods
 	//***************************************************************************
 	@Override
-	protected void describeMismatchSafely(ThrowingRunnable<X> item, Description mismatchDescription) 
+	protected void describeMismatchSafely(ThrowingRunnable item, Description mismatchDescription) 
 	{
-		mismatchDescription.appendText("was a ")
+		mismatchDescription.appendText("threw a ")
 		   .appendText(actualExType.getName());
    }
 	

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ezgames.test.matchers.ThrowingRunnable;
 import ezgames.utils.exceptions.NullArgumentException;
 
 public class MultiValueZArrayTest
@@ -59,20 +58,7 @@ public class MultiValueZArrayTest
 		ArrayList<Integer> emptyArrayList = new ArrayList<>();
 		SimpleCollection<Integer> emptyIterable = SimpleCollection.fromList(emptyArrayList);
 		
-		assertThat(seeNextMethod(emptyIterable), throwsAn(IllegalArgumentException.class));
-	}
-	
-	private ThrowingRunnable<IllegalArgumentException> seeNextMethod(SimpleCollection<?> coll)
-	{
-		return new ThrowingRunnable<IllegalArgumentException>()
-				{
-					public void run() throws IllegalArgumentException
-					{
-						try
-						{ ZArray.createFromSimpleCollection(coll); }
-						catch(NullArgumentException x) {}
-					}
-				};
+		assertThat(()->ZArray.createFromSimpleCollection(emptyIterable), throwsAn(IllegalArgumentException.class));
 	}
 	
 	@Test
