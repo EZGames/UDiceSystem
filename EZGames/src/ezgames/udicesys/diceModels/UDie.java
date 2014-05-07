@@ -3,6 +3,7 @@ package ezgames.udicesys.diceModels;
 import java.util.Iterator;
 import java.util.stream.Stream;
 import ezgames.annotations.Immutable;
+import ezgames.hashing.HashGenerator;
 import ezgames.udicesys.diceModels.abstractions.Die;
 import ezgames.udicesys.diceModels.abstractions.Face;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
@@ -28,6 +29,36 @@ final class UDie implements Die
 	//**************************************************************************
 	// Public API Methods
 	//**************************************************************************
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(null == obj) { return false; }
+		
+		if(this == obj) { return true; }
+		
+		if(obj instanceof UDie)
+		{
+			UDie other = (UDie)obj;
+			
+			return (name.equals(other.name) && faces.equals(other.faces));
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		HashGenerator hasher = HashGenerator.createWithDefaultHashAlgorithm();
+		int hash = hasher.getStartingValue();
+		hash = hasher.hash(name, hash);
+		hash = hasher.hash(faces, hash);
+		
+		return hash;
+	}
+	
 	@Override
 	public Iterator<Face> iterator()
 	{
@@ -58,8 +89,15 @@ final class UDie implements Die
 	
 	@Override
 	public Roll roll()
-	{
-		return null;
+	{	//TODO: need to work on REC before finishing this
+		try
+		{
+			return new URoll(this, faces.get(0));
+		}
+		catch (IndexOutOfBoundsException | NullArgumentException e)
+		{
+			return null;
+		}
 	}
 	
 	@Override

@@ -138,12 +138,23 @@ public class MlList<E> implements SimpleCollection<E>
 		
 		MlList<?> oList = (MlList<?>) o;
 		
-		return head.equals(oList.head) && tail.equals(oList.tail);
+		if(this == EMPTY)
+		{
+			if(oList == EMPTY)
+			{
+				return true;
+			}
+			return false;
+		}
+		else
+		{
+			return tail.equals(oList.tail);
+		}
 	}
 	
 	public E get(int index)
 	{
-		if(null == head)
+		if(index < 0)
 		{
 			throw new IndexOutOfBoundsException();
 		}
@@ -159,7 +170,7 @@ public class MlList<E> implements SimpleCollection<E>
 	
 	public int hashCode()
 	{
-		HashGenerator hasher = HashGenerator.createDefaultHashUtil();
+		HashGenerator hasher = HashGenerator.createWithDefaultHashAlgorithm();
 		int code = hasher.getStartingValue();
 		code = hasher.hash(head, code);
 		return hasher.hash(tail, code);

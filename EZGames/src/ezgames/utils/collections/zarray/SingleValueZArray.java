@@ -66,7 +66,7 @@ final class SingleValueZArray<E> implements ZArray<E>
 	
 	public int hashCode()
 	{
-		HashGenerator hasher = HashGenerator.createDefaultHashUtil();
+		HashGenerator hasher = HashGenerator.createWithDefaultHashAlgorithm();
 		int curr = hasher.getStartingValue();
 		return hasher.hash(item, curr);
 	}

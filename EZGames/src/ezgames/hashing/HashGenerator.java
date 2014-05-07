@@ -50,7 +50,7 @@ public class HashGenerator
 	 * Constructs a new {@code HashUtil} with a default {@code IHashAlgorithm} of
 	 * {@code FnvHashAlgorithm}.
 	 */
-	public static HashGenerator createDefaultHashUtil()
+	public static HashGenerator createWithDefaultHashAlgorithm()
 	{
 		return new HashGenerator(new FnvHashAlgorithm());
 	}
@@ -66,7 +66,7 @@ public class HashGenerator
 	 * {@code HashUtil}'s static methods for all its built-in hashing techniques.
 	 * @param strategy - the {@code IHashAlgorithm} to apply
 	 */
-	public static HashGenerator createHashUtilWith(HashAlgorithm strategy)
+	public static HashGenerator createHashGeneratorWith(HashAlgorithm strategy)
 	{
 		return new HashGenerator(strategy);
 	}
