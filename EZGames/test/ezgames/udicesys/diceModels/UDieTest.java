@@ -16,6 +16,7 @@ import ezgames.utils.collections.MlList;
 import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.exceptions.NullArgumentException;
 import java.util.Iterator;
+import java.util.stream.Stream;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -37,7 +38,8 @@ public class UDieTest
 	{
 		return new Face() 
 			{
-				public Iterator<FaceValue> iterator() { return null; }				
+				public Iterator<FaceValue> iterator() { return null; }	
+				public Stream<FaceValue> stream() {return null; }
 				public SimpleCollection<Relationship> listRelationships() { return defaultRelationshipList(); }
 			};
 	}
@@ -47,6 +49,7 @@ public class UDieTest
 		Relationship rel = new Relationship() 
 			{
 				public Iterator<OutputRange> iterator() { return null; }	
+				public Stream<OutputRange> stream() {return null; }
 			};
 		return MlList.startWith(rel);
 	}
@@ -133,6 +136,12 @@ public class UDieTest
 	
 	@Test
 	public void testHashCode()
+	{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testStream()
 	{
 		fail("Not yet implemented");
 	}

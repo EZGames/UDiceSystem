@@ -1,8 +1,9 @@
 package ezgames.udicesys.diceModels.abstractions;
 
+import ezgames.utils.collections.Streamable;
 import ezgames.utils.collections.simple.SimpleCollection;
 
-public interface DiceSet extends Iterable<Die>
+public interface DiceSet extends Iterable<Die>, Streamable<Die>
 {
 	/**
 	 * Checks to see if the specified {@code Die} is already in the {@code DiceSet}

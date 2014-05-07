@@ -1,9 +1,10 @@
 package ezgames.udicesys.diceModels.abstractions;
 
 import ezgames.annotations.Immutable;
+import ezgames.utils.collections.Streamable;
 
 @Immutable
-public interface Relationship extends Iterable<OutputRange>
+public interface Relationship extends Iterable<OutputRange>, Streamable<OutputRange>
 {
 //   String getName();
 //   /**

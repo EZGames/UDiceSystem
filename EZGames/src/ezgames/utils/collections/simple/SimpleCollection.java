@@ -2,16 +2,15 @@ package ezgames.utils.collections.simple;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Stream;
+import ezgames.utils.collections.Streamable;
 import ezgames.utils.exceptions.NullArgumentException;
 
-public interface SimpleCollection<E> extends Iterable<E>
+public interface SimpleCollection<E> extends Iterable<E>, Streamable<E>
 {
 	boolean contains(E obj);
 	E get(int index) throws IndexOutOfBoundsException;
 	int indexOf(E obj);
 	int size();
-	Stream<E> stream();
 	
 	static <E> SimpleCollection<E> from(Iterable<E> coll) throws NullArgumentException
 	{

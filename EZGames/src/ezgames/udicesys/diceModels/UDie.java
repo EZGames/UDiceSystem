@@ -1,6 +1,7 @@
 package ezgames.udicesys.diceModels;
 
 import java.util.Iterator;
+import java.util.stream.Stream;
 import ezgames.annotations.Immutable;
 import ezgames.udicesys.diceModels.abstractions.Die;
 import ezgames.udicesys.diceModels.abstractions.Face;
@@ -61,16 +62,22 @@ final class UDie implements Die
 		return null;
 	}
 	
+	@Override
+	public Stream<Face> stream()
+	{
+		return faces.stream();
+	}
+	
 	//**************************************************************************
 	// Private fields
 	//**************************************************************************
 	private final String name;
-	private final Iterable<Face> faces;
+	private final SimpleCollection<Face> faces;
 	
 	//**************************************************************************
 	// Private constructors
 	//**************************************************************************
-	private UDie(final String name, final Iterable<Face> faces)
+	private UDie(final String name, final SimpleCollection<Face> faces)
 	{
 		this.name = name;
 		this.faces = faces;

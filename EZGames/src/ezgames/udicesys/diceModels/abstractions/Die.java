@@ -3,10 +3,11 @@ package ezgames.udicesys.diceModels.abstractions;
 import java.util.Iterator;
 import ezgames.annotations.Immutable;
 import ezgames.utils.collections.Stackable;
+import ezgames.utils.collections.Streamable;
 import ezgames.utils.collections.simple.SimpleCollection;
 
 @Immutable
-public interface Die extends Iterable<Face>, Stackable<Die>
+public interface Die extends Iterable<Face>, Streamable<Face>, Stackable<Die>
 {
    /**
     * Does a random 'roll' of the Die, returning the {@link Roll}
