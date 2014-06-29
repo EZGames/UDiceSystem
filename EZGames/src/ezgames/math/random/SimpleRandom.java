@@ -1,4 +1,4 @@
-package ezgames.random;
+package ezgames.math.random;
 
 public interface SimpleRandom 
 {

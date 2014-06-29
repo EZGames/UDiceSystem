@@ -2,7 +2,7 @@ package ezgames.utils.collections.zarray;
 
 import java.util.Iterator;
 import ezgames.annotations.Immutable;
-import ezgames.hashing.HashGenerator;
+import ezgames.math.hashing.HashGenerator;
 import ezgames.utils.DataChecker;
 import ezgames.utils.exceptions.NullArgumentException;
 
