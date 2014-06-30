@@ -33,7 +33,6 @@ class SimpleIterableCollection<T> implements SimpleCollection<T>
 		return indexOf(obj) != -1;
 	}
 
-	@Override
 	public T get(int index) throws IndexOutOfBoundsException
 	{
 		int currIndex = 0;
@@ -55,6 +54,11 @@ class SimpleIterableCollection<T> implements SimpleCollection<T>
 		}
 		
 		return out;
+	}
+	
+	public Iterable<T> getOriginalIterable()
+	{
+		return iterable;
 	}
 
 	public int indexOf(T obj)

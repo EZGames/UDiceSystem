@@ -30,6 +30,11 @@ class SimpleList<T> implements SimpleCollection<T>
 		return list.get(index);
 	}
 	
+	public List<T> getOriginalList()
+	{
+		return list;
+	}
+	
 	public int indexOf(T obj)
 	{
 		return list.indexOf(obj);
