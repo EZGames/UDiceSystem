@@ -1,4 +1,4 @@
-package ezgames.hashing;
+package ezgames.math.hashing;
 
 /**
  * The Bernstein Hash Algorithm is best for small character keys, but

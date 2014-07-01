@@ -3,7 +3,7 @@ package ezgames.udicesys.diceModels;
 import java.util.Iterator;
 import java.util.stream.Stream;
 import ezgames.annotations.Immutable;
-import ezgames.hashing.HashGenerator;
+import ezgames.math.hashing.HashGenerator;
 import ezgames.udicesys.diceModels.abstractions.Die;
 import ezgames.udicesys.diceModels.abstractions.Face;
 import ezgames.udicesys.diceModels.abstractions.Relationship;

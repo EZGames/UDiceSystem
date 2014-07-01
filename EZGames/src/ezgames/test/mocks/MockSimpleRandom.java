@@ -1,6 +1,6 @@
 package ezgames.test.mocks;
 
-import ezgames.random.SimpleRandom;
+import ezgames.math.random.SimpleRandom;
 
 public class MockSimpleRandom implements SimpleRandom, Validatable
 {

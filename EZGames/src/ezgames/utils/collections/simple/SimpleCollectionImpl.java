@@ -6,6 +6,11 @@ import java.util.stream.Stream;
 import ezgames.utils.DataChecker;
 import ezgames.utils.exceptions.NullArgumentException;
 
+/**
+ * 
+ *
+ * @param <T>
+ */
 class SimpleCollectionImpl<T> implements SimpleCollection<T>
 {
 	//************************************************************************
@@ -48,6 +53,11 @@ class SimpleCollectionImpl<T> implements SimpleCollection<T>
 		}
 		
 		return out;
+	}
+	
+	public Collection<T> getOriginalCollection()
+	{
+		return collection;
 	}
 
 	public int indexOf(T obj)

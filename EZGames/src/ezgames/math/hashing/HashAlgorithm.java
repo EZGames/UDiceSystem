@@ -1,4 +1,4 @@
-package ezgames.hashing;
+package ezgames.math.hashing;
 
 /**
  * The {@code IHashingTechnique} interface is a Strategy designed to be used

@@ -1,14 +1,17 @@
 package ezgames.utils.collections;
 
 import java.util.Iterator;
-import ezgames.random.EZRandom;
-import ezgames.random.SimpleRandom;
+import ezgames.math.random.EZRandom;
+import ezgames.math.random.SimpleRandom;
 import ezgames.utils.DataChecker;
 import ezgames.utils.Weighted;
 import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.exceptions.NullArgumentException;
 
 //TODO: document and test
+/*TODO: provide a Rule interface that the class can use to make sure that the chosen element follows certain rules,
+ * such as never getting the same one twice, or not getting the same element twice in a row. 
+ */
 public abstract class RandomElementChooser<E>
 {
 	//**************************************************************************

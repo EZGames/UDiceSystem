@@ -1,11 +1,12 @@
 package ezgames.udicesys.diceModels.abstractions;
 
 import ezgames.annotations.Immutable;
+import ezgames.utils.collections.Stackable;
 import ezgames.utils.collections.Streamable;
 import ezgames.utils.collections.simple.SimpleCollection;
 
 @Immutable
-public interface Face extends Iterable<FaceValue>, Streamable<FaceValue>
+public interface Face extends Iterable<FaceValue>, Streamable<FaceValue>, Stackable<Face>
 {
 	// String name();
 	// int getValueForRelationship(Relationship aRelationship) throws IllegalArgumentException;

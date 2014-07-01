@@ -15,15 +15,17 @@ public class MlListVsZArray
 		try
 		{
 			sc = SimpleCollection.from(ints);
-			SpeedTestingUtility.run(MlListVsZArray::createMlList, "MlList creation", 20);
-			SpeedTestingUtility.run(MlListVsZArray::createZArray, "ZArray creation", 20);
+			SpeedTestingUtility.getReady();
+			SpeedTestingUtility.run(MlListVsZArray::createZArray, "ZArray creation", 100);
+			SpeedTestingUtility.run(MlListVsZArray::createMlList, "MlList creation", 100);
 			
 			MlList<Integer> mlList = MlList.fromIterable(ints);
 			ZArray<Integer> zArray = ZArray.createFromSimpleCollection(sc);
 			
-			SpeedTestingUtility.run(iterate(mlList), "MlList iteration", 20);
-			SpeedTestingUtility.run(iterate(zArray), "ZArray iteration", 20);
-			SpeedTestingUtility.run(iterateZ(zArray), "ZArray old-school iteration", 20);
+			SpeedTestingUtility.run(iterate(zArray), "ZArray iteration", 100);
+			SpeedTestingUtility.run(iterate(mlList), "MlList iteration", 100);
+			SpeedTestingUtility.run(iterateOldSchool(zArray), "ZArray old-school iteration", 50);
+			SpeedTestingUtility.run(iterateOldSchool(mlList), "MlList old-school iteration", 50);
 		}
 		catch (Exception ex){}
 	}
@@ -57,16 +59,16 @@ public class MlListVsZArray
 		};
 	}
 	
-	private static Runnable iterateZ(ZArray<Integer> zarr)
+	private static Runnable iterateOldSchool(SimpleCollection<Integer> coll)
 	{
 		return new Runnable()
 		{
 			public void run()
 			{
-				int size = zarr.size();
+				int size = coll.size();
 				for(int i = 0; i < size; i++)
 				{
-					Integer a = zarr.get(i);
+					Integer a = coll.get(i);
 					a++;
 					a--;
 				}
