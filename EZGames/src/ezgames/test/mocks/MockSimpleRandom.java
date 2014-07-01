@@ -2,11 +2,12 @@ package ezgames.test.mocks;
 
 import ezgames.random.SimpleRandom;
 
-public class MockSimpleRandom implements SimpleRandom 
+public class MockSimpleRandom implements SimpleRandom, Validatable
 {
-	public MockSimpleRandom(int numToProduce)
+	public MockSimpleRandom(int numToProduce, boolean isSettingSeedBad)
 	{
-		this.numToRoll = numToProduce;
+		numToRoll = numToProduce;
+		this.isSettingSeedBad = isSettingSeedBad;
 	}
 
 	@Override
@@ -14,16 +15,31 @@ public class MockSimpleRandom implements SimpleRandom
 	{
 		if(numToRoll < min || numToRoll > max)
 		{
-			throw new IllegalArgumentException("number to be returned, " + numToRoll + ", is out of " + min + "-" + max + " range.");
+			isValid = false;
 		}
 		return numToRoll;
 	}
-
+	
+	/**
+	 * If <code>isSettingSeedBad</code> is set to true in the constructor, calling
+	 * this method will cause a bad validation.
+	 */
 	@Override
-	public void setSeed(int seed) 
+	public void setSeed(int seed)
 	{
-		numToRoll = seed;
+		if(isSettingSeedBad)
+		{
+			isValid = false;
+		}
+	}
+	
+	@Override
+	public boolean validate()
+	{
+		return isValid;
 	}
 	
 	private int numToRoll;
+	private boolean isSettingSeedBad;
+	private boolean isValid = true;
 }

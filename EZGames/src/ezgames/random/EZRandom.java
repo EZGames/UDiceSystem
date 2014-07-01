@@ -27,6 +27,9 @@ import java.util.Calendar;
  */
 public class EZRandom implements SimpleRandom
 {
+	//***************************************************************************
+	// Public Static Methods for Quick Use
+	//***************************************************************************
    /**
     * A quick, one-shot way to generate a random number with EZRandom, where it 
     * creates the instance for you, produces the result and then releases the 
@@ -54,32 +57,43 @@ public class EZRandom implements SimpleRandom
 	   return new EZRandom(seed).randBetween(min, max);
    }
 	
+   //***************************************************************************
+   // Public Constructors
+   //***************************************************************************
    public EZRandom() 
    { 
-	   current = (int)Calendar.getInstance().getTimeInMillis(); 
+	   currSeed = (int)Calendar.getInstance().getTimeInMillis(); 
    }
    
    public EZRandom(int startingSeed) 
    { 
-	   current = startingSeed; 
+	   currSeed = startingSeed; 
    }
    
+   //***************************************************************************
+   // Public API methods
+   //***************************************************************************
+   /**
+    * Generates a pseudo-random number between min and max, inclusively.
+    */
    public int randBetween(int min, int max)
    {
-	   //A new, local seed variable is produced in an attempt to make the use of
-	   // current more thread-safe.  The final calculation will call on seed, 
-	   // so that, even if current is set to something else between the seed
-	   // calculation and the return value calculation, it won't affect the
-	   // return value calculation.
-	   int seed = current = (current * MULTIPLIER) ^ (min ^ max);
-	   return Math.abs(seed % (max - min + 1)) + min;
+	   setSeed((currSeed * MULTIPLIER) ^ (min ^ max));
+	   return Math.abs(currSeed % (max - min + 1)) + min;
    }
    
-   public void setSeed(int seed)
+   /**
+    * sets a seed so you can dictate 
+    */
+   public void setSeed(int seed) throws IllegalStateException
    {
-      current = seed;
+   	currSeed = seed;
    }
    
-   private static final int MULTIPLIER = 16777619;
-   private int current;   
+   //***************************************************************************
+   // Private Member Fields
+   //***************************************************************************
+   private static final int MULTIPLIER = 16777619; //A good, randomized set of 1s and 0s
+   //alternate multiplier possibility = -1802644563  //1001 0100 1000 1101 1101 0011 1010 1101
+   private int currSeed;
 }

@@ -14,7 +14,7 @@ import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.exceptions.NullArgumentException;
 
 @Immutable
-final class UDie implements Die
+public final class UDie implements Die
 {
 	//**************************************************************************
 	// static factory methods
@@ -115,7 +115,7 @@ final class UDie implements Die
 	//**************************************************************************
 	// Private constructors
 	//**************************************************************************
-	private UDie(final String name, final SimpleCollection<Face> faces)
+	public UDie(final String name, final SimpleCollection<Face> faces)
 	{
 		this.name = name;
 		this.faces = faces;
