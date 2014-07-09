@@ -87,6 +87,13 @@ public class UDieTest
 		assertNotNull(UDie.with(name, faces));
 	}
 	
+	// public static with(*,*,simpleRandom) *************************************
+	@Test
+	public void shouldThrowNullArgumentExceptionWithNullRandom()
+	{
+		fail("hurry up and do it, fathead!");
+	}
+	
 	// Iterator<Face> iterator() ***********************************************
 	@Test
 	public void shouldGetNonNullIterator()

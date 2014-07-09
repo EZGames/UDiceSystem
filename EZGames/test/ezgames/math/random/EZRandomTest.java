@@ -1,11 +1,12 @@
-package ezgames.test.random;
+package ezgames.math.random;
 
-import static ezgames.test.matchers.IsBetween.*;
-import static org.hamcrest.core.IsEqual.*;
-import static org.hamcrest.core.Is.*;
-import static org.junit.Assert.*;
+import static ezgames.test.matchers.IsBetween.and;
+import static ezgames.test.matchers.IsBetween.between;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import ezgames.random.EZRandom;
+import ezgames.math.random.EZRandom;
 
 public class EZRandomTest
 {
