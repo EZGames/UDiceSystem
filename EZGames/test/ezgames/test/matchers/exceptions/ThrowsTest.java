@@ -3,186 +3,237 @@ package ezgames.test.matchers.exceptions;
 import org.junit.Test;
 import static ezgames.test.matchers.exceptions.Throws.*;
 import static org.junit.Assert.*;
-import static org.hamcrest.core.IsNot.*;
+import static org.hamcrest.core.Is.*;
 
 public class ThrowsTest
 {
 	private Class<? extends Throwable> expectedCause = NullPointerException.class;
 	private Class<? extends Throwable> expectedException = IllegalArgumentException.class;
 	private String message = "default message";
+	private ThrowsMatcher<? extends Throwable> throwsMatcher = throwsAn(expectedException);
+	private ThrowsMatcher<? extends Throwable> throwsAndHasNoMessageMatcher = throwsAn(expectedException).andHasNoMessage();
+	private ThrowsMatcher<? extends Throwable> throwsAndHasNoCauseMatcher = throwsAn(expectedException).andHasNoCause();
+	private ThrowsMatcher<? extends Throwable> throwsAndHasTheMessageMatcher = throwsAn(expectedException).andHasMessage(message);
+	private ThrowsMatcher<? extends Throwable> throwsAndHasTheCauseMatcher = throwsAn(expectedException).andHasCause(expectedCause);
+	private ThrowsMatcher<? extends Throwable> throwsAndHasAMessageMatcher = throwsAn(expectedException).andHasAMessage();
+	private ThrowsMatcher<? extends Throwable> throwsAndHasACauseMatcher = throwsAn(expectedException).andHasACause();
+	private ThrowsMatcher<? extends Throwable> throwsAndHasNoMessageAndNoCauseMatcher = throwsAn(expectedException).andHasNoMessage().andHasNoCause();
+	private ThrowsMatcher<? extends Throwable> throwsAndHasNoMessageAndTheCauseMatcher = throwsAn(expectedException).andHasNoMessage().andHasCause(expectedCause);
+	private ThrowsMatcher<? extends Throwable> throwsAndHasNoMessageAndACauseMatcher = throwsAn(expectedException).andHasNoMessage().andHasACause();
+	private ThrowsMatcher<? extends Throwable> throwsAndHasTheMessageAndNoCauseMatcher = throwsAn(expectedException).andHasMessage(message).andHasNoCause();
+	private ThrowsMatcher<? extends Throwable> throwsAndHasTheMessageAndTheCauseMatcher = throwsAn(expectedException).andHasMessage(message).andHasCause(expectedCause);
+	private ThrowsMatcher<? extends Throwable> throwsAndHasTheMessageAndACauseMatcher = throwsAn(expectedException).andHasMessage(message).andHasACause();
+	private ThrowsMatcher<? extends Throwable> throwsAndHasAMessageAndNoCauseMatcher = throwsAn(expectedException).andHasAMessage().andHasNoCause();
+	private ThrowsMatcher<? extends Throwable> throwsAndHasAMessageAndTheCauseMatcher = throwsAn(expectedException).andHasAMessage().andHasCause(expectedCause);
+	private ThrowsMatcher<? extends Throwable> throwsAndHasAMessageAndACauseMatcher = throwsAn(expectedException).andHasAMessage().andHasACause();
 	
-	private ThrowingRunnable nonThrowingRunnable()
+	//***************************************************************************
+	// Where the assertions really happen
+	//***************************************************************************
+	private void usingThrowingRunnableThatDoesntThrowAnything(ThrowsMatcher<?> matcher, boolean whetherTheyShouldMatch)
 	{
-		return new ThrowingRunnable() {
-			public void run() throws Throwable { }
-		};
-	}
-	
-	private ThrowingRunnable simpleThrowingRunnable()
-	{
-		return new ThrowingRunnable() {
-			public void run() throws Throwable { throw new IllegalArgumentException(); }
-		};
-	}
-	
-	private ThrowingRunnable throwingRunnableWithMessage()
-	{
-		return new ThrowingRunnable() {
-			public void run() throws Throwable { throw new IllegalArgumentException(message); }
-		};
-	}
-	
-	private ThrowingRunnable throwingRunnableWithCause()
-	{
-		return new ThrowingRunnable() {
-			public void run() throws Throwable { throw new IllegalArgumentException(new NullPointerException()); }
-		};
-	}
-	
-	private ThrowingRunnable throwingRunnableWithBoth()
-	{
-		return new ThrowingRunnable() {
-			public void run() throws Throwable { throw new IllegalArgumentException(message, new NullPointerException()); }
-		};
-	}
-	
-	@Test
-	public void allFailingTestsForNonThrowingRunnable()
-	{
-		assertThat(nonThrowingRunnable(), doesNotThrowAn(expectedException));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasACause()));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasAMessage()));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasCause(expectedCause)));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasMessage(message)));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasNoCause()));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasNoMessage()));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasACause().andHasAMessage()));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasACause().andHasMessage(message)));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasACause().andHasNoMessage()));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasAMessage()));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasMessage(message)));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasNoMessage()));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasNoCause().andHasAMessage()));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasNoCause().andHasMessage(message)));
-		assertThat(nonThrowingRunnable(), not(throwsAn(expectedException).andHasNoCause().andHasNoMessage()));
-	}
-	
-	@Test
-	public void allPassingTestsForSimpleThrowingRunnable()
-	{
-		assertThat(simpleThrowingRunnable(), throwsAn(expectedException));
-		assertThat(simpleThrowingRunnable(), throwsAn(expectedException).andHasNoCause());
-		assertThat(simpleThrowingRunnable(), throwsAn(expectedException).andHasNoMessage());
-		assertThat(simpleThrowingRunnable(), throwsAn(expectedException).andHasNoCause().andHasNoMessage());
-	}
-	
-	@Test
-	public void allFailingTestsForSimpleThrowingRunnable()
-	{
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasACause()));
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasAMessage()));
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasCause(expectedCause)));
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasMessage(message)));
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasACause().andHasAMessage()));
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasACause().andHasMessage(message)));
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasACause().andHasNoMessage()));
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasAMessage()));
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasMessage(message)));
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasNoMessage()));
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasNoCause().andHasAMessage()));
-		assertThat(simpleThrowingRunnable(), not(throwsAn(expectedException).andHasNoCause().andHasMessage(message)));
-	}
-	
-	@Test
-	public void allPassingTestsForThrowingRunnableWithMessage()
-	{
-		assertThat(throwingRunnableWithMessage(), throwsAn(expectedException));
-		assertThat(throwingRunnableWithMessage(), throwsAn(expectedException).andHasAMessage());
-		assertThat(throwingRunnableWithMessage(), throwsAn(expectedException).andHasMessage(message));
-		assertThat(throwingRunnableWithMessage(), throwsAn(expectedException).andHasNoCause());
-		assertThat(throwingRunnableWithMessage(), throwsAn(expectedException).andHasAMessage().andHasNoCause());
-		assertThat(throwingRunnableWithMessage(), throwsAn(expectedException).andHasMessage(message).andHasNoCause());
+		ThrowingRunnable runnable = new ThrowingRunnable() { public void run() throws Throwable { } };
 		
+		using(runnable, matcher, whetherTheyShouldMatch);
+	}
+	
+	private void usingThrowingRunnableWithNoMessageOrCause(ThrowsMatcher<?> matcher, boolean whetherTheyShouldMatch)
+	{
+		ThrowingRunnable runnable = new ThrowingRunnable() { public void run() throws Throwable { throw new IllegalArgumentException(); } };
+		
+		using(runnable, matcher, whetherTheyShouldMatch);
+	}
+	
+	private void usingThrowingRunnableWithJustAMessage(ThrowsMatcher<?> matcher, boolean whetherTheyShouldMatch)
+	{
+		ThrowingRunnable runnable = new ThrowingRunnable() { public void run() throws Throwable { throw new IllegalArgumentException(message); } };
+		
+		using(runnable, matcher, whetherTheyShouldMatch);
+	}
+	
+	private void usingThrowingRunnableWithJustACause(ThrowsMatcher<?> matcher, boolean whetherTheyShouldMatch)
+	{
+		ThrowingRunnable runnable = new ThrowingRunnable() { public void run() throws Throwable { throw new IllegalArgumentException(new NullPointerException()); } };
+		
+		using(runnable, matcher, whetherTheyShouldMatch);
+	}
+	
+	private void usingThrowingRunnableWithAMessageAndACause(ThrowsMatcher<?> matcher, boolean whetherTheyShouldMatch)
+	{
+		ThrowingRunnable runnable = new ThrowingRunnable() { public void run() throws Throwable { throw new IllegalArgumentException(message, new NullPointerException()); } };
+		
+		using(runnable, matcher, whetherTheyShouldMatch);
+	}
+	
+	private void using(ThrowingRunnable runnable, ThrowsMatcher<?> matcher, boolean whetherTheyShouldMatch)
+	{
+		boolean matches = matcher.matchesSafely(runnable);
+		
+		assertThat(matches, is(whetherTheyShouldMatch));
+	}
+	
+	//***************************************************************************
+	// Tests
+	//***************************************************************************
+	
+	// ***** Testing throwsMatcher **********************************************
+	@Test
+	public void testThrowsMatcher()
+	{
+		usingThrowingRunnableThatDoesntThrowAnything(throwsMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsMatcher, true);
+		usingThrowingRunnableWithJustAMessage(throwsMatcher, true);
+		usingThrowingRunnableWithJustACause(throwsMatcher, true);
+		usingThrowingRunnableWithAMessageAndACause(throwsMatcher, true);
 	}
 	
 	@Test
-	public void allFailingTestsForThrowingRunnableWithMessage()
+	public void testThrowsAndHasNoMessageMatcher()
 	{
-		assertThat(throwingRunnableWithMessage(), not(throwsAn(expectedException).andHasACause()));
-		assertThat(throwingRunnableWithMessage(), not(throwsAn(expectedException).andHasCause(expectedCause)));
-		assertThat(throwingRunnableWithMessage(), not(throwsAn(expectedException).andHasNoMessage()));
-		assertThat(throwingRunnableWithMessage(), not(throwsAn(expectedException).andHasACause().andHasAMessage()));
-		assertThat(throwingRunnableWithMessage(), not(throwsAn(expectedException).andHasACause().andHasMessage(message)));
-		assertThat(throwingRunnableWithMessage(), not(throwsAn(expectedException).andHasACause().andHasNoMessage()));
-		assertThat(throwingRunnableWithMessage(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasAMessage()));
-		assertThat(throwingRunnableWithMessage(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasMessage(message)));
-		assertThat(throwingRunnableWithMessage(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasNoMessage()));
-		assertThat(throwingRunnableWithMessage(), not(throwsAn(expectedException).andHasNoCause().andHasNoMessage()));
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasNoMessageMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasNoMessageMatcher, true);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasNoMessageMatcher, false);
+		usingThrowingRunnableWithJustACause(throwsAndHasNoMessageMatcher, false); //causes create a message
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasNoMessageMatcher, false);
 	}
 	
 	@Test
-	public void allPassingTestsForThrowingRunnableWithCause()
+	public void testThrowsAndHasNoCauseMatcher()
 	{
-		assertThat(throwingRunnableWithCause(), throwsAn(expectedException));
-		assertThat(throwingRunnableWithCause(), throwsAn(expectedException).andHasACause());
-		assertThat(throwingRunnableWithCause(), throwsAn(expectedException).andHasCause(expectedCause));
-		assertThat(throwingRunnableWithCause(), throwsAn(expectedException).andHasAMessage());
-		assertThat(throwingRunnableWithCause(), throwsAn(expectedException).andHasACause().andHasAMessage());
-		assertThat(throwingRunnableWithCause(), throwsAn(expectedException).andHasCause(expectedCause).andHasAMessage());
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasNoCauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasNoCauseMatcher, true);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasNoCauseMatcher, true);
+		usingThrowingRunnableWithJustACause(throwsAndHasNoCauseMatcher, false);
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasNoCauseMatcher, false);
 	}
 	
 	@Test
-	public void allFailingTestsForThrowingRunnableWithCause()
+	public void testThrowsAndHasTheMessageMatcher()
 	{
-		assertThat(throwingRunnableWithCause(), not(throwsAn(expectedException).andHasMessage(message)));
-		assertThat(throwingRunnableWithCause(), not(throwsAn(expectedException).andHasNoCause()));
-		assertThat(throwingRunnableWithCause(), not(throwsAn(expectedException).andHasNoMessage()));
-		assertThat(throwingRunnableWithCause(), not(throwsAn(expectedException).andHasACause().andHasMessage(message)));
-		assertThat(throwingRunnableWithCause(), not(throwsAn(expectedException).andHasACause().andHasNoMessage()));
-		assertThat(throwingRunnableWithCause(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasMessage(message)));
-		assertThat(throwingRunnableWithCause(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasNoMessage()));
-		assertThat(throwingRunnableWithCause(), not(throwsAn(expectedException).andHasNoCause().andHasAMessage()));
-		assertThat(throwingRunnableWithCause(), not(throwsAn(expectedException).andHasNoCause().andHasMessage(message)));
-		assertThat(throwingRunnableWithCause(), not(throwsAn(expectedException).andHasNoCause().andHasNoMessage()));
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasTheMessageMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasTheMessageMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasTheMessageMatcher, true);
+		usingThrowingRunnableWithJustACause(throwsAndHasTheMessageMatcher, false);
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasTheMessageMatcher, true);
 	}
 	
 	@Test
-	public void allPassingTestsForThrowingRunnableWithBoth()
+	public void testThrowsAndHasTheCauseMatcher()
 	{
-		assertThat(throwingRunnableWithBoth(), throwsAn(expectedException));
-		assertThat(throwingRunnableWithBoth(), throwsAn(expectedException).andHasACause());
-		assertThat(throwingRunnableWithBoth(), throwsAn(expectedException).andHasAMessage());
-		assertThat(throwingRunnableWithBoth(), throwsAn(expectedException).andHasCause(expectedCause));
-		assertThat(throwingRunnableWithBoth(), throwsAn(expectedException).andHasMessage(message));
-		assertThat(throwingRunnableWithBoth(), throwsAn(expectedException).andHasACause().andHasAMessage());
-		assertThat(throwingRunnableWithBoth(), throwsAn(expectedException).andHasACause().andHasMessage(message));
-		assertThat(throwingRunnableWithBoth(), throwsAn(expectedException).andHasCause(expectedCause).andHasAMessage());
-		assertThat(throwingRunnableWithBoth(), throwsAn(expectedException).andHasCause(expectedCause).andHasMessage(message));
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasTheCauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasTheCauseMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasTheCauseMatcher, false);
+		usingThrowingRunnableWithJustACause(throwsAndHasTheCauseMatcher, true);
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasTheCauseMatcher, true);
 	}
 	
 	@Test
-	public void allFailingTestsForThrowingRunnableWithBoth()
+	public void testThrowsAndHasAMessageMatcher()
 	{
-		assertThat(throwingRunnableWithBoth(), not(throwsAn(expectedException).andHasNoCause()));
-		assertThat(throwingRunnableWithBoth(), not(throwsAn(expectedException).andHasNoMessage()));
-		assertThat(throwingRunnableWithBoth(), not(throwsAn(expectedException).andHasACause().andHasNoMessage()));
-		assertThat(throwingRunnableWithBoth(), not(throwsAn(expectedException).andHasCause(expectedCause).andHasNoMessage()));
-		assertThat(throwingRunnableWithBoth(), not(throwsAn(expectedException).andHasNoCause().andHasAMessage()));
-		assertThat(throwingRunnableWithBoth(), not(throwsAn(expectedException).andHasNoCause().andHasMessage(message)));
-		assertThat(throwingRunnableWithBoth(), not(throwsAn(expectedException).andHasNoCause().andHasNoMessage()));
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasAMessageMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasAMessageMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasAMessageMatcher, true);
+		usingThrowingRunnableWithJustACause(throwsAndHasAMessageMatcher, true);
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasAMessageMatcher, true);
 	}
 	
 	@Test
-	public void somePassingTestsWithOrderChanged()
+	public void testThrowsAndHasACauseMatcher()
 	{
-		assertThat(throwingRunnableWithBoth(), throwsAn(expectedException).andHasAMessage().andHasACause());
-		assertThat(throwingRunnableWithMessage(), throwsAn(expectedException).andHasNoCause().andHasMessage(message));	
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasACauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasACauseMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasACauseMatcher, false);
+		usingThrowingRunnableWithJustACause(throwsAndHasACauseMatcher, true);
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasACauseMatcher, true);
 	}
 	
 	@Test
-	public void somePassingTestsWithRedundantChecks()
+	public void testThrowsAndHasNoMessageAndNoCauseMatcher()
 	{
-		assertThat(throwingRunnableWithMessage(), throwsAn(expectedException).andHasNoCause().andHasAMessage().andHasMessage(message));
-		assertThat(throwingRunnableWithCause(), throwsAn(expectedException).andHasACause().andHasAMessage().andHasCause(expectedCause));
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasNoMessageAndNoCauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasNoMessageAndNoCauseMatcher, true);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasNoMessageAndNoCauseMatcher, false);
+		usingThrowingRunnableWithJustACause(throwsAndHasNoMessageAndNoCauseMatcher, false);
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasNoMessageAndNoCauseMatcher, false);
+	}
+	
+	@Test
+	public void testThrowsAndHasNoMessageAndTheCauseMatcher()
+	{
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasNoMessageAndTheCauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasNoMessageAndTheCauseMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasNoMessageAndTheCauseMatcher, false);
+		usingThrowingRunnableWithJustACause(throwsAndHasNoMessageAndTheCauseMatcher, false); //causes create a message
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasNoMessageAndTheCauseMatcher, false);
+	}
+	
+	@Test
+	public void testThrowsAndHasNoMessageAndACauseMatcher()
+	{
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasNoMessageAndACauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasNoMessageAndACauseMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasNoMessageAndACauseMatcher, false);
+		usingThrowingRunnableWithJustACause(throwsAndHasNoMessageAndACauseMatcher, false); //causes create a message
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasNoMessageAndACauseMatcher, false);
+	}
+	
+	@Test
+	public void testThrowsAndHasTheMessageAndNoCauseMatcher()
+	{
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasTheMessageAndNoCauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasTheMessageAndNoCauseMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasTheMessageAndNoCauseMatcher, true);
+		usingThrowingRunnableWithJustACause(throwsAndHasTheMessageAndNoCauseMatcher, false);
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasTheMessageAndNoCauseMatcher, false);
+	}
+	
+	@Test
+	public void testThrowsAndHasTheMessageAndTheCauseMatcher()
+	{
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasTheMessageAndTheCauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasTheMessageAndTheCauseMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasTheMessageAndTheCauseMatcher, false);
+		usingThrowingRunnableWithJustACause(throwsAndHasTheMessageAndTheCauseMatcher, false);
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasTheMessageAndTheCauseMatcher, true);
+	}
+	
+	@Test
+	public void testThrowsAndHasTheMessageAndACauseMatcher()
+	{
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasTheMessageAndACauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasTheMessageAndACauseMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasTheMessageAndACauseMatcher, false);
+		usingThrowingRunnableWithJustACause(throwsAndHasTheMessageAndACauseMatcher, false);
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasTheMessageAndACauseMatcher, true);
+	}
+	
+	@Test
+	public void testThrowsAndHasAMessageAndACauseMatcher()
+	{
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasAMessageAndACauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasAMessageAndACauseMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasAMessageAndACauseMatcher, false);
+		usingThrowingRunnableWithJustACause(throwsAndHasAMessageAndACauseMatcher, true); //causes create a message
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasAMessageAndACauseMatcher, true);
+	}
+	
+	@Test
+	public void testThrowsAndHasAMessageAndTheCauseMatcher()
+	{
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasAMessageAndTheCauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasAMessageAndTheCauseMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasAMessageAndTheCauseMatcher, false);
+		usingThrowingRunnableWithJustACause(throwsAndHasAMessageAndTheCauseMatcher, true); //causes create a message
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasAMessageAndTheCauseMatcher, true);
+	}
+	
+	@Test
+	public void testThrowsAndHasAMessageAndNoCauseMatcher()
+	{
+		usingThrowingRunnableThatDoesntThrowAnything(throwsAndHasAMessageAndNoCauseMatcher, false);
+		usingThrowingRunnableWithNoMessageOrCause(throwsAndHasAMessageAndNoCauseMatcher, false);
+		usingThrowingRunnableWithJustAMessage(throwsAndHasAMessageAndNoCauseMatcher, true);
+		usingThrowingRunnableWithJustACause(throwsAndHasAMessageAndNoCauseMatcher, false);
+		usingThrowingRunnableWithAMessageAndACause(throwsAndHasAMessageAndNoCauseMatcher, false);
 	}
 }

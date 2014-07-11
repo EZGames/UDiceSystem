@@ -2,7 +2,6 @@ package ezgames.test.matchers.exceptions;
 
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
-import org.hamcrest.Matcher;
 
 /**
  * {@code Throws} is a matcher that checks whether the given {@link Throwable}
@@ -25,18 +24,6 @@ public class Throws<X extends Throwable> extends ThrowsMatcher<X>
 	public static <X extends Throwable> Throws<X> throwsAn(Class<X> ex)
 	{
 		return throwsA(ex);
-	}
-	
-	@Factory
-	public static <X extends Throwable> Matcher<ThrowingRunnable> doesNotThrowA(Class<X> ex)
-	{
-		return org.hamcrest.core.IsNot.not(throwsA(ex));
-	}
-	
-	@Factory
-	public static <X extends Throwable> Matcher<ThrowingRunnable> doesNotThrowAn(Class<X> ex)
-	{
-		return doesNotThrowA(ex);
 	}
 	
 	//**************************************************************************
