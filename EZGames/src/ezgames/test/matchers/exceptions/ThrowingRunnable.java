@@ -1,4 +1,4 @@
-package ezgames.test.matchers;
+package ezgames.test.matchers.exceptions;
 
 /**
  * For use with the {@link Throws} matcher, the {@code ThrowingRunnable}

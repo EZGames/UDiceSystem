@@ -1,9 +1,8 @@
-package ezgames.test.matchers;
+package ezgames.test.matchers.exceptions;
 
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 
 /**
  * {@code Throws} is a matcher that checks whether the given {@link Throwable}
@@ -11,7 +10,7 @@ import org.hamcrest.TypeSafeMatcher;
  * {@code assertThat()} method.
  * @param <X> the Throwable type being checked for
  */
-public class Throws<X extends Throwable> extends TypeSafeMatcher<ThrowingRunnable>
+public class Throws<X extends Throwable> extends ThrowsMatcher<X>
 {
 	//**************************************************************************
 	// Public static factory methods
@@ -41,12 +40,14 @@ public class Throws<X extends Throwable> extends TypeSafeMatcher<ThrowingRunnabl
 	}
 	
 	//**************************************************************************
-	// Public API methods
+	// Matcher methods
 	//**************************************************************************
 	@Override
 	public void describeTo(Description description)
 	{
-		description.appendText("throws " + exType.getSimpleName());
+		description.appendText("threw a ")
+			.appendText(exType.getSimpleName())
+			.appendText(", as expected.");
 	}
 
 	@Override
@@ -58,34 +59,39 @@ public class Throws<X extends Throwable> extends TypeSafeMatcher<ThrowingRunnabl
 		}
 		catch(Throwable ex)
 		{
+			actualException = ex;
 			if(exType.isInstance(ex))
 			{
 				return true;
 			}
 			else
 			{
-				actualExType = ex.getClass();
 				return false;
 			}
 		}
 		return false;
 	}
 	
-	//***************************************************************************
-	// Protected methods
-	//***************************************************************************
 	@Override
 	protected void describeMismatchSafely(ThrowingRunnable item, Description mismatchDescription) 
 	{
 		mismatchDescription.appendText("threw a ")
-		   .appendText(actualExType.getName());
+		   .appendText(actualException.getClass().getName())
+		   .appendText(" instead of a ")
+		   .appendText(exType.getName());
    }
+	
+	@Override
+	protected Throwable getException()
+	{
+		return actualException;
+	}
 	
 	//**************************************************************************
 	// Private fields
 	//**************************************************************************
 	private Class<X> exType;
-	private Class<? extends Throwable> actualExType;
+	private Throwable actualException;
 	
 	//**************************************************************************
 	// Private constructor
