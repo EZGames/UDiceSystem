@@ -1,6 +1,6 @@
 package ezgames.utils.collections.zarray;
 
-import static ezgames.test.matchers.IteratesNumTimes.*;
+import static ezgames.test.matchers.collections.IteratesNumTimes.*;
 import static ezgames.test.matchers.exceptions.Throws.*;
 import static org.hamcrest.core.IsEqual.*;
 import static org.hamcrest.core.IsNot.*;

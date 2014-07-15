@@ -1,4 +1,4 @@
-package ezgames.test.matchers;
+package ezgames.test.matchers.collections;
 
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.Matcher;
@@ -6,6 +6,15 @@ import org.hamcrest.Factory;
 import org.hamcrest.Description;
 import ezgames.utils.collections.simple.SimpleCollection;
 
+/**
+ * Similar to hamcrest's {@link org.hamcrests.collection.IsEmptyCollection IsEmptyCollection}
+ * matcher, except that the base assumption is reversed and this matcher is set
+ * to work with this library's {@link ezgames.utils.collections.simple.SimpleCollection 
+ * SimpleCollection} interface, rather than java's {@link java.util.Collection 
+ * Collection}
+ * interface.
+ *
+ */
 public final class IsNotEmptyCollection extends TypeSafeMatcher<SimpleCollection<?>>
 {
 	// **************************************************************************

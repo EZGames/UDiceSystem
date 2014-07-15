@@ -1,7 +1,7 @@
 package ezgames.utils.collections;
 
+import static ezgames.test.matchers.collections.IsIn.*;
 import static ezgames.test.matchers.exceptions.Throws.*;
-import static ezgames.test.matchers.IsIn.*;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 import org.junit.Test;

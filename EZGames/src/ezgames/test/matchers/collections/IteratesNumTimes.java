@@ -1,4 +1,4 @@
-package ezgames.test.matchers;
+package ezgames.test.matchers.collections;
 
 import static org.hamcrest.core.IsNot.*;
 import java.util.Iterator;
@@ -7,6 +7,12 @@ import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
+/**
+ * Though it initially appears to essentially be the same as hamcrest's
+ * {@link org.hamcrest.collection.IsCollectionWithSize IsCollectionWithSize}
+ * matcher, the purpose of this matcher is to test whether the collection's
+ * iterator is working properly, rather than to check that the size is correct.
+ */
 public final class IteratesNumTimes extends TypeSafeMatcher<Iterator<?>>
 {
 	//**************************************************************************
