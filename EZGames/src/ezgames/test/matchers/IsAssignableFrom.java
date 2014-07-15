@@ -6,7 +6,7 @@ import org.hamcrest.object.IsCompatibleType;
 
 
 /**
- * Simple extension of hamcrest's {@link org.hamcreast.object.IsCompatibleType}
+ * Simple extension of hamcrest's {@link org.hamcrest.object.IsCompatibleType}
  * so that it uses my preferred phrasing of "is assignable from" instead. 
  */
 public class IsAssignableFrom<T> extends IsCompatibleType<T>
