@@ -3,11 +3,14 @@ package ezgames.udicesys.diceModels;
 
 import static ezgames.test.matchers.collections.IsNotEmptyCollection.*;
 import static ezgames.test.matchers.exceptions.Throws.*;
+import static ezgames.test.matchers.Validates.*;
 import static org.hamcrest.core.IsEqual.*;
 import static org.hamcrest.core.IsNot.*;
 import static org.hamcrest.core.IsNull.*;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
+import ezgames.test.mocks.MockSimpleRandom;
+import ezgames.test.mocks.MockSimpleRandom.UsageAllowance;
 import ezgames.udicesys.diceModels.UDie;
 import ezgames.udicesys.diceModels.abstractions.Die;
 import ezgames.udicesys.diceModels.abstractions.Face;
@@ -21,25 +24,33 @@ import ezgames.utils.exceptions.NullArgumentException;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.stream.Stream;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class UDieTest
 {	
 	static Face onlyFace;
-	static SimpleCollection<Face> faces;
+	static MlList<Face> faces;
 	static String name;
 	static Die die;
+	static MockSimpleRandom rand;
 	
 	@BeforeClass
-	public static void beforeClass() throws NullArgumentException
+	public static void beforeClass()
 	{
 		onlyFace = defaultFace();
-		faces = MlList.startWith(onlyFace);
-		
+		faces = MlList.startWith(onlyFace);		
 		name = "testDie";
-		
-		die = UDie.with(name, faces);
+	}
+	
+	@Before
+	public void before() throws NullArgumentException
+	{
+		//reset the randomNumberGenerator for validation purposes
+		rand = new MockSimpleRandom(0, true, UsageAllowance.SHOULD_BE_USED);
+		//and therefore reset rand in the die
+		die = UDie.with(name, faces, rand);
 	}
 	
 	public static Face defaultFace()
@@ -76,13 +87,7 @@ public class UDieTest
 	}
 	
 	@Test
-	public void shouldThrowNullArgumentExceptionWithNullArguments()
-	{
-		assertThat(()->UDie.with(null, null), throwsA(NullArgumentException.class));
-	}
-	
-	@Test
-	public void shouldReturnProperUDie() throws NullArgumentException
+	public void shouldReturnProperUDieWithNameAndFaces() throws NullArgumentException
 	{
 		assertNotNull(UDie.with(name, faces));
 	}
@@ -91,7 +96,25 @@ public class UDieTest
 	@Test
 	public void shouldThrowNullArgumentExceptionWithNullRandom()
 	{
-		fail("hurry up and do it, fathead!");
+		assertThat(() -> UDie.with(name, faces, null), throwsA(NullArgumentException.class));
+	}
+	
+	@Test
+	public void shouldReturnProperUDieWithNameFacesAndRandom() throws NullArgumentException
+	{
+		assertNotNull(UDie.with(name, faces, rand));
+	}
+	
+	@Test
+	public void shouldThrowNullArgumentExceptionWithNullNameWhenIncludingRandom()
+	{
+		assertThat(() -> UDie.with(null, faces, rand), throwsA(NullArgumentException.class));
+	}
+	
+	@Test
+	public void shouldThrowNullArgumentExceptionWithNullFacesWhenIncludingRandom()
+	{
+		assertThat(() -> UDie.with(name, null, rand), throwsA(NullArgumentException.class));
 	}
 	
 	// Iterator<Face> iterator() ***********************************************
@@ -228,20 +251,31 @@ public class UDieTest
 	@Test
 	public void shouldGetRollWithThisDie()
 	{
-		Die rollDie = die.roll().die();
+		Die rolledDie = die.roll().die();
 		
-		assertThat(rollDie, is(equalTo(die)));
+		assertThat(rolledDie, is(equalTo(die)));
 	}
 	
 	@Test
-	public void shouldGetCorrectRoll()
+	public void shouldRollFirstFace()
 	{
-		fail("Not yet implemented");
+		Face rolledFace = die.roll().rolledFace();
+		
+		assertThat(rolledFace, is(onlyFace));
+		assertThat(rand, validates());
 	}
 	
 	@Test
-	public void testRoll()
+	public void shouldRollSecondFace() throws NullArgumentException
 	{
-		fail("Not yet implemented");
+		//Create a Die with 2 faces and uses a "random number generator" to return the second face
+		Face secondFace = defaultFace();
+		MockSimpleRandom generatesAOne = new MockSimpleRandom(1, true, UsageAllowance.SHOULD_BE_USED);//always generates a 1 (0-indexed), not okay to set the seed
+		Die die = UDie.with(name, onlyFace.and(secondFace), generatesAOne); //MlList puts new objects in the front, so secondFace needs to be placed "before" onlyFace in order to be the second object in the collection
+		
+		Face rolledFace = die.roll().rolledFace();
+		
+		assertThat(rolledFace, is(secondFace));
+		assertThat(generatesAOne, validates());
 	}
 }

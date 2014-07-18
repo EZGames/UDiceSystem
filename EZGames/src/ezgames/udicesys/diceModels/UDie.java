@@ -4,12 +4,17 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 import ezgames.annotations.Immutable;
 import ezgames.math.hashing.HashGenerator;
+import ezgames.math.random.EZRandom;
+import ezgames.math.random.SimpleRandom;
 import ezgames.udicesys.diceModels.abstractions.Die;
 import ezgames.udicesys.diceModels.abstractions.Face;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.udicesys.diceModels.abstractions.Roll;
 import ezgames.utils.DataChecker;
 import ezgames.utils.collections.MlList;
+import ezgames.utils.collections.rec.OpenRandomElementChooser;
+import ezgames.utils.collections.rec.RandomElementChooser;
+import ezgames.utils.collections.rec.SimpleChooserStrategy;
 import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.exceptions.NullArgumentException;
 
@@ -21,9 +26,15 @@ public final class UDie implements Die
 	//**************************************************************************
 	public static Die with( final String name, final SimpleCollection<Face> faces) throws NullArgumentException
 	{
+		return with(name, faces, new EZRandom());
+	}
+	
+	public static Die with(final String name, final SimpleCollection<Face> faces, final SimpleRandom rand) throws NullArgumentException
+	{
 		DataChecker.checkStringDataNotNull(name, "Die Requires non-null, non-empty name");
 		DataChecker.checkIterableNotEmptyOrNull(faces, "Die Requires non-null, non-empty list of non-null faces");
-		return new UDie(name, faces);
+		DataChecker.checkDataNotNull(rand, "Die Requires a non-null random number generator");
+		return new UDie(name, faces, rand);
 	}
 	
 	//**************************************************************************
@@ -92,9 +103,11 @@ public final class UDie implements Die
 	{	//TODO: need to work on REC before finishing this
 		try
 		{
-			return new URoll(this, faces.get(0));
+			RandomElementChooser<Face> rec = new OpenRandomElementChooser<>(faces, rand, new SimpleChooserStrategy<>());
+			Face chosenFace = rec.choose();
+			return new URoll(this, chosenFace);
 		}
-		catch (IndexOutOfBoundsException | NullArgumentException e)
+		catch (NullArgumentException e)
 		{
 			return null;
 		}
@@ -111,13 +124,15 @@ public final class UDie implements Die
 	//**************************************************************************
 	private final String name;
 	private final SimpleCollection<Face> faces;
+	private final SimpleRandom rand;
 	
 	//**************************************************************************
 	// Private constructors
 	//**************************************************************************
-	public UDie(final String name, final SimpleCollection<Face> faces)
+	private UDie(final String name, final SimpleCollection<Face> faces, final SimpleRandom rand)
 	{
 		this.name = name;
 		this.faces = faces;
+		this.rand = rand;
 	}
 }
