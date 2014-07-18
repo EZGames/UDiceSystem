@@ -2,6 +2,7 @@ package ezgames.test.mocks;
 
 import ezgames.math.random.SimpleRandom;
 
+//TODO: update to include "isUsed" validation
 /**
  * <p>A mock class for the {@link ezgames.math.random.SimpleRandom SimpleRandom}
  * interface.  It allows the tester to provide a value for the {@code SimpleRandom}
@@ -25,10 +26,16 @@ public class MockSimpleRandom implements SimpleRandom, Validatable
 	 * @param isSettingSeedBad - if true, calling {@link #setSeed} before validating
 	 * will cause the validation to fail.
 	 */
-	public MockSimpleRandom(int numToProduce, boolean isSettingSeedBad)
+	public MockSimpleRandom(int numToProduce, boolean isSettingSeedBad, UsageAllowance allowance)
 	{
 		numToReturn = numToProduce;
 		this.isSettingSeedBad = isSettingSeedBad;
+		this.allowance = allowance;
+	}
+	
+	public MockSimpleRandom(int numToProduce, boolean isSettingSeedBad)
+	{
+		this(numToProduce, isSettingSeedBad, UsageAllowance.CAN_BE_USED);
 	}
 
 	/**
@@ -40,6 +47,7 @@ public class MockSimpleRandom implements SimpleRandom, Validatable
 	@Override
 	public int randBetween(int min, int max) 
 	{
+		beingUsed();
 		if(numToReturn < min || numToReturn > max)
 		{
 			isValid = false;
@@ -54,6 +62,7 @@ public class MockSimpleRandom implements SimpleRandom, Validatable
 	@Override
 	public void setSeed(int seed)
 	{
+		beingUsed();
 		if(isSettingSeedBad)
 		{
 			isValid = false;
@@ -68,10 +77,47 @@ public class MockSimpleRandom implements SimpleRandom, Validatable
 	@Override
 	public boolean validate()
 	{
-		return isValid;
+		return isValid && isNotUsedWhenItCantBe();
+	}
+	
+	private void beingUsed()
+	{
+		isUsed = true;
+		validateUsage();
+	}
+	
+	private void validateUsage()
+	{
+		if(isUsed && !allowance.isSafeToUse)
+		{
+			isValid = false;
+		}
+	}
+	
+	private boolean isNotUsedWhenItCantBe()
+	{
+		return isUsed || allowance.isSafeNotToUse;
 	}
 	
 	private int numToReturn;
 	private boolean isSettingSeedBad;
 	private boolean isValid = true;
+	private UsageAllowance allowance;
+	private boolean isUsed = false;
+	
+	public enum UsageAllowance
+	{
+		CANNOT_BE_USED(false, true),
+		CAN_BE_USED(true, true),
+		SHOULD_BE_USED(true, false);
+		
+		private UsageAllowance(boolean safeToUse, boolean safeNotToUse)
+		{
+			isSafeToUse = safeToUse;
+			isSafeNotToUse = safeNotToUse;
+		}
+		
+		public boolean isSafeToUse;
+		public boolean isSafeNotToUse;
+	}
 }
