@@ -1,6 +1,7 @@
 package ezgames.utils.collections.zarray;
 
 import java.util.Iterator;
+import java.util.Optional;
 import ezgames.annotations.Immutable;
 import ezgames.utils.DataChecker;
 import ezgames.utils.collections.simple.SimpleCollection;
@@ -40,7 +41,7 @@ final class MultiValueZArray<E> implements ZArray<E>
 	
 	public boolean contains(E obj)
 	{
-		return indexOf(obj) != -1;
+		return indexOf(obj).isPresent();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -102,18 +103,18 @@ final class MultiValueZArray<E> implements ZArray<E>
 		return result;
 	}
 	
-	public int indexOf(E obj)
+	public Optional<Integer> indexOf(E obj)
 	{
 		int index = 0;
 		for(Object item : array)
 		{
 			if(item.equals(obj))
 			{
-				return index;
+				return Optional.of(index);
 			}
 			index++;
 		}
-		return -1;		
+		return Optional.empty();		
 	}
 	
 	public final Iterator<E> iterator()

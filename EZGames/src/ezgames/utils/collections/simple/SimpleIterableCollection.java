@@ -2,6 +2,7 @@ package ezgames.utils.collections.simple;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.Stream;
@@ -30,7 +31,7 @@ class SimpleIterableCollection<T> implements SimpleCollection<T>
 
 	public boolean contains(T obj)
 	{
-		return indexOf(obj) != -1;
+		return indexOf(obj).isPresent();
 	}
 
 	public T get(int index) throws IndexOutOfBoundsException
@@ -61,15 +62,15 @@ class SimpleIterableCollection<T> implements SimpleCollection<T>
 		return iterable;
 	}
 
-	public int indexOf(T obj)
+	public Optional<Integer> indexOf(T obj)
 	{
 		int index = 0;
 		for (T t : iterable)
 		{
-			if (t.equals(obj)) { return index; }
+			if (t.equals(obj)) { return Optional.of(index); }
 			index++;
 		}
-		return -1;
+		return Optional.empty();
 	}
 
 	public int size()

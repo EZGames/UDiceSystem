@@ -2,6 +2,7 @@ package ezgames.utils.collections.simple;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 import ezgames.utils.DataChecker;
 import ezgames.utils.exceptions.NullArgumentException;
@@ -35,9 +36,11 @@ class SimpleList<T> implements SimpleCollection<T>
 		return list;
 	}
 	
-	public int indexOf(T obj)
+	public Optional<Integer> indexOf(T obj)
 	{
-		return list.indexOf(obj);
+		int index = list.indexOf(obj);
+		
+		return (index != -1) ? Optional.of(index) : Optional.empty(); 
 	}
 	
 	public boolean contains(T obj)

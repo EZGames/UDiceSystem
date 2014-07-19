@@ -2,6 +2,7 @@ package ezgames.utils.collections.simple;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.stream.Stream;
 import ezgames.utils.DataChecker;
 import ezgames.utils.exceptions.NullArgumentException;
@@ -60,14 +61,14 @@ class SimpleCollectionImpl<T> implements SimpleCollection<T>
 		return collection;
 	}
 
-	public int indexOf(T obj)
+	public Optional<Integer> indexOf(T obj)
 	{
 		int index = 0;
 		for (T t : collection)
 		{
-			if (t.equals(obj)) { return index; }
+			if (t.equals(obj)) { return Optional.of(index); }
 		}
-		return -1;
+		return Optional.empty();
 	}
 
 	public int size()

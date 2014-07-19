@@ -2,6 +2,7 @@ package ezgames.utils.collections.simple;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import ezgames.utils.collections.Streamable;
 import ezgames.utils.exceptions.NullArgumentException;
 
@@ -32,10 +33,11 @@ public interface SimpleCollection<E> extends Iterable<E>, Streamable<E>
 	E get(int index) throws IndexOutOfBoundsException;
 	/**
 	 * @param obj - the object to get the index of
-	 * @return the index of the given object within this collection, or -1 if the
-	 * object is not within this collection 
+	 * @return an Optional object containing the index of the given object within
+	 * this collection, or an empty Optional, if the object is not within this 
+	 * collection 
 	 */
-	int indexOf(E obj);
+	Optional<Integer> indexOf(E obj);
 	/**
 	 * @return the number of elements stored within this collection
 	 */

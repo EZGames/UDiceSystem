@@ -1,6 +1,7 @@
 package ezgames.utils.collections;
 
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.Stream;
@@ -127,7 +128,7 @@ public class MlList<E> implements SimpleCollection<E>
 	
 	public boolean contains(final E obj)
 	{
-		return indexOf(obj) != -1;
+		return indexOf(obj).isPresent();
 	}
 	
 	public boolean equals(Object o)
@@ -181,7 +182,7 @@ public class MlList<E> implements SimpleCollection<E>
 		return head;
 	}
 	
-	public int indexOf(E obj)
+	public Optional<Integer> indexOf(E obj)
 	{
 		return indexOf(obj, 0);
 	}
@@ -289,15 +290,15 @@ public class MlList<E> implements SimpleCollection<E>
 	//***************************************************************************
 	// Private helpers
 	//***************************************************************************
-	private int indexOf(E obj, int currIndex)
+	private Optional<Integer> indexOf(E obj, int currIndex)
 	{
 		if(head == null)
 		{
-			return -1;
+			return Optional.empty();
 		}
 		else if(head.equals(obj))
 		{
-			return currIndex;
+			return Optional.of(currIndex);
 		}
 		else
 		{

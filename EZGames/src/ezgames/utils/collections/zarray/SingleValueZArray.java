@@ -1,6 +1,7 @@
 package ezgames.utils.collections.zarray;
 
 import java.util.Iterator;
+import java.util.Optional;
 import ezgames.annotations.Immutable;
 import ezgames.math.hashing.HashGenerator;
 import ezgames.utils.DataChecker;
@@ -71,15 +72,15 @@ final class SingleValueZArray<E> implements ZArray<E>
 		return hasher.hash(item, curr);
 	}
 	
-	public int indexOf(E obj)
+	public Optional<Integer> indexOf(E obj)
 	{
 		if(item.equals(obj))
 		{
-			return 0;
+			return Optional.of(0);
 		}
 		else
 		{
-			return -1;
+			return Optional.empty();
 		}
 	}
 	
