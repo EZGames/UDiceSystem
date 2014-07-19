@@ -1,6 +1,7 @@
 package ezgames.udicesys.diceModels;
 
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.stream.Stream;
 import ezgames.math.range.Range;
 import ezgames.udicesys.diceModels.abstractions.OutputRange;
@@ -37,10 +38,10 @@ public class OutputRangeCollectionBuilder implements SimpleCollection<OutputRang
 	}
 
 	@Override
-	public int indexOf(OutputRange obj)
+	public Optional<Integer> indexOf(OutputRange obj)
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return Optional.empty();
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package ezgames.utils.tuples;
 
-public final class Tuple2Impl<T, U> implements Tuple2<T, U>
+import java.util.function.Consumer;
+
+final class Tuple2Impl<T, U> implements Tuple2<T, U>
 {
 	//***************************************************************************
 	// Public API methods
@@ -10,9 +12,27 @@ public final class Tuple2Impl<T, U> implements Tuple2<T, U>
 		return one;
 	}
 	
+	public Tuple2<T, U> useOne(Consumer<? super T> func)
+	{
+		if(func != null)
+		{
+			func.accept(one);
+		}
+		return this;
+	}
+	
 	public U two()
 	{
 		return two;
+	}
+
+	public Tuple2<T, U> useTwo(Consumer<? super U> func)
+	{
+		if(func != null)
+		{
+			func.accept(two);
+		}
+		return this;
 	}
 	
 	public Tuple2<U, T> swap()
@@ -43,24 +63,32 @@ final class SwappedTuple2<T, U> implements Tuple2<T, U>
 		this.original = original;
 	}
 
-	@Override
 	public T one()
 	{
 		return original.two();
 	}
 
-	@Override
+	public Tuple2<T, U> useOne(Consumer<? super T> func)
+	{
+		original.useTwo(func);
+		return this;
+	}
+
 	public U two()
 	{
 		return original.one();
 	}
 
-	@Override
+	public Tuple2<T, U> useTwo(Consumer<? super U> func)
+	{
+		original.useOne(func);
+		return this;
+	}
+
 	public Tuple2<U, T> swap()
 	{
 		return original;
 	}
 	
-	private final Tuple2<U, T> original;
-	
+	private final Tuple2<U, T> original;	
 }
