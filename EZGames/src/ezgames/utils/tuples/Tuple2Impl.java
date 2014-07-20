@@ -2,17 +2,17 @@ package ezgames.utils.tuples;
 
 import java.util.function.Consumer;
 
-final class Tuple2Impl<T, U> implements Tuple2<T, U>
+final class Tuple2Impl<T1, T2> implements Tuple2<T1, T2>
 {
 	//***************************************************************************
 	// Public API methods
 	//***************************************************************************
-	public T one()
+	public T1 one()
 	{
 		return one;
 	}
 	
-	public Tuple2<T, U> useOne(Consumer<? super T> func)
+	public Tuple2<T1, T2> useOne(Consumer<? super T1> func)
 	{
 		if(func != null)
 		{
@@ -21,12 +21,12 @@ final class Tuple2Impl<T, U> implements Tuple2<T, U>
 		return this;
 	}
 	
-	public U two()
+	public T2 two()
 	{
 		return two;
 	}
 
-	public Tuple2<T, U> useTwo(Consumer<? super U> func)
+	public Tuple2<T1, T2> useTwo(Consumer<? super T2> func)
 	{
 		if(func != null)
 		{
@@ -35,7 +35,7 @@ final class Tuple2Impl<T, U> implements Tuple2<T, U>
 		return this;
 	}
 	
-	public Tuple2<U, T> swap()
+	public Tuple2<T2, T1> swap()
 	{
 		return new SwappedTuple2<>(this);
 	}
@@ -43,7 +43,7 @@ final class Tuple2Impl<T, U> implements Tuple2<T, U>
 	//***************************************************************************
 	// Package-private constructors
 	//***************************************************************************
-	Tuple2Impl(T first, U second)
+	Tuple2Impl(T1 first, T2 second)
 	{
 		one = first;
 		two = second;
@@ -52,43 +52,43 @@ final class Tuple2Impl<T, U> implements Tuple2<T, U>
 	//***************************************************************************
 	// Private fields
 	//***************************************************************************
-	private final T one;
-	private final U two;	
+	private final T1 one;
+	private final T2 two;	
 }
 
-final class SwappedTuple2<T, U> implements Tuple2<T, U>
+final class SwappedTuple2<T1, T2> implements Tuple2<T1, T2>
 {
-	public SwappedTuple2(Tuple2<U, T> original)
+	public SwappedTuple2(Tuple2<T2, T1> original)
 	{
 		this.original = original;
 	}
 
-	public T one()
+	public T1 one()
 	{
 		return original.two();
 	}
 
-	public Tuple2<T, U> useOne(Consumer<? super T> func)
+	public Tuple2<T1, T2> useOne(Consumer<? super T1> func)
 	{
 		original.useTwo(func);
 		return this;
 	}
 
-	public U two()
+	public T2 two()
 	{
 		return original.one();
 	}
 
-	public Tuple2<T, U> useTwo(Consumer<? super U> func)
+	public Tuple2<T1, T2> useTwo(Consumer<? super T2> func)
 	{
 		original.useOne(func);
 		return this;
 	}
 
-	public Tuple2<U, T> swap()
+	public Tuple2<T2, T1> swap()
 	{
 		return original;
 	}
 	
-	private final Tuple2<U, T> original;	
+	private final Tuple2<T2, T1> original;	
 }
