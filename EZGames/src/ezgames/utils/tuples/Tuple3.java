@@ -2,6 +2,17 @@ package ezgames.utils.tuples;
 
 import java.util.function.Consumer;
 
+/**
+ * Represents a 3-part tuple, as seen in other programming languages, essentially
+ * allowing for multiple values to be passed around together (usually in a return
+ * statement) without being intrinsically related.
+ * <p>
+ * @see {@link Tuple2} for more information on the purpose and use of these
+ * Tuples.</p> 
+ * @param <T1> the type of the first object in the tuple
+ * @param <T2> the type of the second object in the tuple
+ * @param <T3> the type of the third object in the tuple
+ */
 public interface Tuple3<T1, T2, T3>
 {
 	/**

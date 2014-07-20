@@ -7,22 +7,22 @@ import java.util.function.Consumer;
  * allowing for multiple values to be passed around together (usually in a return
  * statement) without being intrinsically related.
  * <p>
- * It's main purpose is to serve as a return object, allowing methods to, in effect,
+ * Its main purpose is to serve as a return object, allowing methods to, in effect,
  * return more than one object.</p>
  * <p>
  * If one of the objects being returned is only sometimes returned, it is
  * suggested that you return an {@link java.util.Optional Optional} of that type,
  * forcing those that use your returned tuple to think about the possibility of
  * the object containing no value.</p> 
- * @param <T> the type of the first object in the tuple
- * @param <U> the type of the second object in the tuple
+ * @param <T1> the type of the first object in the tuple
+ * @param <T2> the type of the second object in the tuple
  */
-public interface Tuple2<T, U>
+public interface Tuple2<T1, T2>
 {
 	/**
 	 * @return the first object in the tuple
 	 */
-	T one();	
+	T1 one();	
 	/**
 	 * Provide a function that uses the first object in the tuple. Returns the
 	 * same tuple, allowing you to chain commands.
@@ -39,11 +39,11 @@ public interface Tuple2<T, U>
 	 * @param func - the function to "consume" the first object
 	 * @return <code>this</code>, for method chaining.
 	 */
-	Tuple2<T, U> useOne(Consumer<?  super T> func);	
+	Tuple2<T1, T2> useOne(Consumer<?  super T1> func);	
 	/**
 	 * @return the second object in the tuple
 	 */
-	U two();	
+	T2 two();	
 	/**
 	 * Provide a function that uses the second object in the tuple. Returns the
 	 * same tuple, allowing you to chain commands.
@@ -51,11 +51,11 @@ public interface Tuple2<T, U>
 	 * @param func - the function to "consume" the second object
 	 * @return <code>this</code>, for method chaining.
 	 */
-	Tuple2<T, U> useTwo(Consumer<? super U> func);	
+	Tuple2<T1, T2> useTwo(Consumer<? super T2> func);	
 	/**
 	 * @return the same tuple in reverse order
 	 */
-	Tuple2<U, T> swap();
+	Tuple2<T2, T1> swap();
 	
 	//***************************************************************************
 	// Public static factories
@@ -66,8 +66,8 @@ public interface Tuple2<T, U>
 	 * @param two - the second object of the tuple
 	 * @return the created Tuple2 containing the given objects
 	 */
-	public static <T,U> Tuple2<T, U> of(T one, U two)
+	public static <T1,T2> Tuple2<T1, T2> of(T1 one, T2 two)
 	{
-		return new Tuple2Impl<T,U>(one, two);
+		return new Tuple2Impl<T1,T2>(one, two);
 	}
 }
