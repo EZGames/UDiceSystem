@@ -1,6 +1,6 @@
 package ezgames.utils;
 
-public interface EZComparable<T> extends Comparable<T>
+public interface ExtendedComparable<T> extends Comparable<T>
 {
    default boolean lessThan(T other)
    {
