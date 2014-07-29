@@ -11,6 +11,7 @@ import ezgames.math.hashing.HashGenerator;
 import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.exceptions.NullArgumentException;
 import ezgames.utils.Weighted;
+import func.java.tailrecursion.TailCall;
 
 //TODO: testing and documentation
 /**
@@ -184,7 +185,7 @@ public class MlList<E> implements SimpleCollection<E>
 	
 	public Optional<Integer> indexOf(E obj)
 	{
-		return indexOf(obj, 0);
+		return indexOf(obj, 0).invoke();
 	}
 	
 	public boolean isEmpty()
@@ -265,9 +266,7 @@ public class MlList<E> implements SimpleCollection<E>
 	@SuppressWarnings("unchecked")
 	private MlList(E o)
 	{
-		head = o;
-		tail = (MlList<E>)EMPTY;
-		size = 1;
+		this(o, EMPTY);
 	}
 	
 	private MlList(E o, MlList<E> list)
@@ -290,19 +289,19 @@ public class MlList<E> implements SimpleCollection<E>
 	//***************************************************************************
 	// Private helpers
 	//***************************************************************************
-	private Optional<Integer> indexOf(E obj, int currIndex)
+	private TailCall<Optional<Integer>> indexOf(E obj, int currIndex)
 	{
 		if(head == null)
 		{
-			return Optional.empty();
+			return TailCall.done(Optional.empty());
 		}
 		else if(head.equals(obj))
 		{
-			return Optional.of(currIndex);
+			return TailCall.done(Optional.of(currIndex));
 		}
 		else
 		{
-			return tail.indexOf(obj, currIndex + 1);
+			return () -> tail.indexOf(obj, currIndex + 1);
 		}
 	}
 	
