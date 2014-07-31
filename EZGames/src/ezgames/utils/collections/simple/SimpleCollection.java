@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import ezgames.utils.collections.Streamable;
-import ezgames.utils.exceptions.NullArgumentException;
 
 /**
  * TODO: finish; NOTE: talk about how the original objects can be returned the 
@@ -49,10 +48,8 @@ public interface SimpleCollection<E> extends Iterable<E>, Streamable<E>
 	 * @param coll - an <code>Iterable</code> collection from which to create a new 
 	 * <code>SimpleCollection</code> object from.
 	 * @return the new <code>SimpleCollection</code> object
-	 * @throws NullArgumentException if a null or empty <code>Iterable</code> is
-	 * given.
 	 */
-	static <E> SimpleCollection<E> from(Iterable<E> coll) throws NullArgumentException
+	static <E> SimpleCollection<E> from(Iterable<E> coll)
 	{
 		if(coll instanceof List<?>)
 		{

@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.stream.Stream;
-import ezgames.utils.DataChecker;
-import ezgames.utils.exceptions.NullArgumentException;
 
 /**
  * 
@@ -17,9 +15,8 @@ class SimpleCollectionImpl<T> implements SimpleCollection<T>
 	//************************************************************************
 	// Public constructors
 	//************************************************************************
-	public SimpleCollectionImpl(Collection<T> iter) throws NullArgumentException
+	public SimpleCollectionImpl(Collection<T> iter)
 	{
-		DataChecker.checkDataNotNull(iter, "Cannot create SimpleList from null Iterable");
 		this.collection = iter;
 	}
 

@@ -7,9 +7,7 @@ import ezgames.udicesys.diceModels.abstractions.Face;
 import ezgames.udicesys.diceModels.abstractions.FaceValue;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.udicesys.diceModels.abstractions.Roll;
-import ezgames.utils.DataChecker;
 import ezgames.utils.collections.simple.SimpleCollection;
-import ezgames.utils.exceptions.NullArgumentException;
 
 @Immutable
 public final class URoll implements Roll
@@ -29,14 +27,7 @@ public final class URoll implements Roll
 	
 	public SimpleCollection<FaceValue> rolledFaceValues()
 	{
-		try
-		{
-			return SimpleCollection.from(face);
-		}
-		catch (NullArgumentException e)
-		{
-			return null;
-		}
+		return SimpleCollection.from(face);
 	}
 	
 	public SimpleCollection<Relationship> rolledRelationships()
@@ -53,10 +44,8 @@ public final class URoll implements Roll
 	//***************************************************************************
 	// Package-private constructor
 	//***************************************************************************
-	URoll(Die die, Face face) throws NullArgumentException
+	URoll(Die die, Face face)
 	{
-		DataChecker.checkDataNotNull(die, "Cannot create a Roll with a null Die");
-		DataChecker.checkDataNotNull(face, "Cannot create a Roll with a null Face");
 		this.die = die;
 		this.face = face;
 	}

@@ -1,21 +1,32 @@
 package ezgames.utils;
 
 import ezgames.annotations.Immutable;
-import ezgames.utils.exceptions.NullArgumentException;
 
+/**
+ * The {@code Weighted} class is used to add a weight attribute to any object.
+ * It's main purpose was for the UDice System to make weighted dice where 
+ * faces would have a higher or lower chance of being rolled, but it can 
+ * technically be used to add an integer field to any object.
+ * 
+ * @param <T> the type of object gaining the weight attribute
+ */
 @Immutable
 public final class Weighted<T>
 {
 	//***************************************************************************
 	// Public constructors
 	//***************************************************************************
-	public Weighted(T obj, int weight) throws NullArgumentException, IllegalArgumentException
+	/**
+	 * Creates a new {@code Weighted} object from a given object and weight
+	 * <p>
+	 * When using this for weighted {@code Face}s in the UDiceSystem, be certain
+	 * that the value given is not negative.  It could result in some interesting
+	 * behavior.
+	 * @param obj - the object to add the weight to
+	 * @param weight - the amount of weight to give to the object
+	 */
+	public Weighted(T obj, int weight)
 	{
-		DataChecker.checkDataNotNull(obj, "Cannot create a Weighted object from a null object");
-		if(isInvalidWeight(weight))
-		{
-			throw new IllegalArgumentException("Cannot create a Weighted object with 0 or negative weight or weight greater than" + MAX_WEIGHT);
-		}
 		this.obj = obj;
 		this.weight = weight;
 	}
@@ -45,32 +56,25 @@ public final class Weighted<T>
 		return result;
 	}
 	
+	/**
+	 * @return the original object without the weight
+	 */
 	public T object()
 	{
 		return obj;
 	}
 	
+	/**
+	 * @return the weight of the object
+	 */
 	public int weight()
 	{
 		return weight;
 	}
 	
 	//***************************************************************************
-	//Private constants
-	//***************************************************************************
-	private static final int MAX_WEIGHT = 10000;
-	
-	//***************************************************************************
 	// Private fields
 	//***************************************************************************
 	private final int weight;
 	private final T obj;
-	
-	//***************************************************************************
-	// Private static helper methods
-	//***************************************************************************
-	private static boolean isInvalidWeight(int weight)
-	{
-		return weight > MAX_WEIGHT || weight < 1;
-	}
 }

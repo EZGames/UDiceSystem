@@ -3,9 +3,7 @@ package ezgames.utils.collections.zarray;
 import java.util.Iterator;
 import java.util.Optional;
 import ezgames.annotations.Immutable;
-import ezgames.utils.DataChecker;
 import ezgames.utils.collections.simple.SimpleCollection;
-import ezgames.utils.exceptions.NullArgumentException;
 
 @Immutable
 final class MultiValueZArray<E> implements ZArray<E>
@@ -13,20 +11,16 @@ final class MultiValueZArray<E> implements ZArray<E>
 	//***************************************************************************
 	// Public constructors
 	//***************************************************************************
-	public MultiValueZArray(SimpleCollection<E> collectionToCopy) throws NullArgumentException
+	public MultiValueZArray(SimpleCollection<E> collectionToCopy)
 	{
-		DataChecker.checkIterableNotEmptyOrNull(collectionToCopy, "Cannot create a ZArray from a null or empty iterable");
-		
 		int numOfElements = collectionToCopy.size();
 		array = new Object[numOfElements];
 		insertCollection(collectionToCopy);
 	}
 	
 	@SafeVarargs
-	public MultiValueZArray(E... collectionToCopy) throws NullArgumentException
+	public MultiValueZArray(E... collectionToCopy)
 	{
-		DataChecker.checkArrayNotEmptyOrNull(collectionToCopy, "Cannot create a ZArray from a null or empty list of elements");
-		
 		array = collectionToCopy;
 	}
 	
@@ -139,12 +133,11 @@ final class MultiValueZArray<E> implements ZArray<E>
 	// Private setters
 	//***************************************************************************
 	// puts the given elements at the current location in the array
-	private void insertCollection(SimpleCollection<E> collection) throws NullArgumentException
+	private void insertCollection(SimpleCollection<E> collection)
 	{
 		int index = 0;
 		for (E element : collection)
 		{
-			DataChecker.checkDataNotNull(element, "Cannot create a ZArray with a null element");
 			array[index] = element;
 			++index;
 		}

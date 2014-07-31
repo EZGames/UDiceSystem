@@ -2,7 +2,6 @@ package ezgames.udicesys.diceModels;
 
 
 import static ezgames.test.matchers.collections.IsNotEmptyCollection.*;
-import static ezgames.test.matchers.exceptions.Throws.*;
 import static ezgames.test.matchers.Validates.*;
 import static org.hamcrest.core.IsEqual.*;
 import static org.hamcrest.core.IsNot.*;
@@ -20,7 +19,6 @@ import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.udicesys.diceModels.abstractions.Roll;
 import ezgames.utils.collections.MlList;
 import ezgames.utils.collections.simple.SimpleCollection;
-import ezgames.utils.exceptions.NullArgumentException;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -45,7 +43,7 @@ public class UDieTest
 	}
 	
 	@Before
-	public void before() throws NullArgumentException
+	public void before()
 	{
 		//reset the randomNumberGenerator for validation purposes
 		rand = new MockSimpleRandom(0, true, UsageAllowance.SHOULD_BE_USED);
@@ -75,46 +73,16 @@ public class UDieTest
 	
 	// public static with() ****************************************************
 	@Test
-	public void shouldThrowNullArgumentExceptionWithNullName()
-	{
-		assertThat(()->UDie.with(null, faces), throwsA(NullArgumentException.class));
-	}
-	
-	@Test
-	public void shouldThrowNullArgumentExceptionWithNullFaceList()
-	{
-		assertThat(()->UDie.with(name, null), throwsA(NullArgumentException.class));
-	}
-	
-	@Test
-	public void shouldReturnProperUDieWithNameAndFaces() throws NullArgumentException
+	public void shouldReturnProperUDieWithNameAndFaces()
 	{
 		assertNotNull(UDie.with(name, faces));
 	}
 	
 	// public static with(*,*,simpleRandom) *************************************
 	@Test
-	public void shouldThrowNullArgumentExceptionWithNullRandom()
-	{
-		assertThat(() -> UDie.with(name, faces, null), throwsA(NullArgumentException.class));
-	}
-	
-	@Test
-	public void shouldReturnProperUDieWithNameFacesAndRandom() throws NullArgumentException
+	public void shouldReturnProperUDieWithNameFacesAndRandom()
 	{
 		assertNotNull(UDie.with(name, faces, rand));
-	}
-	
-	@Test
-	public void shouldThrowNullArgumentExceptionWithNullNameWhenIncludingRandom()
-	{
-		assertThat(() -> UDie.with(null, faces, rand), throwsA(NullArgumentException.class));
-	}
-	
-	@Test
-	public void shouldThrowNullArgumentExceptionWithNullFacesWhenIncludingRandom()
-	{
-		assertThat(() -> UDie.with(name, null, rand), throwsA(NullArgumentException.class));
 	}
 	
 	// Iterator<Face> iterator() ***********************************************
@@ -154,7 +122,7 @@ public class UDieTest
 	
 	//public boolean equals(obj) ************************************************
 	@Test
-	public void shouldBeEqual() throws NullArgumentException  
+	public void shouldBeEqual()
 	{
 		Die die2 = UDie.with(name, faces);
 		
@@ -168,7 +136,7 @@ public class UDieTest
 	}
 	
 	@Test
-	public void shouldNotBeEqualWithDifferentNames() throws NullArgumentException
+	public void shouldNotBeEqualWithDifferentNames()
 	{
 		Die die2 = UDie.with("differentName", faces);
 		
@@ -176,7 +144,7 @@ public class UDieTest
 	}
 	
 	@Test
-	public void shouldNotBeEqualWithDifferentFaces() throws NullArgumentException
+	public void shouldNotBeEqualWithDifferentFaces()
 	{
 		Die die2 = UDie.with(name, differentFaces());
 		
@@ -190,7 +158,7 @@ public class UDieTest
 	
 	// public int hashCode() ****************************************************
 	@Test
-	public void shouldHaveEqualHashCodes() throws NullArgumentException
+	public void shouldHaveEqualHashCodes()
 	{
 		int hash1 = die.hashCode();
 		int hash2 = UDie.with(name, faces).hashCode();
@@ -199,7 +167,7 @@ public class UDieTest
 	}
 	
 	@Test
-	public void shouldHaveDifferentHashCodesWithDifferentNames() throws NullArgumentException
+	public void shouldHaveDifferentHashCodesWithDifferentNames()
 	{
 		int hash1 = die.hashCode();
 		int hash2 = UDie.with("differentName", faces).hashCode();
@@ -208,7 +176,7 @@ public class UDieTest
 	}
 	
 	@Test
-	public void shouldHaveDifferentHashCodesWithDifferentFaces() throws NullArgumentException
+	public void shouldHaveDifferentHashCodesWithDifferentFaces()
 	{
 		int hash1 = die.hashCode();
 		int hash2 = UDie.with(name, differentFaces()).hashCode();
@@ -266,7 +234,7 @@ public class UDieTest
 	}
 	
 	@Test
-	public void shouldRollSecondFace() throws NullArgumentException
+	public void shouldRollSecondFace()
 	{
 		//Create a Die with 2 faces and uses a "random number generator" to return the second face
 		Face secondFace = defaultFace();

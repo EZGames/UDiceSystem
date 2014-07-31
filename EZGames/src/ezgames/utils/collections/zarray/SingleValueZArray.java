@@ -4,8 +4,6 @@ import java.util.Iterator;
 import java.util.Optional;
 import ezgames.annotations.Immutable;
 import ezgames.math.hashing.HashGenerator;
-import ezgames.utils.DataChecker;
-import ezgames.utils.exceptions.NullArgumentException;
 
 @Immutable
 final class SingleValueZArray<E> implements ZArray<E>
@@ -13,9 +11,8 @@ final class SingleValueZArray<E> implements ZArray<E>
 	//***************************************************************************
 	// Public constructors
 	//***************************************************************************
-	public SingleValueZArray(E o) throws NullArgumentException
+	public SingleValueZArray(E o)
 	{
-		DataChecker.checkDataNotNull(o, "Cannot create a ZArray from a null element");
 		item = o;
 	}
 	

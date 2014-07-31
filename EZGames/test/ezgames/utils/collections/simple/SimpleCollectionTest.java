@@ -9,12 +9,11 @@ import java.util.Stack;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ezgames.utils.collections.simple.SimpleCollection;
-import ezgames.utils.exceptions.NullArgumentException;
 
 public class SimpleCollectionTest
 {
 	@BeforeClass
-	public static void beforeClass() throws NullArgumentException
+	public static void beforeClass()
 	{
 		intList1 = SimpleCollection.from(getList(1));
 		intList2 = SimpleCollection.from(getList(2));
@@ -60,7 +59,7 @@ public class SimpleCollectionTest
 	private static SimpleCollection<Integer> intColl3;
 	
 	@Test
-	public void shouldGetSameInstanceBackFromList() throws NullArgumentException
+	public void shouldGetSameInstanceBackFromList()
 	{
 		SimpleCollection<Integer> sl = SimpleCollection.from(intList1);
 		
@@ -68,7 +67,7 @@ public class SimpleCollectionTest
 	}
 	
 	@Test
-	public void shouldGetSameInstanceBackFromIter() throws NullArgumentException
+	public void shouldGetSameInstanceBackFromIter()
 	{
 		SimpleCollection<Integer> sl = SimpleCollection.from(intIter1);
 		
@@ -76,7 +75,7 @@ public class SimpleCollectionTest
 	}
 	
 	@Test
-	public void shouldGetSameInstanceBackFromColl() throws NullArgumentException
+	public void shouldGetSameInstanceBackFromColl()
 	{
 		SimpleCollection<Integer> sl = SimpleCollection.from(intColl1);
 		

@@ -10,13 +10,11 @@ import ezgames.udicesys.diceModels.abstractions.Die;
 import ezgames.udicesys.diceModels.abstractions.Face;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.udicesys.diceModels.abstractions.Roll;
-import ezgames.utils.DataChecker;
 import ezgames.utils.collections.MlList;
 import ezgames.utils.collections.rec.OpenRandomElementChooser;
 import ezgames.utils.collections.rec.RandomElementChooser;
 import ezgames.utils.collections.rec.SimpleChooserStrategy;
 import ezgames.utils.collections.simple.SimpleCollection;
-import ezgames.utils.exceptions.NullArgumentException;
 
 @Immutable
 public final class UDie implements Die
@@ -24,16 +22,13 @@ public final class UDie implements Die
 	//**************************************************************************
 	// static factory methods
 	//**************************************************************************
-	public static Die with( final String name, final SimpleCollection<Face> faces) throws NullArgumentException
+	public static Die with( final String name, final SimpleCollection<Face> faces)
 	{
 		return with(name, faces, new EZRandom());
 	}
 	
-	public static Die with(final String name, final SimpleCollection<Face> faces, final SimpleRandom rand) throws NullArgumentException
+	public static Die with(final String name, final SimpleCollection<Face> faces, final SimpleRandom rand)
 	{
-		DataChecker.checkStringDataNotNull(name, "Die Requires non-null, non-empty name");
-		DataChecker.checkIterableNotEmptyOrNull(faces, "Die Requires non-null, non-empty list of non-null faces");
-		DataChecker.checkDataNotNull(rand, "Die Requires a non-null random number generator");
 		return new UDie(name, faces, rand);
 	}
 	
@@ -100,17 +95,10 @@ public final class UDie implements Die
 	
 	@Override
 	public Roll roll()
-	{	//TODO: need to work on REC before finishing this
-		try
-		{
-			RandomElementChooser<Face> rec = new OpenRandomElementChooser<>(faces, rand, new SimpleChooserStrategy<>());
-			Face chosenFace = rec.choose();
-			return new URoll(this, chosenFace);
-		}
-		catch (NullArgumentException e)
-		{
-			return null;
-		}
+	{
+		RandomElementChooser<Face> rec = new OpenRandomElementChooser<>(faces, rand, new SimpleChooserStrategy<>());
+		Face chosenFace = rec.choose();
+		return new URoll(this, chosenFace);
 	}
 	
 	@Override

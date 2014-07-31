@@ -7,17 +7,14 @@ import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-import ezgames.utils.DataChecker;
-import ezgames.utils.exceptions.NullArgumentException;
 
 class SimpleIterableCollection<T> implements SimpleCollection<T>
 {
 	//************************************************************************
 	// Public constructors
 	//************************************************************************
-	public SimpleIterableCollection(Iterable<T> iter) throws NullArgumentException
+	public SimpleIterableCollection(Iterable<T> iter)
 	{
-		DataChecker.checkDataNotNull(iter, "Cannot create SimpleList from null Iterable");
 		this.iterable = iter;
 	}
 

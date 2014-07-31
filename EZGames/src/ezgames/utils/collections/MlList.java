@@ -9,7 +9,6 @@ import java.util.stream.StreamSupport;
 import ezgames.annotations.Immutable;
 import ezgames.math.hashing.HashGenerator;
 import ezgames.utils.collections.simple.SimpleCollection;
-import ezgames.utils.exceptions.NullArgumentException;
 import ezgames.utils.Weighted;
 import func.java.tailrecursion.TailCall;
 
@@ -58,7 +57,7 @@ public class MlList<E> implements SimpleCollection<E>
 	}
 	
 	@SafeVarargs
-	public static <E> MlList<E> fromValues(E... arr) throws NullArgumentException
+	public static <E> MlList<E> fromValues(E... arr)
 	{		
 		if(0 == arr.length)
 		{
@@ -229,7 +228,7 @@ public class MlList<E> implements SimpleCollection<E>
 	}
 	
 	@SuppressWarnings("unchecked")
-	public MlList<Weighted<E>> withWeight(int weight) throws NullArgumentException, IllegalArgumentException
+	public MlList<Weighted<E>> withWeight(int weight)
 	{
 		if(head instanceof Weighted<?>)
 		{

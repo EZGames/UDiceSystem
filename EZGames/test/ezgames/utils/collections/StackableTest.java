@@ -1,31 +1,21 @@
 package ezgames.utils.collections;
 
 import static ezgames.test.matchers.collections.IsIn.*;
-import static ezgames.test.matchers.exceptions.Throws.*;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import ezgames.utils.exceptions.NullArgumentException;
 
 public class StackableTest
 {
 	// public MlList<T> and(T) *************************************************
 	@Test
-	public void shouldAddAdditionalIndividuals() throws NullArgumentException
+	public void shouldAddAdditionalIndividuals()
 	{
 		MlList<StackableInt> trial = val(0).and(val(1));
 		
 		assertThat(val(0), isIn(trial));
 		assertThat(val(1), isIn(trial));
 		assertThat(trial.size(), is(2));
-	}
-	
-	@Test
-	public void shouldRejectNull()
-	{
-		StackableInt end = null;
-		
-		assertThat(()->val(0).and(end), throwsAn(NullArgumentException.class));
 	}
 	
 	//**************************************************************************
