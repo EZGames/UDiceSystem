@@ -1,4 +1,4 @@
-package ezgames.utils.tuples;
+package func.java.tuples;
 
 import java.util.function.Consumer;
 
