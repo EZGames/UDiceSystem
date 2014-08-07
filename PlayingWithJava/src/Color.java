@@ -1,88 +1,121 @@
-import java.util.function.Consumer;
-import func.java.tuples.Tuple3;
-import func.java.tuples.Tuple4;
+import func.java.tuples.Quadruplet;
+import func.java.tuples.Triplet;
 
 
-public class Color implements Tuple4<Integer, Integer, Integer, Integer>
+public class Color
 {
-	public static Color rgb(Tuple3<Integer, Integer, Integer> rgb)
+	public static Color rgb(Triplet<Integer, Integer, Integer> rgb)
 	{
-		return new Color(Tuple4.of(rgb.one(), rgb.two(), rgb.three(), 255));
+		Triplet<Integer, Integer, Integer> hsl = rgb2hsl(rgb);
+		return new Color(Quadruplet.of(rgb.one(), rgb.two(), rgb.three(), 255), hsl);
 	}
 	
-	public static Color rgba(Tuple4<Integer, Integer, Integer, Integer> rgba)
+	public static Color rgba(Quadruplet<Integer, Integer, Integer, Integer> rgba)
 	{
-		return new Color(rgba);
+		Triplet<Integer, Integer, Integer> hsl = rgb2hsl(Triplet.of(rgba.one(), rgba.two(), rgba.three()));
+		return new Color(rgba, hsl);
 	}
 	
-	@Override
-	public Integer one()
+	public static Color hsl(Triplet<Integer, Integer, Integer> hsl)
+	{
+		return null;
+	}
+	
+	public static Color hsla(Quadruplet<Integer, Integer, Integer, Integer> hsla)
+	{
+		return null;
+	}
+	
+	public Integer r()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	@Override
-	public Tuple4<Integer, Integer, Integer, Integer> useOne(Consumer<? super Integer> func)
+	public Integer red()
+	{
+		return r();
+	}
+	
+	public Integer g()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	@Override
-	public Integer two()
+	public Integer green()
+	{
+		return g();
+	}
+	
+	public Integer b()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	@Override
-	public Tuple4<Integer, Integer, Integer, Integer> useTwo(Consumer<? super Integer> func)
+	public Integer blue()
+	{
+		return b();
+	}
+	
+	public Integer a()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	@Override
-	public Integer three()
+	public Integer alpha()
 	{
-		// TODO Auto-generated method stub
+		return a();
+	}
+	
+	public Integer h()
+	{
 		return null;
 	}
 	
-	@Override
-	public Tuple4<Integer, Integer, Integer, Integer> useThree(Consumer<? super Integer> func)
+	public Integer hue()
 	{
-		// TODO Auto-generated method stub
+		return h();
+	}
+	
+	public Integer s()
+	{
 		return null;
 	}
 	
-	@Override
-	public Integer four()
+	public Integer saturation()
 	{
-		// TODO Auto-generated method stub
+		return s();
+	}
+	
+	public Integer l()
+	{
 		return null;
 	}
 	
-	@Override
-	public Tuple4<Integer, Integer, Integer, Integer> useFour(Consumer<? super Integer> func)
+	public Integer luminosity()
 	{
-		// TODO Auto-generated method stub
+		return l();
+	}
+	
+	private static Triplet<Integer, Integer, Integer> rgb2hsl(Triplet<Integer, Integer, Integer> rgb)
+	{
 		return null;
 	}
 	
-	@Override
-	public Tuple4<Integer, Integer, Integer, Integer> swap()
+	private static Triplet<Integer, Integer, Integer> hsl2rgb(Triplet<Integer, Integer, Integer> hsl)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	
-	Color(Tuple4<Integer, Integer, Integer, Integer> rgba)
+	private Color(Quadruplet<Integer, Integer, Integer, Integer> rgba, Triplet<Integer, Integer, Integer> hsl)
 	{
 		this.rgba = rgba;
+		this.hsl = hsl;
 	}
 	
-	private final Tuple4<Integer, Integer, Integer, Integer> rgba;
+	private final Quadruplet<Integer, Integer, Integer, Integer> rgba;
+	private final Triplet<Integer, Integer, Integer> hsl;
 }
