@@ -6,30 +6,31 @@ public class Color
 {
 	public static Color rgb(Triplet<Integer, Integer, Integer> rgb)
 	{
-		Triplet<Integer, Integer, Integer> hsl = rgb2hsl(rgb);
-		return new Color(Quadruplet.of(rgb.one(), rgb.two(), rgb.three(), 255), hsl);
+		Triplet<Integer, Integer, Integer> hsl = rgb2hsl(rgb.one(), rgb.two(), rgb.three());
+		return new Color(rgb.one(), rgb.two(), rgb.three(), 255, hsl.one(), hsl.two(), hsl.three());
 	}
 	
 	public static Color rgba(Quadruplet<Integer, Integer, Integer, Integer> rgba)
 	{
-		Triplet<Integer, Integer, Integer> hsl = rgb2hsl(Triplet.of(rgba.one(), rgba.two(), rgba.three()));
-		return new Color(rgba, hsl);
+		Triplet<Integer, Integer, Integer> hsl = rgb2hsl(rgba.one(), rgba.two(), rgba.three());
+		return new Color(rgba.one(), rgba.two(), rgba.three(), rgba.four(), hsl.one(), hsl.two(), hsl.three());
 	}
 	
 	public static Color hsl(Triplet<Integer, Integer, Integer> hsl)
 	{
-		return null;
+		Triplet<Integer, Integer, Integer> rgb = hsl2rgb(hsl.one(), hsl.two(), hsl.three());
+		return new Color(rgb.one(), rgb.two(), rgb.three(), 255, hsl.one(), hsl.two(), hsl.three());
 	}
 	
 	public static Color hsla(Quadruplet<Integer, Integer, Integer, Integer> hsla)
 	{
-		return null;
+		Triplet<Integer, Integer, Integer> rgb = hsl2rgb(hsla.one(), hsla.two(), hsla.three());
+		return new Color(rgb.one(), rgb.two(), rgb.three(), hsla.four(), hsla.one(), hsla.two(), hsla.three());
 	}
 	
 	public Integer r()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return r;
 	}
 	
 	public Integer red()
@@ -39,8 +40,7 @@ public class Color
 	
 	public Integer g()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return g;
 	}
 	
 	public Integer green()
@@ -50,8 +50,7 @@ public class Color
 	
 	public Integer b()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return b;
 	}
 	
 	public Integer blue()
@@ -61,8 +60,7 @@ public class Color
 	
 	public Integer a()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return a;
 	}
 	
 	public Integer alpha()
@@ -72,7 +70,7 @@ public class Color
 	
 	public Integer h()
 	{
-		return null;
+		return h;
 	}
 	
 	public Integer hue()
@@ -82,7 +80,7 @@ public class Color
 	
 	public Integer s()
 	{
-		return null;
+		return s;
 	}
 	
 	public Integer saturation()
@@ -92,7 +90,7 @@ public class Color
 	
 	public Integer l()
 	{
-		return null;
+		return l;
 	}
 	
 	public Integer luminosity()
@@ -100,22 +98,64 @@ public class Color
 		return l();
 	}
 	
-	private static Triplet<Integer, Integer, Integer> rgb2hsl(Triplet<Integer, Integer, Integer> rgb)
+	public Triplet<Integer, Integer, Integer> asHsl()
 	{
-		return null;
+		return Triplet.of(h, s, l);
 	}
 	
-	private static Triplet<Integer, Integer, Integer> hsl2rgb(Triplet<Integer, Integer, Integer> hsl)
+	public Triplet<Integer, Integer, Integer> asRgb()
 	{
-		return null;
+		return Triplet.of(r, g, b);
 	}
 	
-	private Color(Quadruplet<Integer, Integer, Integer, Integer> rgba, Triplet<Integer, Integer, Integer> hsl)
+	public Quadruplet<Integer, Integer, Integer, Integer> asHsla()
 	{
-		this.rgba = rgba;
-		this.hsl = hsl;
+		return Quadruplet.of(h, s, l, a);
 	}
 	
-	private final Quadruplet<Integer, Integer, Integer, Integer> rgba;
-	private final Triplet<Integer, Integer, Integer> hsl;
+	public Quadruplet<Integer, Integer, Integer, Integer> asRgba()
+	{
+		return Quadruplet.of(r, g, b, a);
+	}
+	
+	
+	public String asHex()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("#")
+			.append(Integer.toHexString(r))
+			.append(Integer.toHexString(g))
+			.append(Integer.toHexString(b));
+		return sb.toString();
+	}
+	
+	private static Triplet<Integer, Integer, Integer> rgb2hsl(int r, int g, int b)
+	{
+		//TODO
+		return Triplet.of(0, 0, 0);
+	}
+	
+	private static Triplet<Integer, Integer, Integer> hsl2rgb(int h, int s, int l)
+	{
+		return Triplet.of(0, 0, 0);
+	}
+	
+	private Color(int r, int g, int b, int a, int h, int s, int l)
+	{
+		this.r = r;
+		this.g = g;
+		this.b = b;
+		this.a = a;
+		this.h = h;
+		this.s = s;
+		this.l = l;
+	}
+	
+	private final int r;
+	private final int g;
+	private final int b;
+	private final int a;
+	private final int h;
+	private final int s;
+	private final int l;
 }
