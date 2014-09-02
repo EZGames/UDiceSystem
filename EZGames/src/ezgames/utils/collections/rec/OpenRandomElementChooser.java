@@ -3,7 +3,7 @@ package ezgames.utils.collections.rec;
 import ezgames.math.random.SimpleRandom;
 import ezgames.utils.collections.simple.SimpleCollection;
 
-//TODO: document and test
+// DOC TEST
 public class OpenRandomElementChooser<E> extends RandomElementChooser<E>
 {
 	//***************************************************************************

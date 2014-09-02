@@ -5,8 +5,8 @@ import ezgames.math.random.SimpleRandom;
 import ezgames.utils.Weighted;
 import ezgames.utils.collections.simple.SimpleCollection;
 
-//TODO: document and test
-//TODO: convert constructors to static factories
+// DOC TEST
+// TODO: convert constructors to static factories
 public class WeightedOpenRandomElementChooser<E> extends OpenRandomElementChooser<Weighted<E>>
 {
 

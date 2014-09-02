@@ -3,7 +3,7 @@ package ezgames.math.random;
 import java.util.Calendar;
 
 /**
- * TODO: redo this documentation! also: testing
+ * DOC: redo TEST
  * The {@code EZRandom} class started as a way to test whether a hashing function
  * would make for a decent random number generator.  It turns out that it is.
  * <p>EZRandom's benefits: <br>

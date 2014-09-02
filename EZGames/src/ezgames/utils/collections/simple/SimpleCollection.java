@@ -6,7 +6,7 @@ import java.util.Optional;
 import ezgames.utils.collections.Streamable;
 
 /**
- * TODO: finish; NOTE: talk about how the original objects can be returned the 
+ * DOC; NOTE: talk about how the original objects can be returned the 
  * SimpleCollection versions, but are only returned as List, Collection, or Iterable.
  * <p>See {@link ezgames.utils.collections} for a better idea of the entire collections
  * package and <code>SimpleCollection</code>'s place within it.</p>

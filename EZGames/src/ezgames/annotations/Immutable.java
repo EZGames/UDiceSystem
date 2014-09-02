@@ -32,7 +32,4 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
-public @interface Immutable 
-{
-	//TODO Look up implementation or somewhere to pull from
-}
+public @interface Immutable {}

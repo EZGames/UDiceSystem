@@ -12,7 +12,7 @@ import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.Weighted;
 import func.java.tailrecursion.TailCall;
 
-//TODO: testing and documentation
+// DOC TEST
 /**
  * <p>MlList was originally created because I looked into the ML language (which is
  * a functional language) and I really liked how it worked, so I created my own

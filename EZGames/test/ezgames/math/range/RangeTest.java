@@ -221,7 +221,7 @@ public class RangeTest
 
 	// **************************************************************************
 	// getMinimum() & getMaximum were ignored due to their trivial nature
-	// TODO: if either are changed to be more complex, create a test
+	// TEST: if either are changed to be more complex, create a test
 	// **************************************************************************
 
 	// **************************************************************************

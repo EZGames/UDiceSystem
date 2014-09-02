@@ -5,7 +5,7 @@ import ezgames.math.random.SimpleRandom;
 import ezgames.utils.Weighted;
 import ezgames.utils.collections.simple.SimpleCollection;
 
-//TODO: document and test
+// DOC TEST
 public class WeightedChooserStrategy<E> implements ChooserStrategy<Weighted<E>>
 {	
 	@Override

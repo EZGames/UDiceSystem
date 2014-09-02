@@ -7,6 +7,7 @@ import ezgames.math.range.Range;
 import ezgames.udicesys.diceModels.abstractions.OutputRange;
 import ezgames.utils.collections.simple.SimpleCollection;
 
+// DOC TEST FINISH
 /**
  * The RangeCollectionBuilder class is used to create collections of 
  * {@link Range}s that don't overlap and cover every value within a given 
@@ -16,45 +17,33 @@ import ezgames.utils.collections.simple.SimpleCollection;
 public class OutputRangeCollectionBuilder implements SimpleCollection<OutputRange>
 {
 
-	@Override
 	public Iterator<OutputRange> iterator()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public boolean contains(OutputRange obj)
 	{
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public OutputRange get(int index) throws IndexOutOfBoundsException
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Optional<Integer> indexOf(OutputRange obj)
 	{
-		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
 
-	@Override
 	public int size()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public Stream<OutputRange> stream()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

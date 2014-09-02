@@ -1,6 +1,6 @@
 package ezgames.math.hashing;
 
-// TODO: test the spread and collision count using Range
+// TEST: test the spread and collision count using Range
 /**
  * This {@code IHashingTechnique} is using the FNV hashing technique.
  * See the <a href="http://www.isthe.com/chongo/tech/comp/fnv/">FNV website</a> 

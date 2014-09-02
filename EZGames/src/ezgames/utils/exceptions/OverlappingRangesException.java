@@ -1,5 +1,8 @@
 package ezgames.utils.exceptions;
 
+import ezgames.math.range.Range;
+
+// DOC TEST FINISH
 public class OverlappingRangesException extends Exception
 {
 	private static final long serialVersionUID = 2951645266893162012L;
@@ -7,36 +10,23 @@ public class OverlappingRangesException extends Exception
 	//***************************************************************************
 	// Public constructors
 	//***************************************************************************
-	public OverlappingRangesException()
+	public OverlappingRangesException(Range range1, Range range2)
 	{
-		// TODO Auto-generated constructor stub
+		super();
 	}
 	
-	public OverlappingRangesException(String message)
+	public OverlappingRangesException(Range range1, Range range2, String message)
 	{
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 	
-	public OverlappingRangesException(Throwable cause)
+	public OverlappingRangesException(Range range1, Range range2, Throwable cause)
 	{
 		super(cause);
-		// TODO Auto-generated constructor stub
 	}
 	
-	public OverlappingRangesException(String message, Throwable cause)
+	public OverlappingRangesException(Range range1, Range range2, String message, Throwable cause)
 	{
 		super(message, cause);
-		// TODO Auto-generated constructor stub
-	}
-	
-	//***************************************************************************
-	// Public API methods
-	//***************************************************************************
-	
-	
-	//***************************************************************************
-	//Private fields
-	//***************************************************************************
-	
+	}	
 }

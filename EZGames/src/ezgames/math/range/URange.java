@@ -115,6 +115,11 @@ public final class URange implements Range
       if(B == null) { return false; }
       return compareTo(B) == 0;
    }
+   
+   public String toString()
+   {
+   	return String.format("(Range %d:%d)", minimum, maximum);
+   }
 
    // Private fields ***********************************************************
    private final int maximum;

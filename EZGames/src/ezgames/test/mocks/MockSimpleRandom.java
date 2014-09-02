@@ -2,7 +2,7 @@ package ezgames.test.mocks;
 
 import ezgames.math.random.SimpleRandom;
 
-//TODO: update to include "isUsed" validation
+//TODO: update to work as noted in Evernot
 /**
  * <p>A mock class for the {@link ezgames.math.random.SimpleRandom SimpleRandom}
  * interface.  It allows the tester to provide a value for the {@code SimpleRandom}
