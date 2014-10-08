@@ -12,6 +12,7 @@ import ezgames.test.mocks.MockSimpleRandom;
 import ezgames.test.mocks.MockSimpleRandom.UsageAllowance;
 import ezgames.udicesys.diceModels.UDie;
 import ezgames.udicesys.diceModels.abstractions.Die;
+import ezgames.udicesys.diceModels.abstractions.Effect;
 import ezgames.udicesys.diceModels.abstractions.Face;
 import ezgames.udicesys.diceModels.abstractions.FaceValue;
 import ezgames.udicesys.diceModels.abstractions.OutputRange;
@@ -37,7 +38,7 @@ public class UDieTest
 	@BeforeClass
 	public static void beforeClass()
 	{
-		onlyFace = defaultFace();
+		onlyFace = makeFace("default");
 		faces = MlList.startWith(onlyFace);		
 		name = "testDie";
 	}
@@ -51,13 +52,15 @@ public class UDieTest
 		die = UDie.with(name, faces, rand);
 	}
 	
-	public static Face defaultFace()
+	public static Face makeFace(String name)
 	{
 		return new Face() 
 			{
 				public Iterator<FaceValue> iterator() { return null; }	
-				public Stream<FaceValue> stream() {return null; }
 				public SimpleCollection<Relationship> listRelationships() { return defaultRelationshipList(); }
+				public String name() { return name; }
+				public SimpleCollection<Effect> listEffects() { return null; }
+				public SimpleCollection<FaceValue> listFaceValues() { return null; }
 			};
 	}
 	
@@ -229,7 +232,7 @@ public class UDieTest
 	{
 		Face rolledFace = die.roll().rolledFace();
 		
-		assertThat(rolledFace, is(onlyFace));
+		assertThat(rolledFace.name(), is("default"));
 		assertThat(rand, validates());
 	}
 	
@@ -237,13 +240,13 @@ public class UDieTest
 	public void shouldRollSecondFace()
 	{
 		//Create a Die with 2 faces and uses a "random number generator" to return the second face
-		Face secondFace = defaultFace();
+		Face secondFace = makeFace("second");
 		MockSimpleRandom generatesAOne = new MockSimpleRandom(1, true, UsageAllowance.SHOULD_BE_USED);//always generates a 1 (0-indexed), not okay to set the seed
 		Die die = UDie.with(name, onlyFace.and(secondFace), generatesAOne); //MlList puts new objects in the front, so secondFace needs to be placed "before" onlyFace in order to be the second object in the collection
 		
 		Face rolledFace = die.roll().rolledFace();
 		
-		assertThat(rolledFace, is(secondFace));
+		assertThat(rolledFace.name(), is("second"));
 		assertThat(generatesAOne, validates());
 	}
 }
