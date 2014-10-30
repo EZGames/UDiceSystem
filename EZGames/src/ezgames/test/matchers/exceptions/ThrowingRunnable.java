@@ -10,4 +10,18 @@ package ezgames.test.matchers.exceptions;
 public interface ThrowingRunnable
 {
 	void run() throws Throwable;
+	
+	/**
+	 * A pass-through method that is used simply to increase the fluency of
+	 * an assertion taking in a {@code ThrowingRunnable}.<br>
+	 * For example:<br>
+	 * {@code assertThat(calling(() -> methodThatThrows), throwsAn(Exception.class))}<br>
+	 * Using it is completely optional, since it reads fairly well without it:<br>
+	 * {@code assertThat(() -> methodThatThrows(), throwsAn(Exception.class))}
+	 * @param runnable - a {@code ThrowingRunnable} to be returned
+	 * @return the {@code ThrowingRunnable} passed in
+	 */
+	public static ThrowingRunnable calling(ThrowingRunnable runnable) {
+		return runnable;
+	}
 }

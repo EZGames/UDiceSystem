@@ -9,7 +9,7 @@ abstract class ThrowsMatcher<X extends Throwable> extends TypeSafeMatcher<Throwi
 	 * @return a new Matcher that decorates the current one to check whether the
 	 * the thrown Exception has any message
 	 */
-	public ThrowsMatcher<X> andHasAMessage()
+	public final ThrowsMatcher<X> andHasAMessage()
 	{
 		return new HasAMessage<X>(this);
 	}
@@ -21,7 +21,7 @@ abstract class ThrowsMatcher<X extends Throwable> extends TypeSafeMatcher<Throwi
 	 * @return a new Matcher that decorates the current one to make sure the
 	 * the thrown Exception has no message
 	 */
-	public ThrowsMatcher<X> andHasNoMessage()
+	public final ThrowsMatcher<X> andHasNoMessage()
 	{
 		return new HasNoMessage<X>(this);
 	}
@@ -30,7 +30,7 @@ abstract class ThrowsMatcher<X extends Throwable> extends TypeSafeMatcher<Throwi
 	 * @return a new Matcher that decorates the current one to check whether the
 	 * the thrown Exception has the given message
 	 */
-	public ThrowsMatcher<X> andHasMessage(String message)
+	public final ThrowsMatcher<X> andHasMessage(String message)
 	{
 		return new HasMessage<X>(this, message);
 	}
@@ -39,7 +39,7 @@ abstract class ThrowsMatcher<X extends Throwable> extends TypeSafeMatcher<Throwi
 	 * @return a new Matcher that decorates the current one to make sure the
 	 * the thrown Exception has no cause
 	 */
-	public ThrowsMatcher<X> andHasNoCause()
+	public final ThrowsMatcher<X> andHasNoCause()
 	{
 		return new HasNoCause<X>(this);
 	}
@@ -48,7 +48,7 @@ abstract class ThrowsMatcher<X extends Throwable> extends TypeSafeMatcher<Throwi
 	 * @return a new Matcher that decorates the current one to check whether the
 	 * the thrown Exception has any cause
 	 */
-	public ThrowsMatcher<X> andHasACause()
+	public final ThrowsMatcher<X> andHasACause()
 	{
 		return new HasACause<X>(this);
 	}
@@ -57,7 +57,7 @@ abstract class ThrowsMatcher<X extends Throwable> extends TypeSafeMatcher<Throwi
 	 * @return a new Matcher that decorates the current one to check whether the
 	 * the thrown Exception has the given cause type
 	 */
-	public ThrowsMatcher<X> andHasCause(Class<? extends Throwable> causeClass)
+	public final ThrowsMatcher<X> andHasCause(Class<? extends Throwable> causeClass)
 	{
 		return new HasCause<X>(this, causeClass);
 	}
