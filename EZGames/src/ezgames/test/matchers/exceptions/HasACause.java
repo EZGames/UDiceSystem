@@ -38,7 +38,7 @@ public class HasACause<X extends Throwable> extends ThrowsMatcher<X>
 	{
 		decoratedMatcher.describeTo(description);
 		
-		description.appendText("\nmatch: had a cause");		
+		description.appendText("\nexception had a cause");		
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class HasACause<X extends Throwable> extends ThrowsMatcher<X>
 		else
 		{
 			decoratedMatcher.describeTo(mismatchDescription);
-			mismatchDescription.appendText("\nmismatch: had no cause when it should have");
+			mismatchDescription.appendText("\nexception had no cause");
 		}
 	}
 	

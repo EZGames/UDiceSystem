@@ -40,8 +40,8 @@ public class HasMessage<X extends Throwable> extends ThrowsMatcher<X>
 	{
 		decoratedMatcher.describeTo(description);
 		
-		description.appendText("\nmatch: had message: ")
-			.appendText(message);		
+		description.appendText("\nexception message: ")
+				.appendText(message);		
 	}
 	
 	@Override
@@ -54,10 +54,8 @@ public class HasMessage<X extends Throwable> extends ThrowsMatcher<X>
 		else
 		{
 			decoratedMatcher.describeTo(mismatchDescription);
-			mismatchDescription.appendText("\nmismatch: had message: ")
-				.appendText(getException().getMessage())
-				.appendText("\nexpected: ")
-				.appendText(message);
+			mismatchDescription.appendText("\nexception message: ")
+					.appendText(getException().getMessage());
 		}
 	}
 	

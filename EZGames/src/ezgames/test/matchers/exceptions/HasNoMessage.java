@@ -38,7 +38,7 @@ public class HasNoMessage<X extends Throwable> extends ThrowsMatcher<X>
 	{
 		decoratedMatcher.describeTo(description);
 		
-		description.appendText("\nmatch: had no message");		
+		description.appendText("\nexception had no message");		
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class HasNoMessage<X extends Throwable> extends ThrowsMatcher<X>
 		else
 		{
 			decoratedMatcher.describeTo(mismatchDescription);
-			mismatchDescription.appendText("\nmismatch: had a message when it shouldn't have");
+			mismatchDescription.appendText("\nexception had a message");
 		}
 	}
 	

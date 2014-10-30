@@ -39,8 +39,8 @@ public class HasCause<X extends Throwable> extends ThrowsMatcher<X>
 	{
 		decoratedMatcher.describeTo(description);
 		
-		description.appendText("\nmatch: had cause: ")
-		.appendText(expectedCause.getName());	
+		description.appendText("\nexception had cause: ")
+				.appendText(expectedCause.getName());	
 	}
 	
 	@Override
@@ -53,10 +53,8 @@ public class HasCause<X extends Throwable> extends ThrowsMatcher<X>
 		else
 		{
 			decoratedMatcher.describeTo(mismatchDescription);
-			mismatchDescription.appendText("\nmismatch: had cause: ")
-			.appendText(getException().getCause().getClass().getName())
-			.appendText("\nexpected: ")
-			.appendText(expectedCause.getClass().getName());
+			mismatchDescription.appendText("\nexception had cause: ")
+					.appendText(getException().getCause().getClass().getName());
 		}
 	}
 	
