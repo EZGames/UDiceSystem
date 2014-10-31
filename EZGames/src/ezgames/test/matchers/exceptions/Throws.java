@@ -14,14 +14,56 @@ public class Throws<X extends Throwable> extends ThrowsMatcher<X>
 	//**************************************************************************
 	// Public static factory methods
 	//**************************************************************************
+	/**
+	 * Static factory method for creating a {@code Throws} Matcher.
+	 * @param ex - a {@code Throwable} class that the {@code ThrowingRunnable}
+	 * matched up with this Matcher is expected to throw
+	 * @return a new {@code Throws} object
+	 */
 	@Factory
 	public static <X extends Throwable> Throws<X> throwsA(Class<X> ex)
 	{
 		return new Throws<X>(ex);
 	}
 	
+	/**
+	 * Static factory method for creating a {@code Throws} Matcher.
+	 * @param ex - a {@code Throwable} class that the {@code ThrowingRunnable}
+	 * matched up with this Matcher is expected to throw
+	 * @return a new {@code Throws} object
+	 */
 	@Factory
 	public static <X extends Throwable> Throws<X> throwsAn(Class<X> ex)
+	{
+		return throwsA(ex);
+	}
+	
+	/**
+	 * Static factory method for creating a {@code Throws} Matcher.
+	 * <p>
+	 * Can be used with a normal import (rather than a static one):</p>
+	 * {@code assertThat(() -> methodThatThrows(), Throws.a(NullPointerException.class));
+	 * @param ex - a {@code Throwable} class that the {@code ThrowingRunnable}
+	 * matched up with this Matcher is expected to throw
+	 * @return a new {@code Throws} object
+	 */
+	@Factory
+	public static <X extends Throwable> Throws<X> a(Class<X> ex)
+	{
+		return throwsA(ex);
+	}
+	
+	/**
+	 * Static factory method for creating a {@code Throws} Matcher.
+	 * <p>
+	 * Can be used with a normal import (rather than a static one):</p>
+	 * {@code assertThat(() -> methodThatThrows(), Throws.an(IllegalStateException.class));
+	 * @param ex - a {@code Throwable} class that the {@code ThrowingRunnable}
+	 * matched up with this Matcher is expected to throw
+	 * @return a new {@code Throws} object
+	 */
+	@Factory
+	public static <X extends Throwable> Throws<X> an(Class<X> ex)
 	{
 		return throwsA(ex);
 	}
