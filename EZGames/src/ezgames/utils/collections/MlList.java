@@ -42,6 +42,11 @@ public class MlList<E> implements SimpleCollection<E>
 	//**************************************************************************
 	// Public static factories
 	//**************************************************************************
+	/**
+	 * Creates a new {@code MlList} from an {@code Iterable}
+	 * @param iterable - the {@code Iterable} to create the {@code MlList} from
+	 * @return the new {@code MlList}
+	 */
 	public static <E> MlList<E> fromIterable(Iterable<E> iterable)
 	{
 		//if it's already an MlList, then just send it back
@@ -56,6 +61,12 @@ public class MlList<E> implements SimpleCollection<E>
 		return list;
 	}
 	
+	/**
+	 * Creates a new {@code MlList} from {@code varargs} array of values
+	 * @param arr - {@code varargs} array of values from which to create a new 
+	 * {@code MlList}
+	 * @return the new {@code MlList}
+	 */
 	@SafeVarargs
 	public static <E> MlList<E> fromValues(E... arr)
 	{		
@@ -72,6 +83,11 @@ public class MlList<E> implements SimpleCollection<E>
 		return list;
 	}
 	
+	/**
+	 * Creates a new 1-item {@code MlList} containing the given value
+	 * @param val - the value to contain in the new {@code MlList}
+	 * @return the new {@code MlList}
+	 */
 	public static <E> MlList<E> startWith(E val)
 	{
 		if(null == val)
@@ -84,12 +100,28 @@ public class MlList<E> implements SimpleCollection<E>
 		}
 	}
 	
+	/**
+	 * @return an empty {@code MlList}; contains no items
+	 */
 	@SuppressWarnings("unchecked")
 	public static <E> MlList<E> empty()
 	{
 		return (MlList<E>)EMPTY;
 	}
 	
+	/**
+	 * Creates a new {@code MlList} that appends both lists together, placing the
+	 * items in the order generally expected of an append.
+	 * <p>
+	 * <b>Note:</b> This is an unoptimized recursive algorithm. If the left list
+	 * is too long, it may trigger a {@code StackOverflowError}. If the order doesn't
+	 * matter, then you should use {@link #addAll}, which doesn't suffer from
+	 * the same weakness.</p>
+	 * @param l1 - the first list to be on the left of the returned list
+	 * @param l2 - the second list to be on the right of the returned list
+	 * @return a new {@code MlList} with {@code l1}'s elements on the left and 
+	 * {@code l2}'s elements on the right.
+	 */
 	public static <E> MlList<E> append(MlList<E> l1, MlList<E> l2)
 	{
 		if (l2.isEmpty())
@@ -109,11 +141,26 @@ public class MlList<E> implements SimpleCollection<E>
 	//**************************************************************************
 	// Public API methods
 	//**************************************************************************
+	/**
+	 * Adds the given element to the beginning of this list
+	 * @param element - 
+	 * @return
+	 */
 	public MlList<E> add(final E element)
 	{
 		if (element == null) { return this; }
 		MlList<E> out = new MlList<>(element, this);
 		return out;
+	}
+	
+	/**
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public MlList<E> addAll(final MlList<E> other)
+	{
+		
 	}
 	
 	/**
@@ -124,6 +171,11 @@ public class MlList<E> implements SimpleCollection<E>
 	public MlList<E> and(final E element)
 	{
 		return add(element);
+	}
+	
+	public MlList<E> append(MlList<E> other)
+	{
+		return append(this, other);
 	}
 	
 	public boolean contains(final E obj)
