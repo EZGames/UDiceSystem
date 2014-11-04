@@ -27,7 +27,7 @@ public final class URoll implements Roll
 	
 	public SimpleCollection<FaceValue> rolledFaceValues()
 	{
-		return SimpleCollection.from(face);
+		return face.listFaceValues();
 	}
 	
 	public SimpleCollection<Relationship> rolledRelationships()
@@ -37,8 +37,7 @@ public final class URoll implements Roll
 	
 	public SimpleCollection<Effect> rolledEffects()
 	{
-		// TODO:return face.listEffects()
-		return null;
+		return face.listEffects();
 	}
 	
 	//***************************************************************************
