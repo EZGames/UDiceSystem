@@ -9,6 +9,7 @@ import ezgames.utils.collections.simple.SimpleCollection;
  * Strategy Design Pattern
  * @param <E> the type of the elements in the collection
  */
+@FunctionalInterface
 public interface ChooserStrategy<E>
 {
 	/**
