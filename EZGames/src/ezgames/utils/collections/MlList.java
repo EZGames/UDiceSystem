@@ -12,28 +12,35 @@ import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.Weighted;
 import func.java.tailrecursion.TailCall;
 
-// DOC TEST
+// TEST
 /**
- * <p>MlList was originally created because I looked into the ML language (which is
- * a functional language) and I really liked how it worked, so I created my own
- * for fun.  But I learned that it's also really good at building {@link Iterable}s
- * quite quickly. It's main use is in connection with the {@link Stackable} 
- * interface.</p>
- * <p>It's good for building {@code Iterable}s quickly because it returns the new
- * MlList with each add() or and() call, so one could be built as follows:<br>
- * {@code Iterable<Integer> ints = MlList.empty().add(1).and(2).and(3).and(4);}<br>
- * With a Stackable type, you can do it even more simply:<br>
- * {@code Iterable<StackableInt> ints = one.and(two).and(three).and(four);}
- * where one, two, three, and four are hypothetical StackableInt 
- * (Stackable<Integer>) objects. See the {@link Stackable} interface to learn
- * more about how it works with MlList to increase fluency and conciseness.</p>
- * <p>The only real downside of MlList is that is stores the objects in the 
- * reverse order that you put them in. It sort of functions like a non-popping
- * Stack. This problem is offset by two different ideas:<br>
- * + The UDiceSystem does not require anything to be in any specific order, other
- * than {@link Range}s in a {@link RangeCollection}, but the ordering is dealt
- * with by the Builder.<br>
- * + MlList comes with a {@code reverse()} method for reversing the list.
+ * <p>
+ * {@code MlList} is made to mimic (with method names instead of the silly symbols)
+ *  the built-in list type of the ML functional language.</p>
+ * <p>
+ * Pros:
+ * <ul>
+ * <li>Works well with recursive functions. To iterate over the collection without
+ * the need for an iterator, one can use the {@link #head()} method to get the 
+ * element at the front of the collection, and pass the rest of the collection
+ * to the next recursive call with {@link #tail()}.</li>
+ * <li>Has a great, fluent interface for building small collections up. Being
+ * immutable, all methods that <i>would</i> alter the collection simply return a
+ * new copy (usually in an extremely efficient manner), which can be used for the
+ * next "mutation". For example, you could make a quick collection of numbers
+ * with the line <code>MlList&lt;Integer&gt; myList = MlList.startWith(1).add(2).and(3).and(4);</code>
+ * Or you could use <code>MlList&lt;Integer&gt; myList = MlList.fromValues(1,2,3,4);</code></li>
+ * <li>Works with the {@link Stackable} interface to make the creation of the
+ * collections even easier.</li>
+ * </ul>
+ * Cons:
+ * <ul>
+ * <li>The object design itself is recursive, so there isn't a constant look-up
+ * time associated with {@link #get()} by index.</li>
+ * <li>Every time you add an object to the list, it's prepended instead of appended,
+ * which is against what one would normally expect. Generally, you want to avoid
+ * having order matter when using this collection.</li>
+ * </ul>
  * @param <E> - The type of elements stored in the MlList
  */
 @Immutable
@@ -41,7 +48,45 @@ public class MlList<E> implements SimpleCollection<E>
 {
 	//**************************************************************************
 	// Public static factories
-	//**************************************************************************
+	//**************************************************************************	
+	/**
+	 * Creates a new {@code MlList} that appends both lists together, placing the
+	 * items in the order generally expected of an append.
+	 * <p>
+	 * <b>Note:</b> This is an unoptimized recursive algorithm. If the left list
+	 * is too long, it may trigger a {@code StackOverflowError}. If the order doesn't
+	 * matter, then you should use {@link #addAll}, which doesn't suffer from
+	 * the same weakness.</p>
+	 * @param l1 - the first list to be on the left of the returned list
+	 * @param l2 - the second list to be on the right of the returned list
+	 * @return a new {@code MlList} with {@code l1}'s elements on the left and 
+	 * {@code l2}'s elements on the right.
+	 */
+	public static <E> MlList<E> append(MlList<E> l1, MlList<E> l2)
+	{
+		if (l2.isEmpty())
+		{
+			return l1;
+		}
+		else if (l1.isEmpty())
+		{
+			return l2;
+		}
+		else
+		{
+			return append(l1.tail, l2).add(l1.head);
+		}
+	}
+	
+	/**
+	 * @return an empty {@code MlList}; contains no items
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E> MlList<E> empty()
+	{
+		return (MlList<E>)EMPTY;
+	}
+	
 	/**
 	 * Creates a new {@code MlList} from an {@code Iterable}
 	 * @param iterable - the {@code Iterable} to create the {@code MlList} from
@@ -100,51 +145,14 @@ public class MlList<E> implements SimpleCollection<E>
 		}
 	}
 	
-	/**
-	 * @return an empty {@code MlList}; contains no items
-	 */
-	@SuppressWarnings("unchecked")
-	public static <E> MlList<E> empty()
-	{
-		return (MlList<E>)EMPTY;
-	}
-	
-	/**
-	 * Creates a new {@code MlList} that appends both lists together, placing the
-	 * items in the order generally expected of an append.
-	 * <p>
-	 * <b>Note:</b> This is an unoptimized recursive algorithm. If the left list
-	 * is too long, it may trigger a {@code StackOverflowError}. If the order doesn't
-	 * matter, then you should use {@link #addAll}, which doesn't suffer from
-	 * the same weakness.</p>
-	 * @param l1 - the first list to be on the left of the returned list
-	 * @param l2 - the second list to be on the right of the returned list
-	 * @return a new {@code MlList} with {@code l1}'s elements on the left and 
-	 * {@code l2}'s elements on the right.
-	 */
-	public static <E> MlList<E> append(MlList<E> l1, MlList<E> l2)
-	{
-		if (l2.isEmpty())
-		{
-			return l1;
-		}
-		else if (l1.isEmpty())
-		{
-			return l2;
-		}
-		else
-		{
-			return append(l1.tail, l2).add(l1.head);
-		}
-	}
-	
 	//**************************************************************************
 	// Public API methods
 	//**************************************************************************
 	/**
-	 * Adds the given element to the beginning of this list
-	 * @param element - 
-	 * @return
+	 * Creates a new {@code MlList} with the given element added to the beginning
+	 * of this list
+	 * @param element - the item to add to the beginning of this list
+	 * @return the new {@code MlList} with the given element in front of this list.
 	 */
 	public MlList<E> add(final E element)
 	{
@@ -154,13 +162,39 @@ public class MlList<E> implements SimpleCollection<E>
 	}
 	
 	/**
-	 * 
-	 * @param other
-	 * @return
+	 * Creates a new {@code MlList} that contains all the elements from this list
+	 * and the given list.
+	 * @param other - the other list, whose elements are to be added onto this
+	 * @return the new {@code MlList} containing all the elements from this list
+	 * and the given one
 	 */
 	public MlList<E> addAll(final MlList<E> other)
 	{
-		
+		if(other.isEmpty())
+		{
+			return this;
+		}
+		else
+		{
+			return this.add(other.head).addAll(other.tail);
+		}
+	}
+	
+	/**
+	 * Creates a new {@code MlList} that contains all the elements from this list
+	 * and the given {@code Iterable}.
+	 * @param other - the other collection, whose elements are to be added onto this
+	 * @return the new {@code MlList} containing all the elements from this list
+	 * and the given {@code Iterable}
+	 */
+	public MlList<E> addAll(final Iterable<E> other)
+	{
+		MlList<E> temp = this;
+		for(E item : this)
+		{
+			temp = temp.add(item);
+		}
+		return temp;
 	}
 	
 	/**
@@ -173,17 +207,32 @@ public class MlList<E> implements SimpleCollection<E>
 		return add(element);
 	}
 	
-	public MlList<E> append(MlList<E> other)
+	/**
+	 * Creates a new {@code MlList} that appends this and the given list together,
+	 * placing the items in the order generally expected of an append.
+	 * <p>
+	 * <b>Note:</b> This is an unoptimized recursive algorithm. If the left list
+	 * is too long, it may trigger a {@code StackOverflowError}. If the order doesn't
+	 * matter, then you should use {@link #addAll}, which doesn't suffer from
+	 * the same weakness.</p>
+	 * @param l1 - the first list to be on the left of the returned list
+	 * @param l2 - the second list to be on the right of the returned list
+	 * @return a new {@code MlList} with {@code l1}'s elements on the left and 
+	 * {@code l2}'s elements on the right.
+	 */
+	public MlList<E> append(final MlList<E> other)
 	{
 		return append(this, other);
 	}
 	
+	//specified in SimpleCollection
 	public boolean contains(final E obj)
 	{
 		return indexOf(obj).isPresent();
 	}
 	
-	public boolean equals(Object o)
+	//specified in Object
+	public boolean equals(final Object o)
 	{
 		if (o == this) { return true; }
 		
@@ -205,6 +254,7 @@ public class MlList<E> implements SimpleCollection<E>
 		}
 	}
 	
+	//specified in SimpleCollection
 	public E get(int index)
 	{
 		if(index < 0)
@@ -221,6 +271,7 @@ public class MlList<E> implements SimpleCollection<E>
 		}
 	}
 	
+	//specified in Object
 	public int hashCode()
 	{
 		HashGenerator hasher = HashGenerator.createWithDefaultHashAlgorithm();
@@ -229,56 +280,80 @@ public class MlList<E> implements SimpleCollection<E>
 		return hasher.hash(tail, code);
 	}
 	
+	/**
+	 * <b>Note: </b>Used in conjunction with {@link #tail()}, this can be used by
+	 * recursive functions to iterate over the collection. 
+	 * @return the first object in this collection
+	 * @see #tail()
+	 * 
+	 */
 	public E head()
 	{
 		return head;
 	}
 	
+	//specified in SimpleCollection
 	public Optional<Integer> indexOf(E obj)
 	{
 		return indexOf(obj, 0).invoke();
 	}
 	
+	/**
+	 * @return {@code true} if this collection contains no elements.
+	 */
 	public boolean isEmpty()
 	{
 		return head == null;
 	}
 	
-	@Override
+	//specified by Iterable
 	public Iterator<E> iterator()
 	{
 		return new MllIterator<E>(this);
 	}
 	
-	public MlList<E> reverse()
-	{
-		if (isEmpty() || tail.isEmpty()) { return this; }
-		
-		return reverse(this, MlList.<E>empty());
-	}
-	
+	//specified by SimpleCollection
 	public int size()
 	{
 		return size;
 	}
 	
+	//specified by Streamable
 	public Stream<E> stream()
 	{
-		Spliterator<E> split = Spliterators.spliterator(iterator(), size(), Spliterator.IMMUTABLE);
+		Spliterator<E> split = Spliterators.spliterator(iterator(), size(), Spliterator.IMMUTABLE | Spliterator.ORDERED | Spliterator.SIZED);
 		return StreamSupport.stream(split, false);
 	}
 	
+	/**
+	 * <b>Note: </b>Used in conjunction with {@link #head()}, this can be used by
+	 * recursive functions to iterate over the collection. 
+	 * @return {@code MlList} containing all but the first element of this collection
+	 * @see #head()
+	 */
 	public MlList<E> tail()
 	{
 		return tail;
 	}
 	
+	//specified in Object
 	public String toString()
 	{
 		if (isEmpty()) { return ""; }
 		return "[" + head.toString() + "]" + tail.toString();
 	}
 	
+	/**
+	 * Creates a new {@code MlList} where all the elements from this collection
+	 * are turned into {@link Weighted} versions of themselves. The first element
+	 * has a weight equal to the given weight. The other elements have either a
+	 * weight of 1, if they weren't already {@code Weighted}, or else they have
+	 * the same weight they already did if they were.
+	 * @param weight - the amount of weight to assign to the first element of this
+	 * @return a new {@code MlList} containing {@code Weighted} elements, where the
+	 * first element's weight is equal to the given weight, and the other elements
+	 * have their own weight determined by the method mentioned above.
+	 */
 	@SuppressWarnings("unchecked")
 	public MlList<Weighted<E>> withWeight(int weight)
 	{
