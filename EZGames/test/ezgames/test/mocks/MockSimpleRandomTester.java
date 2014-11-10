@@ -2,7 +2,7 @@ package ezgames.test.mocks;
 
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
-import static ezgames.test.matchers.Validates.*;
+import static ezgames.testing.mocking.Validates.*;
 import org.junit.Test;
 import ezgames.test.mocks.MockSimpleRandom.UsageAllowance;
 

@@ -1,6 +1,7 @@
 package ezgames.test.mocks;
 
 import ezgames.math.random.SimpleRandom;
+import ezgames.testing.mocking.Validatable;
 
 //TODO: update to work as noted in Evernot
 /**
@@ -14,7 +15,7 @@ import ezgames.math.random.SimpleRandom;
  * 	<li>if the range provided in {@link #randBetween} does not include the 
  * value given to produce in the constructor, the validation will return false</li>
  * </ol>
- * @see {@link ezgames.test.mocks.Validatable} for more on EZGames' mock 
+ * @see {@link ezgames.testing.mocking.Validatable} for more on EZGames' mock 
  * validation.
  */
 public class MockSimpleRandom implements SimpleRandom, Validatable

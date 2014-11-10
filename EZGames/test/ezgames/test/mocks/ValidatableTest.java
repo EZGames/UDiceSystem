@@ -1,8 +1,9 @@
 package ezgames.test.mocks;
 
 import static org.junit.Assert.*;
-import static ezgames.test.matchers.Validates.*;
+import static ezgames.testing.mocking.Validates.*;
 import org.junit.Test;
+import ezgames.testing.mocking.Validatable;
 
 public class ValidatableTest
 {

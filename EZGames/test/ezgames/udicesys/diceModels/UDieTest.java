@@ -2,7 +2,7 @@ package ezgames.udicesys.diceModels;
 
 
 import static ezgames.test.matchers.collections.IsNotEmptyCollection.*;
-import static ezgames.test.matchers.Validates.*;
+import static ezgames.testing.mocking.Validates.*;
 import static org.hamcrest.core.IsEqual.*;
 import static org.hamcrest.core.IsNot.*;
 import static org.hamcrest.core.IsNull.*;

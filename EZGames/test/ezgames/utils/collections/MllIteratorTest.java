@@ -1,11 +1,10 @@
 package ezgames.utils.collections;
 
-import static ezgames.test.matchers.collections.IteratesNumTimes.*;
-import static ezgames.test.matchers.exceptions.Throws.*;
-import static org.junit.Assert.*;
+import static ezgames.test.matchers.collections.IteratesNumTimes.iteratesNumTimes;
+import static ezgames.testing.matchers.exceptions.Throws.*;
+import static org.junit.Assert.assertThat;
 import java.util.Iterator;
 import org.junit.Test;
-import ezgames.utils.collections.MlList;
 
 public class MllIteratorTest
 {
