@@ -1,7 +1,7 @@
 package ezgames.utils.collections;
 
 import static ezgames.test.matchers.collections.IteratesNumTimes.iteratesNumTimes;
-import static ezgames.testing.matchers.exceptions.Throws.*;
+import static ezgames.testing.matchers.exceptions.ThrowsA.*;
 import static org.junit.Assert.assertThat;
 import java.util.Iterator;
 import org.junit.Test;
