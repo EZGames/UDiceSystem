@@ -3,7 +3,7 @@ package ezgames.test.mocks;
 import ezgames.math.random.SimpleRandom;
 import ezgames.testing.mocking.Validatable;
 
-//TODO: update to work as noted in Evernot
+//TODO: update to work as noted in Evernote
 /**
  * <p>A mock class for the {@link ezgames.math.random.SimpleRandom SimpleRandom}
  * interface.  It allows the tester to provide a value for the {@code SimpleRandom}
@@ -52,6 +52,7 @@ public class MockSimpleRandom implements SimpleRandom, Validatable
 		if(numToReturn < min || numToReturn > max)
 		{
 			isValid = false;
+			errorMessage += String.format("range given (%d-%d) does not contain the designated number to product\n", min, max, numToReturn);
 		}
 		return numToReturn;
 	}
@@ -67,18 +68,20 @@ public class MockSimpleRandom implements SimpleRandom, Validatable
 		if(isSettingSeedBad)
 		{
 			isValid = false;
+			errorMessage += String.format("set seed to %d when setting the seed was forbidden\n", seed);
 		}
 	}
 
-	/**
-	 * @return true if all calls to {@link #randBetween} did not cause validation
-	 * to fail and if {@link #setSeed} was not called unless {@code isSettingSeedBad}
-	 * was false.  Otherwise, it returns false.
-	 */
 	@Override
 	public boolean validate()
 	{
 		return isValid && isNotUsedWhenItCantBe();
+	}
+	
+	@Override
+	public String errorMessage() 
+	{
+		return errorMessage;
 	}
 	
 	private void beingUsed()
@@ -89,15 +92,19 @@ public class MockSimpleRandom implements SimpleRandom, Validatable
 	
 	private void validateUsage()
 	{
-		if(isUsed && !allowance.isSafeToUse)
+		if(!allowance.isSafeToUse)
 		{
 			isValid = false;
+			errorMessage += "used when it wasn't safe to be used\n";
 		}
 	}
 	
 	private boolean isNotUsedWhenItCantBe()
 	{
-		return isUsed || allowance.isSafeNotToUse;
+		boolean result = isUsed || allowance.isSafeNotToUse;
+		if(!result)
+			errorMessage += String.format("used: %s, safe to not use: %s", isUsed, allowance.isSafeNotToUse);
+		return result;
 	}
 	
 	private int numToReturn;
@@ -105,6 +112,7 @@ public class MockSimpleRandom implements SimpleRandom, Validatable
 	private boolean isValid = true;
 	private UsageAllowance allowance;
 	private boolean isUsed = false;
+	private String errorMessage = "";
 	
 	public enum UsageAllowance
 	{
