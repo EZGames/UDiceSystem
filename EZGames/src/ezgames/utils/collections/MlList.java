@@ -10,7 +10,7 @@ import ezgames.annotations.Immutable;
 import ezgames.math.hashing.HashGenerator;
 import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.Weighted;
-import func.java.tailrecursion.TailCall;
+import func.java.recursion.TailCall;
 
 // TEST
 /**
@@ -400,16 +400,6 @@ public class MlList<E> implements SimpleCollection<E>
 		head = o;
 		tail = list;
 		size = list.size + 1;
-	}
-	
-	//**************************************************************************
-	// Private static helpers
-	//**************************************************************************
-	private static <E> MlList<E> reverse(MlList<E> oldList, MlList<E> newList)
-	{
-		if(oldList.isEmpty()) {return newList;}
-		
-		return reverse(oldList.tail, newList.add(oldList.head));
 	}
 	
 	//***************************************************************************

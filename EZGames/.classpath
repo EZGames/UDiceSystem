@@ -5,7 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/hamcrest-all-1.3.jar" sourcepath="libs/hamcrest-1.3.zip"/>
-	<classpathentry kind="lib" path="libs/functional-java.jar"/>
 	<classpathentry kind="lib" path="/Testing Helpers/target/ez-testing.jar"/>
+	<classpathentry kind="lib" path="/Functional Helpers/target/functional-java.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
