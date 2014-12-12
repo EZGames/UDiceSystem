@@ -7,9 +7,8 @@ import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import ezgames.annotations.Immutable;
-import ezgames.math.hashing.HashGenerator;
-import ezgames.utils.collections.simple.SimpleCollection;
 import ezgames.utils.Weighted;
+import ezgames.utils.collections.simple.SimpleCollection;
 import func.java.recursion.TailCall;
 
 // TEST
@@ -234,6 +233,7 @@ public class MlList<E> implements SimpleCollection<E>
 	//specified in Object
 	public boolean equals(final Object o)
 	{
+		//TODO switch over to apache EqualsBuilder
 		if (o == this) { return true; }
 		
 		if (!(o instanceof MlList<?>)) { return false; }
@@ -274,10 +274,12 @@ public class MlList<E> implements SimpleCollection<E>
 	//specified in Object
 	public int hashCode()
 	{
-		HashGenerator hasher = HashGenerator.createWithDefaultHashAlgorithm();
-		int code = hasher.getStartingValue();
-		code = hasher.hash(head, code);
-		return hasher.hash(tail, code);
+		//TODO switch over to apache commons HashCodeBuilder
+		return 0;
+//		HashGenerator hasher = HashGenerator.createWithDefaultHashAlgorithm();
+//		int code = hasher.getStartingValue();
+//		code = hasher.hash(head, code);
+//		return hasher.hash(tail, code);
 	}
 	
 	/**

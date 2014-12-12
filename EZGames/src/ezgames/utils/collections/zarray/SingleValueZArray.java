@@ -3,7 +3,6 @@ package ezgames.utils.collections.zarray;
 import java.util.Iterator;
 import java.util.Optional;
 import ezgames.annotations.Immutable;
-import ezgames.math.hashing.HashGenerator;
 
 @Immutable
 final class SingleValueZArray<E> implements ZArray<E>
@@ -34,6 +33,7 @@ final class SingleValueZArray<E> implements ZArray<E>
 	@SuppressWarnings("unchecked")
 	public boolean equals(Object o)
 	{
+		//TODO switch over to apache EqualsBuilder
 		// quick check
 		if (o == item)
 		{
@@ -64,9 +64,11 @@ final class SingleValueZArray<E> implements ZArray<E>
 	
 	public int hashCode()
 	{
-		HashGenerator hasher = HashGenerator.createWithDefaultHashAlgorithm();
-		int curr = hasher.getStartingValue();
-		return hasher.hash(item, curr);
+		//TODO switch over to apache HashCodeBuilder
+		return 0;
+//		HashGenerator hasher = HashGenerator.createWithDefaultHashAlgorithm();
+//		int curr = hasher.getStartingValue();
+//		return hasher.hash(item, curr);
 	}
 	
 	public Optional<Integer> indexOf(E obj)

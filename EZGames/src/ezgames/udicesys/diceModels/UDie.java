@@ -3,7 +3,6 @@ package ezgames.udicesys.diceModels;
 import java.util.Iterator;
 import java.util.stream.Stream;
 import ezgames.annotations.Immutable;
-import ezgames.math.hashing.HashGenerator;
 import ezgames.math.random.EZRandom;
 import ezgames.math.random.SimpleRandom;
 import ezgames.udicesys.diceModels.abstractions.Die;
@@ -38,6 +37,7 @@ public final class UDie implements Die
 	@Override
 	public boolean equals(Object obj)
 	{
+		//TODO switch over to apache commons EqualsBuilder
 		if(null == obj) { return false; }
 		
 		if(this == obj) { return true; }
@@ -57,12 +57,14 @@ public final class UDie implements Die
 	@Override
 	public int hashCode()
 	{
-		HashGenerator hasher = HashGenerator.createWithDefaultHashAlgorithm();
-		int hash = hasher.getStartingValue();
-		hash = hasher.hash(name, hash);
-		hash = hasher.hash(faces, hash);
-		
-		return hash;
+		//TODO switch over to apache commons HashCodeBuilder
+		return 0;
+//		HashGenerator hasher = HashGenerator.createWithDefaultHashAlgorithm();
+//		int hash = hasher.getStartingValue();
+//		hash = hasher.hash(name, hash);
+//		hash = hasher.hash(faces, hash);
+//		
+//		return hash;
 	}
 	
 	@Override
