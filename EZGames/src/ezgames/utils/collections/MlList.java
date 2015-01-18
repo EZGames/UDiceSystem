@@ -345,33 +345,6 @@ public class MlList<E> implements SimpleCollection<E>
 		return "[" + head.toString() + "]" + tail.toString();
 	}
 	
-	/**
-	 * Creates a new {@code MlList} where all the elements from this collection
-	 * are turned into {@link Weighted} versions of themselves. The first element
-	 * has a weight equal to the given weight. The other elements have either a
-	 * weight of 1, if they weren't already {@code Weighted}, or else they have
-	 * the same weight they already did if they were.
-	 * @param weight - the amount of weight to assign to the first element of this
-	 * @return a new {@code MlList} containing {@code Weighted} elements, where the
-	 * first element's weight is equal to the given weight, and the other elements
-	 * have their own weight determined by the method mentioned above.
-	 */
-	@SuppressWarnings("unchecked")
-	public MlList<Weighted<E>> withWeight(int weight)
-	{
-		if(head instanceof Weighted<?>)
-		{
-			Weighted<E> newHead = new Weighted<E>(((Weighted<E>) head).object(), weight);
-			return ((MlList<Weighted<E>>) tail).add(newHead);
-		}
-		//set all tail elements to have a weight of 1
-		MlList<Weighted<E>> out = tail.withWeight(1);
-		//make a new version of the head with weight
-		Weighted<E> newHead = new Weighted<>(head, weight);
-		//add the head to the new tail and return it
-		return out.add(newHead);
-	}
-	
 	//**************************************************************************
 	// Private members
 	//**************************************************************************

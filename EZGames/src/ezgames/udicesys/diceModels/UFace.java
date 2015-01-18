@@ -1,13 +1,16 @@
 package ezgames.udicesys.diceModels;
 
 import java.util.Iterator;
+import ezgames.annotations.Immutable;
 import ezgames.udicesys.diceModels.abstractions.Effect;
 import ezgames.udicesys.diceModels.abstractions.Face;
 import ezgames.udicesys.diceModels.abstractions.FaceValue;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
+import ezgames.utils.Weighted;
 import ezgames.utils.collections.simple.SimpleCollection;
 
-public class UFace implements Face
+@Immutable
+public class UFace implements Face, Weighted
 {
 	/**
 	 * A static factory for building a {@code Face}. The only thing required is
@@ -21,21 +24,25 @@ public class UFace implements Face
 	 * @param faceValues
 	 * @param effects
 	 * @return
-	 */
-	
+	 */	
 	public static Face with(String name, SimpleCollection<FaceValue> faceValues, SimpleCollection<Effect> effects)
 	{
-		return new UFace(name, faceValues, effects);
+		return with(name, faceValues, effects, 1);
+	}
+	
+	public static Face with(String name, SimpleCollection<FaceValue> faceValues, SimpleCollection<Effect> effects, int weight)
+	{
+		return new UFace(name, faceValues, effects, weight);
 	}
 	
 	public static Face blank()
 	{
-		return new UFace("blank", null, null);
+		return with("blank", null, null, 1);
 	}
 	
 	public static Face blank(String name)
 	{
-		return new UFace(name, null, null);
+		return with(name, null, null, 1);
 	}
 	
 	public Iterator<FaceValue> iterator()
@@ -68,12 +75,20 @@ public class UFace implements Face
 		return null;
 	}
 	
+	public int weight()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	private final String name;
 	private final SimpleCollection<FaceValue> faceValues;
 	private final SimpleCollection<Effect> effects;
+	private final int weight;
 	
-	private UFace(String name, SimpleCollection<FaceValue> faceValues, SimpleCollection<Effect> effects)
+	private UFace(String name, SimpleCollection<FaceValue> faceValues, SimpleCollection<Effect> effects, int weight)
 	{
+		this.weight = weight;
 		this.name = name;
 		this.faceValues = faceValues;
 		this.effects = effects;
