@@ -144,6 +144,8 @@ public class MlList<E> implements SimpleCollection<E>
 		}
 	}
 	
+	// TODO: Make a Stream Collector for MlList
+	
 	//**************************************************************************
 	// Public API methods
 	//**************************************************************************

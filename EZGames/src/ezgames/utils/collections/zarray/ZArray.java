@@ -49,4 +49,6 @@ public interface ZArray<E> extends SimpleCollection<E>
 		
 		return new MultiValueZArray<E>(inList);
 	}
+	
+	//TODO: make a Stream Collector for ZArray
 }
