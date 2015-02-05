@@ -10,7 +10,7 @@ import ezgames.utils.Weighted;
 import ezgames.utils.collections.simple.SimpleCollection;
 
 @Immutable
-public class UFace implements Face, Weighted
+public class UFace implements Face, Weighted<Face>
 {
 	/**
 	 * A static factory for building a {@code Face}. The only thing required is

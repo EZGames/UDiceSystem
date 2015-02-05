@@ -9,6 +9,7 @@ import java.util.stream.StreamSupport;
 import ezgames.annotations.Immutable;
 import ezgames.utils.collections.simple.SimpleCollection;
 //import func.java.recursion.TailCall;
+import func.java.recursion.TailCall;
 
 // TEST
 /**
@@ -298,9 +299,7 @@ public class MlList<E> implements SimpleCollection<E>
 	//specified in SimpleCollection
 	public Optional<Integer> indexOf(E obj)
 	{
-		return Optional.empty();
-		//TODO switch back to Tail Call when build issues are fixed
-		//return indexOf(obj, 0).invoke();
+		return indexOf(obj, 0).invoke();
 	}
 	
 	/**
@@ -383,22 +382,21 @@ public class MlList<E> implements SimpleCollection<E>
 	//***************************************************************************
 	// Private helpers
 	//***************************************************************************
-	//TODO
-//	private TailCall<Optional<Integer>> indexOf(E obj, int currIndex)
-//	{
-//		if(head == null)
-//		{
-//			return TailCall.done(Optional.empty());
-//		}
-//		else if(head.equals(obj))
-//		{
-//			return TailCall.done(Optional.of(currIndex));
-//		}
-//		else
-//		{
-//			return () -> tail.indexOf(obj, currIndex + 1);
-//		}
-//	}
+	private TailCall<Optional<Integer>> indexOf(E obj, int currIndex)
+	{
+		if(head == null)
+		{
+			return TailCall.done(Optional.empty());
+		}
+		else if(head.equals(obj))
+		{
+			return TailCall.done(Optional.of(currIndex));
+		}
+		else
+		{
+			return () -> tail.indexOf(obj, currIndex + 1);
+		}
+	}
 	
 	//**************************************************************************
 	// Private Iterator Type
