@@ -1,16 +1,22 @@
 package ezgames.udicesys.diceModels;
 
 
-import static ezgames.test.matchers.collections.IsNotEmptyCollection.*;
-import static ezgames.testing.mocking.Validates.*;
-import static org.hamcrest.core.IsEqual.*;
-import static org.hamcrest.core.IsNot.*;
-import static org.hamcrest.core.IsNull.*;
-import static org.hamcrest.core.Is.*;
-import static org.junit.Assert.*;
+import static ezgames.test.matchers.collections.IsNotEmptyCollection.isNotAnEmptyCollection;
+import static ezgames.testing.mocking.Validates.validates;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.stream.Stream;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import ezgames.test.mocks.MockSimpleRandom;
-import ezgames.test.mocks.MockSimpleRandom.UsageAllowance;
-import ezgames.udicesys.diceModels.UDie;
+import ezgames.test.mocks.ValidationDescription;
 import ezgames.udicesys.diceModels.abstractions.Die;
 import ezgames.udicesys.diceModels.abstractions.Effect;
 import ezgames.udicesys.diceModels.abstractions.Face;
@@ -20,12 +26,6 @@ import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.udicesys.diceModels.abstractions.Roll;
 import ezgames.utils.collections.MlList;
 import ezgames.utils.collections.simple.SimpleCollection;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.stream.Stream;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 public class UDieTest
 {	
@@ -47,7 +47,9 @@ public class UDieTest
 	public void before()
 	{
 		//reset the randomNumberGenerator for validation purposes
-		rand = new MockSimpleRandom(0, true, UsageAllowance.SHOULD_BE_USED);
+		rand = new MockSimpleRandom(
+				(randCalled, seedCalled, min, max) -> new ValidationDescription("randBetween() was never called", randCalled),
+				0);
 		//and therefore reset rand in the die
 		die = UDie.with(name, faces, rand);
 	}
@@ -241,7 +243,9 @@ public class UDieTest
 	{
 		//Create a Die with 2 faces and uses a "random number generator" to return the second face
 		Face secondFace = makeFace("second");
-		MockSimpleRandom generatesAOne = new MockSimpleRandom(1, true, UsageAllowance.SHOULD_BE_USED);//always generates a 1 (0-indexed), not okay to set the seed
+		MockSimpleRandom generatesAOne = new MockSimpleRandom(
+				(randCalled, seedCalled, min, max) -> new ValidationDescription("randBetween() wasn't called and/or setSeed() was called", randCalled && ! seedCalled), 
+				1);//always generates a 1 (0-indexed), not okay to set the seed
 		Die die = UDie.with(name, onlyFace.and(secondFace), generatesAOne); //MlList puts new objects in the front, so secondFace needs to be placed "before" onlyFace in order to be the second object in the collection
 		
 		Face rolledFace = die.roll().rolledFace();
