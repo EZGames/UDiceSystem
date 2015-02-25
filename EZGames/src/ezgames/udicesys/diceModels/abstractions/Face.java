@@ -43,11 +43,12 @@ public interface Face extends Iterable<FaceValue>, Stackable<Face>
 	 * on this {@code Face}
 	 */
 	SimpleCollection<Relationship> listRelationships();
-	/**
-	 * @return a {@code SimpleCollection containing all the {@code Effect}s on
-	 * this {@code Face}
-	 */
-	SimpleCollection<Effect> listEffects();
+//	// TODO: someday, add Effects, maybe
+//	/**
+//	 * @return a {@code SimpleCollection containing all the {@code Effect}s on
+//	 * this {@code Face}
+//	 */
+//	SimpleCollection<Effect> listEffects();
 	/**
 	 * @return a {@code SimpleCollection containing all the {@code FaceValue}s on
 	 * this {@code Face}
