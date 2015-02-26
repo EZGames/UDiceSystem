@@ -35,11 +35,6 @@ public final class URoll implements Roll
 		return face.listRelationships();
 	}
 	
-	public SimpleCollection<Effect> rolledEffects()
-	{
-		return face.listEffects();
-	}
-	
 	//***************************************************************************
 	// Package-private constructor
 	//***************************************************************************
