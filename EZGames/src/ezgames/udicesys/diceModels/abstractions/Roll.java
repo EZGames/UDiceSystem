@@ -29,9 +29,10 @@ public interface Roll
 	 */
 	SimpleCollection<Relationship> rolledRelationships();
 	
-	/**
-	 * @return a SimpleCollection of all the Effects associated with the Face
-	 * that was rolled
-	 */
-	SimpleCollection<Effect> rolledEffects();
+//	to be added if we ever add effects
+//	/**
+//	 * @return a SimpleCollection of all the Effects associated with the Face
+//	 * that was rolled
+//	 */
+//	SimpleCollection<Effect> rolledEffects();
 }
