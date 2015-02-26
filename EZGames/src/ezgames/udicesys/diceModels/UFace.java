@@ -8,6 +8,7 @@ import ezgames.udicesys.diceModels.abstractions.Face;
 import ezgames.udicesys.diceModels.abstractions.FaceValue;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.utils.Weighted;
+import ezgames.utils.collections.MlList;
 import ezgames.utils.collections.simple.SimpleCollection;
 
 //DOC
@@ -17,18 +18,6 @@ public class UFace implements Face, Weighted<Face>
 	//***************************************************************************
 	//Public static factory methods
 	//***************************************************************************
-	/**
-	 * A static factory for building a {@code Face}. The only thing required is
-	 * the {@code name} field. Other than the {@code name}, including just the
-	 * {@code faceValues} will make the {@code Face} a typical die face, with just
-	 * a value associated with it.  Including just the {@code effects} (other than
-	 * the {@code name}) is rare, but it is possible that you'd only want an
-	 * effect, such as reroll, to be triggered. Most of the time, if an
-	 * {@code effect} is included on a {@code Face}, it will be alongside  
-	 * @param name
-	 * @param faceValues
-	 * @return
-	 */	
 	public static UFace with(String name, SimpleCollection<FaceValue> faceValues)
 	{
 		return with(name, faceValues, 1);
@@ -41,12 +30,22 @@ public class UFace implements Face, Weighted<Face>
 	
 	public static UFace blank()
 	{
-		return with("blank", null, 1);
+		return with("blank", MlList.empty(), 1);
 	}
 	
 	public static UFace blank(String name)
 	{
-		return with(name, null, 1);
+		return with(name, MlList.empty(), 1);
+	}
+	
+	public static UFace blank(String name, int weight)
+	{
+		return with(name, MlList.empty(), weight);
+	}
+	
+	public static UFace blank(int weight)
+	{
+		return with("blank", MlList.empty(), weight);
 	}
 	
 	//***************************************************************************

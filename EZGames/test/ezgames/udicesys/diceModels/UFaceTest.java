@@ -1,7 +1,9 @@
 package ezgames.udicesys.diceModels;
 
+import static ezgames.test.matchers.collections.IsNotEmptyCollection.isAnEmptyCollection;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import java.util.Iterator;
@@ -165,6 +167,124 @@ public class UFaceTest
 		assertThat(result, is(equalTo(faceValues)));
 	}
 	
-	//TODO TEST static factories
+	@Test
+	// with(n, fv) doesn't return null
+	public void withNFv1()
+	{
+		face = UFace.with(name, faceValues);
+		
+		assertThat(face, is(notNullValue()));
+	}
+	
+	@Test
+	// with(n, fv) returns a UFace with the correct properties
+	public void withNFv2()
+	{
+		face = UFace.with(name, faceValues);
+		
+		assertThat(face.name(), is(equalTo(name)));
+		assertThat(face.listFaceValues(), is(equalTo(faceValues)));
+		assertThat(face.weight(), is(equalTo(1)));
+	}
+	
+	@Test
+	// with(n, fv, w) doesn't return null
+	public void withNFvW1()
+	{
+		face = UFace.with(name, faceValues, weight);
+		
+		assertThat(face, is(notNullValue()));
+	}
+	
+	@Test
+	// with(n, fv, w) returns a UFace with the correct properties
+	public void withNFvW2()
+	{
+		face = UFace.with(name, faceValues, weight);
+		
+		assertThat(face.name(), is(equalTo(name)));
+		assertThat(face.listFaceValues(), is(equalTo(faceValues)));
+		assertThat(face.weight(), is(equalTo(weight)));
+	}
+	
+	@Test
+	// blank() doesn't return null
+	public void blank1()
+	{
+		face = UFace.blank();
+		
+		assertThat(face, is(notNullValue()));
+	}
+	
+	@Test
+	// blank() returns a UFace with the correct properties
+	public void blank2()
+	{
+		face = UFace.blank();
+		
+		assertThat(face.name(), is(equalTo("blank")));
+		assertThat(face.listFaceValues(), isAnEmptyCollection());
+		assertThat(face.weight(), is(equalTo(1)));
+	}
+	
+	@Test
+	// blank(n) doesn't return null
+	public void blankN1()
+	{
+		face = UFace.blank(name);
+		
+		assertThat(face, is(notNullValue()));
+	}
+	
+	@Test
+	// blank(n) returns a UFace with the correct properties
+	public void blankN2()
+	{
+		face = UFace.blank(name);
+		
+		assertThat(face.name(), is(equalTo(name)));
+		assertThat(face.listFaceValues(), isAnEmptyCollection());
+		assertThat(face.weight(), is(equalTo(1)));
+	}
+	
+	@Test
+	// blank(n, w) doesn't return null
+	public void blankNW1()
+	{
+		face = UFace.blank(name, weight);
+		
+		assertThat(face, is(notNullValue()));
+	}
+	
+	@Test
+	// blank(n, w) returns a UFace with the correct properties
+	public void blankNW2()
+	{
+		face = UFace.blank(name, weight);
+		
+		assertThat(face.name(), is(equalTo(name)));
+		assertThat(face.listFaceValues(), isAnEmptyCollection());
+		assertThat(face.weight(), is(equalTo(weight)));
+	}
+	
+	@Test
+	// blank(w) doesn't return null
+	public void blankW1()
+	{
+		face = UFace.blank(weight);
+		
+		assertThat(face, is(notNullValue()));
+	}
+	
+	@Test
+	// blank(w) returns a UFace with the correct properties
+	public void blankW2()
+	{
+		face = UFace.blank(weight);
+		
+		assertThat(face.name(), is(equalTo("blank")));
+		assertThat(face.listFaceValues(), isAnEmptyCollection());
+		assertThat(face.weight(), is(equalTo(weight)));
+	}
 	//TODO move some tests out to a FaceTest 
 }
