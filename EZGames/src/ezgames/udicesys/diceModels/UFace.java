@@ -107,6 +107,10 @@ public class UFace implements Face, Weighted<Face>
 	//***************************************************************************
 	// Public API methods
 	//***************************************************************************
+	/**
+	 * Returns an iterator over all the {@code FaceValue}s.
+	 * @return an iterator
+	 */
 	public Iterator<FaceValue> iterator()
 	{
 		return faceValues.iterator();
