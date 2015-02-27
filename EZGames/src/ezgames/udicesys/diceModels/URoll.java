@@ -2,7 +2,6 @@ package ezgames.udicesys.diceModels;
 
 import ezgames.annotations.Immutable;
 import ezgames.udicesys.diceModels.abstractions.Die;
-import ezgames.udicesys.diceModels.abstractions.Effect;
 import ezgames.udicesys.diceModels.abstractions.Face;
 import ezgames.udicesys.diceModels.abstractions.FaceValue;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
