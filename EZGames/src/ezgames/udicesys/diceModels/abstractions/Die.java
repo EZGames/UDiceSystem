@@ -6,6 +6,8 @@ import ezgames.utils.collections.Stackable;
 import ezgames.utils.collections.Streamable;
 import ezgames.utils.collections.simple.SimpleCollection;
 
+//DOC
+// TODO doc should contain mention that implementation tests should extend DieTest
 @Immutable
 public interface Die extends Iterable<Face>, Streamable<Face>, Stackable<Die>
 {
