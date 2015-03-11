@@ -6,20 +6,21 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import java.util.Iterator;
-import java.util.stream.Stream;
+import static org.junit.Assert.fail;
 import org.junit.Test;
+import ezgames.test.mocks.BasicMockRelationship;
+import ezgames.udicesys.diceModels.abstractions.Face;
+import ezgames.udicesys.diceModels.abstractions.FaceTest;
 import ezgames.udicesys.diceModels.abstractions.FaceValue;
-import ezgames.udicesys.diceModels.abstractions.OutputRange;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.utils.collections.MlList;
 import ezgames.utils.collections.simple.SimpleCollection;
 
-public class UFaceTest
+public class UFaceTest extends FaceTest
 {
 	private static final String name = "name";
-	private static final Relationship rel1 = generateRelationship();
-	private static final Relationship rel2 = generateRelationship();
+	private static final Relationship rel1 = new BasicMockRelationship(1);
+	private static final Relationship rel2 = new BasicMockRelationship(2);
 	private static final FaceValue value1 = generateFaceValue(rel1);
 	private static final FaceValue value2 = generateFaceValue(rel1);
 	private static final FaceValue value3 = generateFaceValue(rel2);
@@ -34,13 +35,11 @@ public class UFaceTest
 			public Relationship getRelationship() { return rel; }			
 		};
 	}
-	
-	private static Relationship generateRelationship()
+
+	@Override
+	protected Face createTestFaceWith(String name, SimpleCollection<FaceValue> faceValues)
 	{
-		return new Relationship() {
-			public Iterator<OutputRange> iterator() { return null; }
-			public Stream<OutputRange> stream() { return null; }
-		};
+		return UFace.with(name, faceValues);
 	}
 	
 	@Test
@@ -141,6 +140,7 @@ public class UFaceTest
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	// iterator only provides 3 facevalues
 	public void iterator2()
@@ -286,5 +286,18 @@ public class UFaceTest
 		assertThat(face.listFaceValues(), isAnEmptyCollection());
 		assertThat(face.weight(), is(equalTo(weight)));
 	}
+	
+	@Test
+	public void equals()
+	{
+		fail("test and class not implemented; waiting on Apache Commons helper");
+	}
+	
+	@Test
+	public void hashCode1()
+	{
+		fail("test and class not implemented; waiting on Apache Commons helper");
+	}
+	
 	//TODO move some tests out to a FaceTest 
 }
