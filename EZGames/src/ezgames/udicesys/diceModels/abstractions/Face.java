@@ -8,6 +8,7 @@ import ezgames.utils.collections.simple.SimpleCollection;
  * A {@code Face} represents the face of a die.  A {@code Face} is made up of
  * {@link FaceValue}s and {@link Effect}s.
  */
+//TODO add documentation stating to have implementation tests inherit from FaceTest
 @Immutable
 public interface Face extends Iterable<FaceValue>, Stackable<Face>
 {

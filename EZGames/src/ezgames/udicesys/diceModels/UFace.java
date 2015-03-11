@@ -140,11 +140,26 @@ public class UFace implements Face, Weighted<Face>
 		return weight;
 	}
 	
+	public boolean equals(Object obj)
+	{
+		//TODO apache commons helper
+		return super.equals(obj);		
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		//TODO apache commons helper
+		return super.hashCode();
+	}
+	
 	//***************************************************************************
 	// PP constructor
 	//***************************************************************************
 	UFace(String name, SimpleCollection<FaceValue> faceValues, int weight)
 	{
+		if("".equals(name))
+			throw new IllegalArgumentException("Cannot create a Face with an empty name");
 		this.weight = weight;
 		this.name = name;
 		this.faceValues = faceValues;
