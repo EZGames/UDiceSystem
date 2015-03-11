@@ -38,27 +38,28 @@ public final class UDie implements Die
 	public boolean equals(Object obj)
 	{
 		//TODO switch over to apache commons EqualsBuilder
-		if(null == obj) { return false; }
-		
-		if(this == obj) { return true; }
-		
-		if(obj instanceof UDie)
-		{
-			UDie other = (UDie)obj;
-			
-			return (name.equals(other.name) && faces.equals(other.faces));
-		}
-		else
-		{
-			return false;
-		}
+//		if(null == obj) { return false; }
+//		
+//		if(this == obj) { return true; }
+//		
+//		if(obj instanceof UDie)
+//		{
+//			UDie other = (UDie)obj;
+//			
+//			return (name.equals(other.name) && faces.equals(other.faces));
+//		}
+//		else
+//		{
+//			return false;
+//		}
+		return super.equals(obj);
 	}
 	
 	@Override
 	public int hashCode()
 	{
 		//TODO switch over to apache commons HashCodeBuilder
-		return 0;
+		return super.hashCode();
 //		HashGenerator hasher = HashGenerator.createWithDefaultHashAlgorithm();
 //		int hash = hasher.getStartingValue();
 //		hash = hasher.hash(name, hash);
@@ -121,6 +122,8 @@ public final class UDie implements Die
 	//**************************************************************************
 	private UDie(final String name, final SimpleCollection<Face> faces, final SimpleRandom rand)
 	{
+		if("".equals(name))
+			throw new IllegalArgumentException("Cannot create a Die with a blank name");
 		this.name = name;
 		this.faces = faces;
 		this.rand = rand;

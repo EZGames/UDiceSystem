@@ -9,39 +9,30 @@ import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.stream.Stream;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import ezgames.test.mocks.BasicMockRelationship;
 import ezgames.test.mocks.MockSimpleRandom;
 import ezgames.test.mocks.ValidationDescription;
 import ezgames.udicesys.diceModels.abstractions.Die;
-import ezgames.udicesys.diceModels.abstractions.Effect;
+import ezgames.udicesys.diceModels.abstractions.DieTest;
 import ezgames.udicesys.diceModels.abstractions.Face;
 import ezgames.udicesys.diceModels.abstractions.FaceValue;
-import ezgames.udicesys.diceModels.abstractions.OutputRange;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
 import ezgames.udicesys.diceModels.abstractions.Roll;
 import ezgames.utils.collections.MlList;
 import ezgames.utils.collections.simple.SimpleCollection;
 
-public class UDieTest
+public class UDieTest extends DieTest
 {	
-	static Face onlyFace;
-	static MlList<Face> faces;
-	static String name;
-	static Die die;
-	static MockSimpleRandom rand;
-	
-	@BeforeClass
-	public static void beforeClass()
-	{
-		onlyFace = makeFace("default");
-		faces = MlList.startWith(onlyFace);		
-		name = "testDie";
-	}
+	final Face onlyFace = makeFace("default");
+	final MlList<Face> faces = MlList.startWith(onlyFace);
+	final String name = "testDie";
+	Die die;
+	MockSimpleRandom rand;
 	
 	@Before
 	public void before()
@@ -50,30 +41,31 @@ public class UDieTest
 		rand = new MockSimpleRandom(
 				(randCalled, seedCalled, min, max) -> new ValidationDescription("randBetween() was never called", randCalled),
 				0);
-		//and therefore reset rand in the die
-		die = UDie.with(name, faces, rand);
 	}
 	
-	public static Face makeFace(String name)
+	// Initialization helpers ***************************************************
+	public Face makeFace(String name)
 	{
 		return new Face() 
 			{
 				public Iterator<FaceValue> iterator() { return null; }	
 				public SimpleCollection<Relationship> listRelationships() { return defaultRelationshipList(); }
 				public String name() { return name; }
-				public SimpleCollection<Effect> listEffects() { return null; }
+				//public SimpleCollection<Effect> listEffects() { return null; }
 				public SimpleCollection<FaceValue> listFaceValues() { return null; }
 			};
 	}
 	
 	public static SimpleCollection<Relationship> defaultRelationshipList()
 	{
-		Relationship rel = new Relationship() 
-			{
-				public Iterator<OutputRange> iterator() { return null; }	
-				public Stream<OutputRange> stream() {return null; }
-			};
+		Relationship rel = new BasicMockRelationship(1);
 		return MlList.startWith(rel);
+	}
+
+	// parent test helper//******************************************************
+	protected Die createTestDieFrom(String testName)
+	{
+		return UDie.with(testName, faces);
 	}
 	
 	// public static with() ****************************************************
@@ -94,6 +86,8 @@ public class UDieTest
 	@Test
 	public void shouldGetNonNullIterator()
 	{
+		die = UDie.with(name, faces, rand);
+		
 		Iterator<Face> iter = die.iterator();
 		
 		assertNotNull(iter);
@@ -103,6 +97,8 @@ public class UDieTest
 	@Test
 	public void shouldGetNonNullRelationshipsList()  
 	{
+		die = UDie.with(name, faces, rand);
+		
 		Iterable<Relationship> rels = die.listRelationships();
 		
 		assertNotNull(rels);
@@ -111,6 +107,8 @@ public class UDieTest
 	@Test
 	public void shouldGetNonEmptyRelationshipsList()  
 	{
+		die = UDie.with(name, faces, rand);
+		
 	   SimpleCollection<Relationship> rels = die.listRelationships();
 	   
 	   assertThat(rels, isNotAnEmptyCollection());
@@ -122,6 +120,8 @@ public class UDieTest
 	@Test
 	public void shouldReturnGivenName()  
 	{
+		die = UDie.with(name, faces, rand);
+		
 		assertThat(die.name(), is(equalTo(name)));
 	}
 	
@@ -129,6 +129,9 @@ public class UDieTest
 	@Test
 	public void shouldBeEqual()
 	{
+		fail("test and class not implemented; waiting on Apache Commons helper");
+		
+		die = UDie.with(name, faces, rand);
 		Die die2 = UDie.with(name, faces);
 		
 		assertThat(die, is(equalTo(die2)));
@@ -137,12 +140,19 @@ public class UDieTest
 	@Test
 	public void shouldEqualSelf()  
 	{
+		fail("test and class not implemented; waiting on Apache Commons helper");
+		
+		die = UDie.with(name, faces, rand);
+		
 		assertThat(die, is(equalTo(die)));
 	}
 	
 	@Test
 	public void shouldNotBeEqualWithDifferentNames()
 	{
+		fail("test and class not implemented; waiting on Apache Commons helper");
+		
+		die = UDie.with(name, faces, rand);
 		Die die2 = UDie.with("differentName", faces);
 		
 		assertThat(die, is(not(equalTo(die2))));
@@ -151,6 +161,9 @@ public class UDieTest
 	@Test
 	public void shouldNotBeEqualWithDifferentFaces()
 	{
+		fail("test and class not implemented; waiting on Apache Commons helper");
+		
+		die = UDie.with(name, faces, rand);
 		Die die2 = UDie.with(name, differentFaces());
 		
 		assertThat(die, is(not(equalTo(die2))));
@@ -165,8 +178,13 @@ public class UDieTest
 	@Test
 	public void shouldHaveEqualHashCodes()
 	{
+		fail("test and class not implemented; waiting on Apache Commons helper");
+		
+		die = UDie.with(name, faces, rand);
+		Die die2 = UDie.with(name, faces);
+		
 		int hash1 = die.hashCode();
-		int hash2 = UDie.with(name, faces).hashCode();
+		int hash2 = die2.hashCode();
 		
 		assertThat(hash1, is(equalTo(hash2)));
 	}
@@ -174,8 +192,13 @@ public class UDieTest
 	@Test
 	public void shouldHaveDifferentHashCodesWithDifferentNames()
 	{
+		fail("test and class not implemented; waiting on Apache Commons helper");
+		
+		die = UDie.with(name, faces, rand);
+		Die die2 = UDie.with("differentName", faces);
+		
 		int hash1 = die.hashCode();
-		int hash2 = UDie.with("differentName", faces).hashCode();
+		int hash2 = die2.hashCode();
 		
 		assertThat(hash1, is(not(equalTo(hash2))));
 	}
@@ -183,8 +206,13 @@ public class UDieTest
 	@Test
 	public void shouldHaveDifferentHashCodesWithDifferentFaces()
 	{
+		fail("test and class not implemented; waiting on Apache Commons helper");
+		
+		die = UDie.with(name, faces, rand);
+		Die die2 = UDie.with(name, differentFaces());
+				
 		int hash1 = die.hashCode();
-		int hash2 = UDie.with(name, differentFaces()).hashCode();
+		int hash2 = die2.hashCode();
 		
 		assertThat(hash1, is(not(equalTo(hash2))));
 	}
@@ -193,12 +221,16 @@ public class UDieTest
 	@Test
 	public void shouldGetAStream()  
 	{
+		die = UDie.with(name, faces, rand);
+		
 		assertThat(die.stream(), is(notNullValue()));
 	}
 	
 	@Test
 	public void shouldGetCountOfOneFromStream()  
 	{
+		die = UDie.with(name, faces, rand);
+		
 		int count = (int) die.stream().count();
 		
 		assertThat(count, is(1));
@@ -207,6 +239,8 @@ public class UDieTest
 	@Test
 	public void shouldGetCorrectFace()
 	{
+		die = UDie.with(name, faces, rand);
+		
 		Optional<Face> optFace = die.stream().findFirst();
 		
 		assertThat(onlyFace, is(equalTo(optFace.get())));
@@ -216,6 +250,8 @@ public class UDieTest
 	@Test
 	public void shouldGetNonNullRoll()
 	{
+		die = UDie.with(name, faces, rand);
+		
 		Roll roll = die.roll();
 		
 		assertThat(roll, is(notNullValue()));
@@ -224,6 +260,8 @@ public class UDieTest
 	@Test
 	public void shouldGetRollWithThisDie()
 	{
+		die = UDie.with(name, faces, rand);
+		
 		Die rolledDie = die.roll().die();
 		
 		assertThat(rolledDie, is(equalTo(die)));
@@ -232,6 +270,8 @@ public class UDieTest
 	@Test
 	public void shouldRollFirstFace()
 	{
+		die = UDie.with(name, faces, rand);
+		
 		Face rolledFace = die.roll().rolledFace();
 		
 		assertThat(rolledFace.name(), is("default"));
