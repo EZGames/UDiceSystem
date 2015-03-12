@@ -1,5 +1,6 @@
 package ezgames.udicesys.diceModels;
 
+import ezgames.udicesys.ConflictingRelationshipException;
 import ezgames.udicesys.diceModels.abstractions.FaceValue;
 import ezgames.udicesys.diceModels.abstractions.Relationship;
 
@@ -26,6 +27,14 @@ public final class UFaceValue implements FaceValue
 	public Relationship getRelationship()
 	{
 		return rel;
+	}
+	
+	@Override
+	public FaceValue combinedWith(FaceValue other) throws ConflictingRelationshipException
+	{
+		if(this.hasSameRelationshipAs(other))
+			return UFaceValue.from(rel, value + other.getValue());
+		throw new ConflictingRelationshipException(this.rel, other.getRelationship());
 	}
 	
 	public boolean equals(Object obj)

@@ -20,7 +20,7 @@ public class UFaceValueTest extends FaceValueTest
 	
 	//Inherited Factory for parent test(s)
 	@Override
-	protected FaceValue createTestFaceValueFor(Relationship rel, int val)
+	protected FaceValue createTestFaceValue(Relationship rel, int val)
 	{
 		return UFaceValue.from(rel, val);
 	}
