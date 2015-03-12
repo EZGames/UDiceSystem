@@ -20,12 +20,44 @@ import ezgames.utils.collections.Stackable;
 @Immutable
 public interface FaceValue extends Stackable<FaceValue>
 {
+	/**
+	 * Returns the value assigned to this
+	 * @return the value assigned to this
+	 */
    int getValue();
+   /**
+    * Returns the {@code Relationship} assigned to this
+    * @return the {@code Relationship} assigned to this
+    */
    Relationship getRelationship();
-   //DOC mostly same results in reverse
-   FaceValue combinedWith(FaceValue other) throws ConflictingRelationshipException;
+   /**
+    * Creates a new {@code FaceValue}, combining this and {@code other} into one
+    * with the same {@code Relationship} and a sum of the two {@code FaceValue}s'
+    * values.
+    * <p>
+    * This method should be mostly <i>symmetric</i>, meaning that the result
+    * should be the same for either <code>x.combinedWith(y)</code> or <code>y.combinedWith(x)</code>.
+    * The exception to this is if {@code x} and {@code y} are different 
+    * implementations, meaning that the returned {@code FaceValue} could be of
+    * different implementations, depending on which one is called from and which
+    * one is passed to the call. In many cases, though, if the two are of different
+    * types, an {@code IllegalArgumentException} should be thrown.</p>
+    * @param other - the other {@code FaceValue} to combine with
+    * @return a new {@code FaceValue} that is a combination of this and {@code other}
+    * @throws ConflictingRelationshipException if this and {@code other} do not
+    * have the same {@code Relationship}
+    * @throws IllegalArgumentException if there is any other reason the two
+    * {@code FaceValue}s cannot be combined, such as if they have opposite values
+    * (which would result in creating a {@code FaceValue} with a value of 0) or the
+    * two are of two incompatible implementations
+    */
+   FaceValue combinedWith(FaceValue other) throws ConflictingRelationshipException, IllegalArgumentException;
    
-   //DOC same results in reverse
+   /**
+    * SYMMETRIC
+    * @param other
+    * @return
+    */
    default boolean hasSameRelationshipAs(FaceValue other)
    {
    	return this.getRelationship().equals(other.getRelationship());
