@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Test;
 import ezgames.test.mocks.BasicMockRelationship;
+import ezgames.udicesys.ConflictingRelationshipException;
 import ezgames.udicesys.diceModels.abstractions.Face;
 import ezgames.udicesys.diceModels.abstractions.AbstractFaceTest;
 import ezgames.udicesys.diceModels.abstractions.FaceValue;
@@ -32,12 +33,13 @@ public class UFaceTest extends AbstractFaceTest
 	{
 		return new FaceValue(){
 			public int getValue() { return 0; }
-			public Relationship getRelationship() { return rel; }			
+			public Relationship getRelationship() { return rel; }
+			public FaceValue combinedWith(FaceValue other) throws ConflictingRelationshipException { return null; }			
 		};
 	}
 
 	@Override
-	protected Face createTestFaceWith(String name, SimpleCollection<FaceValue> faceValues)
+	protected Face createTestFace(String name, SimpleCollection<FaceValue> faceValues)
 	{
 		return UFace.with(name, faceValues);
 	}

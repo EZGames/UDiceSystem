@@ -63,7 +63,7 @@ public class UDieTest extends AbstractDieTest
 	}
 
 	// parent test helper//******************************************************
-	protected Die createTestDieFrom(String testName)
+	protected Die createTestDie(String testName)
 	{
 		return UDie.with(testName, faces);
 	}

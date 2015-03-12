@@ -6,8 +6,13 @@ import ezgames.utils.collections.simple.SimpleCollection;
 
 /**
  * A {@code Face} represents the face of a die.  A {@code Face} is made up of
- * {@link FaceValue}s and {@link Effect}s.
+ * {@link FaceValue}s and has a name.
+ * <p>
+ * When implementing a new {@code Face} class and writing tests for it, make
+ * certain that your tests inherit from {@link FaceTest} to ensure that your
+ * implementation keeps all invariants.</p>
  */
+<<<<<<< HEAD:EZGames/src.main.java/ezgames/udicesys/diceModels/abstractions/Face.java
 //TODO add documentation stating to have implementation tests inherit from AbstractFaceTest
 @Immutable
 public interface Face extends Iterable<FaceValue>, Stackable<Face>
