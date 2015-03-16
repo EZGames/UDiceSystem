@@ -55,9 +55,21 @@ public interface FaceValue extends Stackable<FaceValue>
    FaceValue combinedWith(FaceValue other) throws ConflictingRelationshipException, IllegalArgumentException;
    
    /**
-    * SYMMETRIC
-    * @param other
-    * @return
+    * Checks whether this and {@code other} contain the same 
+    * {@code Relationship}.
+    * <p>
+    * This method should be <i>symmetric</i>, meaning that the result should be
+    * the same for either <code>x.hasSameRelationshipAs(y)</code> or <code>y.hasSameRelationshipAs(x)</code>.
+    * @implSpec the default implementation from the {@code FaceValue} interface
+    * does a perfectly good job, and is just fine to leave alone, but it has a 
+    * tiny performance problem in that it calls {@code getRelationship()} on
+    * this since it is unable to directly access a field. It's not a big problem,
+    * but implementing your own that does access the field shouldn't be a
+    * problem either.
+    * @param other - the other {@code FaceValue} from which to compare 
+    * {@code Relationships}
+    * @return whether this {@code FaceValue}'s {@code Relationship} is equal to
+    * {@code other}'s
     */
    default boolean hasSameRelationshipAs(FaceValue other)
    {
