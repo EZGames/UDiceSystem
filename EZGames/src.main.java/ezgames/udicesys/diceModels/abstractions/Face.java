@@ -12,7 +12,6 @@ import ezgames.utils.collections.simple.SimpleCollection;
  * certain that your tests inherit from {@link FaceTest} to ensure that your
  * implementation keeps all invariants.</p>
  */
-<<<<<<< HEAD:EZGames/src.main.java/ezgames/udicesys/diceModels/abstractions/Face.java
 //TODO add documentation stating to have implementation tests inherit from AbstractFaceTest
 @Immutable
 public interface Face extends Iterable<FaceValue>, Stackable<Face>
@@ -60,6 +59,9 @@ public interface Face extends Iterable<FaceValue>, Stackable<Face>
 	 * this {@code Face}
 	 */
 	SimpleCollection<FaceValue> listFaceValues();
+	//TODO give Faces a combinedWith(Face) -> Face method too, adding the two weights together
+	// also needs hasSameValuesAs(Face) -> boolean
+	// Relationships and FaceValues(via Relationships) as Comparable?
 }
 
 //TODO: if any of the commented out methods are needed, uncomment them
