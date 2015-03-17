@@ -58,6 +58,9 @@ public interface Face extends Iterable<FaceValue>, Stackable<Face>
 	 * this {@code Face}
 	 */
 	SimpleCollection<FaceValue> listFaceValues();
+	//TODO give Faces a combinedWith(Face) -> Face method too, adding the two weights together
+	// also needs hasSameValuesAs(Face) -> boolean
+	// Relationships and FaceValues(via Relationships) as Comparable?
 }
 
 //TODO: if any of the commented out methods are needed, uncomment them

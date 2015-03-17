@@ -6,8 +6,15 @@ import ezgames.utils.collections.Stackable;
 import ezgames.utils.collections.Streamable;
 import ezgames.utils.collections.simple.SimpleCollection;
 
-//DOC
-// TODO doc should contain mention that implementation tests should extend DieTest
+/**
+ * {@code Die} is the class representing individual dice. They have a name and a
+ * collection of faces. You can roll a {@code Die} to get a {@code Roll}. You
+ * can also get an iterator over the faces.
+ * <h3>Testing Note</h3>
+ * <p>
+ * If you make your own implementation of Die with tests, be certain that your
+ * test class extends {@link DieTest} 
+ */
 @Immutable
 public interface Die extends Iterable<Face>, Streamable<Face>, Stackable<Die>
 {
@@ -25,13 +32,15 @@ public interface Die extends Iterable<Face>, Streamable<Face>, Stackable<Die>
    //public int totalWeight();
    //public int numSides();
    /**
-    * Returns an Iterator over the Die's {@link Face}s
+    * Returns an iterator over this {@code Die}'s {@link Face}s
+    * @return an iterator over this {@code Die}'s {@code Face}s
     */
    @Override
    Iterator<Face> iterator();
    
    /**
-    * @return an {@link Iterable} of all the {@link Relationship}s for the Die
+    * @return a {@link SimpleCollection} of all the {@link Relationship}s for 
+    * the Die
     */
    SimpleCollection<Relationship> listRelationships();
 }
