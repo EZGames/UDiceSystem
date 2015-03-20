@@ -6,7 +6,6 @@ import ezgames.utils.collections.Stackable;
 import ezgames.utils.collections.Streamable;
 import ezgames.utils.collections.simple.SimpleCollection;
 
-=======
 /**
  * {@code Die} is the class representing individual dice. They have a name and a
  * collection of faces. You can roll a {@code Die} to get a {@code Roll}. You
