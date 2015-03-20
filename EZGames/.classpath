@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="src.main.java"/>
+	<classpathentry kind="src" path="src.test.java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/hamcrest-all-1.3.jar" sourcepath="libs/hamcrest-1.3.zip"/>
-	<classpathentry kind="lib" path="C:/Users/jzimmerman/Programming/functional-java/target/functional-java.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jzimmerman/Programming/ez-testing/target/ez-testing.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Jake/Programming/functional-java/target/functional-java.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Jake/Programming/ez-testing/target/ez-testing.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
